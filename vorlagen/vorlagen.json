@@ -48,6 +48,30 @@
       "titel": "CASI-Symbole (Website-Grafiken)",
       "wofuer": "The website's line symbols (direct emissions, direct removals, upstream emissions, CO2 ledger, CO2 balance sheet, net CO2 contribution, net CO2 flow, product carbon footprints) as SVG and PNG in Deep Green, white and Burgundy, plus the rules for drawing new symbols. Use them in every internal CASI graphic.",
       "medium": "graphics"
+    },
+    {
+      "datei": "CASI-Dokument.dotx",
+      "titel": "Word-Vorlage Dokument",
+      "wofuer": "Reports, minutes, memos and other A4 documents. Cover block with input fields (kind of document, title, sender · date), styles as in the whitepaper plus CASI Tabelle / CASI Tabellentext for tables. Header fills itself from the title. Fonts embedded.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Dokument-Vorlage-Vorschau.pdf",
+      "titel": "Dokument-Vorlage (Vorschau)",
+      "wofuer": "Preview of the empty document template.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Brief.dotx",
+      "titel": "Word-Vorlage Brief (DIN 5008)",
+      "wofuer": "Letters on CASI letterhead, DIN 5008 form B for window envelopes: logo, sender line and address field (45 mm from top), information block (date, contact, e-mail), subject, salutation, text, closing, name and function; sender details in the footer as in the website imprint. Fonts embedded.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Brief-Vorlage-Vorschau.pdf",
+      "titel": "Brief-Vorlage (Vorschau)",
+      "wofuer": "Preview of the empty letter template.",
+      "medium": "document"
     }
   ]
 }

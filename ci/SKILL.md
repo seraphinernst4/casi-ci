@@ -142,7 +142,7 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 
 ## Documents
 
-**Template:** `CASI-Whitepaper.dotx` (connector tool `casi_templates`, medium `document`) – the set of CASI Whitepaper No. 1. Start every whitepaper, paper or longer document from it and use its styles only:
+**Templates** (connector tool `casi_templates`, medium `document`): `CASI-Whitepaper.dotx` – the set of CASI Whitepaper No. 1, for whitepapers and papers; `CASI-Dokument.dotx` – reports, minutes, memos; `CASI-Brief.dotx` – letters. Start every document from one of them and use their styles only:
 
 | Style | Use | Set |
 |---|---|---|
@@ -157,8 +157,11 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 | CASI Abbildung / CASI Bildunterschrift | figure / caption ("Figure N" SemiBold Deep Green, then the author's caption) | PP Mori 8.5 pt Slate |
 | CASI Literatur | references | IBM Plex Serif 9.5 pt |
 | CASI Fußnote | footnotes | IBM Plex Serif 8.5 pt |
+| CASI Tabelle / CASI Tabellentext | tables: no grid, one Deep Green rule under the header row, header SemiBold, numbers right-aligned | PP Mori 9 pt |
 
 A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, series, title, abstract, authors, publisher · date, contents (automatic, no page numbers). Running header from the cover (series · title) above a hairline `#E1E7E5`; footer "Carbon Accounting Standards Initiative · casinitiative.org" and page number. Every chapter starts on a new page with its kicker. Headings: the author's levels, no numbering unless the author numbered. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. External figures unchanged, internal figures in the website graphic style (see Graphics); captions in the author's wording and position. Print: export as PDF from Word (fonts are embedded).
+
+**Letters** (`CASI-Brief.dotx`): DIN 5008 form B for window envelopes. Margins 27 mm top, 20 mm right, 25 mm left (text edge). First page: long logo top left; sender line PP Mori 7 pt Slate above the address field (45 mm from top, 80 × 45 mm), "CASI · Universität Mannheim · Schloss Ostflügel · 68161 Mannheim"; address PP Mori 8.5 pt; information block from 125 mm (date, contact, e-mail: label Slate, value below); subject CASI Überschrift 2 at about 103 mm; salutation, text and closing in CASI Fließtext; name and function CASI Meta. Footer of the first page: the sender as in the website imprint (CASI · MISES · Universität Mannheim · Schloss Ostflügel, Raum O 351–359 · 68161 Mannheim · Deutschland · casinitiative.org); following pages: page number only.
 
 ## Other media
 
