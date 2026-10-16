@@ -75,8 +75,8 @@
     },
     {
       "link": "https://ci.casinitiative.org/mail/",
-      "titel": "Mail-Baukasten (Signatur und Rundmail)",
-      "wofuer": "Web tool for staff: fill in name/function/contact and copy the CASI e-mail signature into Apple Mail, Outlook or Gmail; build a CASI round mail (heading, sentence, news box loaded live from the website, footer) and copy it or download it as HTML. Send people here instead of writing signatures or mails by hand.",
+      "titel": "Mail-Baukasten (Signatur, Newsletter, Einladung, Ankündigung, Rundmail)",
+      "wofuer": "Web tool for staff: e-mail signature; complete mails built from blocks (article, section, box with entries, event box, button, image) with presets for newsletter, invitation, announcement and short round mail. News and upcoming events load live from the website. Copy into the mail client or download HTML for Brevo/Mailchimp. Send people here instead of writing mails by hand.",
       "medium": "email"
     },
     {
@@ -89,6 +89,24 @@
       "datei": "CASI-Rundmail-Vorlage.html",
       "titel": "Rundmail (HTML)",
       "wofuer": "The CASI round mail as HTML (600 px table layout, inline styles) with placeholders – same layout as the newsletter confirmation mail of the website. Entries must come from the website and link to it.",
+      "medium": "email"
+    },
+    {
+      "datei": "CASI-Newsletter-Vorlage.html",
+      "titel": "Newsletter (HTML)",
+      "wofuer": "Full CASI newsletter with placeholders: kicker 'Newsletter · Month Year', title, sentence, lead article (long text with paragraphs, subheadings, lists, read-more link), news box, upcoming-events box, one button, footer.",
+      "medium": "email"
+    },
+    {
+      "datei": "CASI-Einladung-Vorlage.html",
+      "titel": "Einladung (HTML)",
+      "wofuer": "Event invitation with placeholders: kicker 'Invitation', title, sentence, event box (date, time, place, format), programme section, register button, footer.",
+      "medium": "email"
+    },
+    {
+      "datei": "CASI-Ankuendigung-Vorlage.html",
+      "titel": "Ankündigung (HTML)",
+      "wofuer": "Announcement (e.g. new whitepaper) with placeholders: kicker 'Publication', title, sentence, text, download button, footer.",
       "medium": "email"
     }
   ]

@@ -13,48 +13,56 @@
           --sans:"PP Mori","Helvetica Neue",Helvetica,Arial,sans-serif; --serif:"IBM Plex Serif",Georgia,serif; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--papier); color: var(--tinte); font: 16px/1.5 var(--sans); }
-  main { max-width: 1120px; margin: 0 auto; padding: 48px 16px 80px; }
+  main { max-width: 1180px; margin: 0 auto; padding: 48px 16px 80px; }
   h1 { font-weight: 600; font-size: 30px; line-height: 1.15; margin: 0 0 8px; }
   .lead { font-family: var(--serif); font-size: 17px; line-height: 1.6; margin: 0 0 32px; max-width: 680px; }
   .reiter { display: flex; gap: 8px; margin: 0 0 28px; border-bottom: 1px solid var(--linie); }
   .reiter button { font: inherit; font-size: 15px; background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 2px; margin-right: 18px; color: var(--leise); cursor: pointer; }
   .reiter button[aria-selected="true"] { color: var(--tinte); border-bottom-color: var(--tinte); font-weight: 600; }
-  .teil { display: none; } .teil.an { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 40px; align-items: start; }
-  @media (max-width: 860px) { .teil.an { grid-template-columns: 1fr; } }
+  .teil { display: none; } .teil.an { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 900px) { .teil.an { grid-template-columns: 1fr; } }
   label { display: block; font-size: 13px; color: var(--leise); margin: 0 0 4px; }
-  input, textarea { width: 100%; font: inherit; font-size: 15px; color: var(--tinte); background: #fff; border: 1px solid var(--kante); border-radius: 8px; padding: 9px 12px; margin: 0 0 14px; }
-  textarea { min-height: 72px; resize: vertical; font-family: var(--serif); }
-  input:focus, textarea:focus { outline: none; border-color: var(--tinte); }
-  .knopfzeile { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 18px; }
-  .knopf { font: inherit; font-size: 15px; font-weight: 600; height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
+  input, textarea, select { width: 100%; font: inherit; font-size: 15px; color: var(--tinte); background: #fff; border: 1px solid var(--kante); border-radius: 8px; padding: 9px 12px; margin: 0 0 14px; }
+  textarea { min-height: 72px; resize: vertical; font-family: var(--serif); line-height: 1.5; overflow: hidden; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--tinte); }
+  .knopfzeile { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 18px; }
+  .knopf { font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
   .knopf.hell { background: #fff; color: var(--tinte); border-color: var(--kante); font-weight: 400; }
+  .knopf.klein { min-height: 36px; font-size: 14px; padding: 0 12px; }
   .knopf.hell:hover { border-color: var(--tinte); }
   .status { font-size: 14px; color: var(--leise); min-height: 21px; }
-  .vorschau { background: var(--block); border-radius: 10px; padding: 24px; }
-  .vorschau h2 { font-size: 14px; font-weight: 400; margin: 0 0 12px; }
+  .vorschau { background: var(--block); border-radius: 10px; padding: 24px; position: sticky; top: 16px; }
+  .vorschau h2 { font-size: 14px; font-weight: 400; margin: 0 0 12px; display: flex; justify-content: space-between; }
   .blatt { background: #fff; border-radius: 8px; padding: 24px; overflow: auto; }
-  iframe { width: 100%; height: 760px; border: 0; background: #fff; border-radius: 8px; }
-  .eintrag { border-top: 1px solid var(--linie); padding: 14px 0 0; margin: 0 0 4px; }
+  iframe { width: 100%; height: 80vh; border: 0; background: #fff; border-radius: 8px; }
+  .gruppe { border-top: 1px solid var(--linie); padding: 18px 0 4px; }
+  .gruppe > h3 { font-size: 15px; font-weight: 600; margin: 0 0 12px; }
+  .block { background: var(--block); border-radius: 10px; padding: 16px 16px 4px; margin: 0 0 12px; }
+  .block-kopf { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 10px; font-size: 14px; font-weight: 600; }
+  .block-kopf span.steuer button { font: inherit; font-size: 13px; font-weight: 400; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0 0 0 10px; }
+  .eintrag { border-top: 1px solid var(--kante); padding: 12px 0 0; margin: 0 0 4px; }
   .eintrag-kopf { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--leise); margin: 0 0 8px; }
-  .eintrag-kopf button { font: inherit; font-size: 13px; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+  .eintrag-kopf button, .link { font: inherit; font-size: 13px; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+  .zweispaltig { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
   .hinweis { margin-top: 28px; font-size: 14px; line-height: 1.55; }
   .hinweis h3 { font-size: 15px; font-weight: 600; margin: 18px 0 4px; }
   .hinweis p { margin: 0 0 6px; font-family: var(--serif); }
   .klein { font-size: 13px; color: var(--leise); }
+  .warnung { color: var(--akzent); font-size: 13px; }
 </style>
 </head>
 <body>
 <main>
   <h1>Mail-Baukasten</h1>
-  <p class="lead">E-Mail-Signatur und Rundmail im Gestaltungssystem der CASI. Felder ausfüllen, Vorschau prüfen, kopieren und in das Mailprogramm einfügen.</p>
+  <p class="lead">E-Mail-Signatur, Newsletter, Einladungen und Rundmails im Gestaltungssystem der CASI. Vorlage wählen, Felder ausfüllen, News live von der Website laden, kopieren oder als HTML speichern.</p>
 
   <div class="reiter" role="tablist">
-    <button role="tab" aria-selected="true" data-teil="signatur">Signatur</button>
-    <button role="tab" aria-selected="false" data-teil="rundmail">Rundmail</button>
+    <button role="tab" aria-selected="false" data-teil="signatur">Signatur</button>
+    <button role="tab" aria-selected="true" data-teil="mails">Mails</button>
   </div>
 
   <!-- ===================== Signatur ===================== -->
-  <section class="teil an" id="signatur">
+  <section class="teil" id="signatur">
     <div>
       <label for="s-name">Name</label><input id="s-name" placeholder="Vorname Nachname">
       <label for="s-funktion">Funktion</label><input id="s-funktion" placeholder="z. B. Managing Director">
@@ -79,26 +87,54 @@
     <div class="vorschau"><h2>Vorschau</h2><div class="blatt" id="s-vorschau"></div></div>
   </section>
 
-  <!-- ===================== Rundmail ===================== -->
-  <section class="teil" id="rundmail">
+  <!-- ===================== Mails ===================== -->
+  <section class="teil an" id="mails">
     <div>
-      <label for="r-betreff">Betreff</label><input id="r-betreff" placeholder="Betreff der Mail">
-      <label for="r-titel">Überschrift</label><input id="r-titel" placeholder="Überschrift">
-      <label for="r-satz">Satz</label><textarea id="r-satz" placeholder="Ein, zwei Sätze unter der Überschrift"></textarea>
-      <label for="r-kasten">Beschriftung des Kastens</label><input id="r-kasten" value="News">
-      <div class="knopfzeile"><button class="knopf hell" id="r-laden">Neueste News von der Website laden</button><button class="knopf hell" id="r-neu">Eintrag hinzufügen</button></div>
-      <div id="r-eintraege"></div>
-      <label for="r-grund">Warum diese Mail (Fuß)</label><textarea id="r-grund">You are receiving this email because you are in contact with the Carbon Accounting Standards Initiative.</textarea>
-      <label for="r-abmelden">Abmelden (Fuß)</label><input id="r-abmelden" value="To unsubscribe, simply reply to this email.">
-      <div class="knopfzeile">
-        <button class="knopf" id="r-kopieren">Mail kopieren</button>
-        <button class="knopf hell" id="r-datei">HTML herunterladen</button>
-        <button class="knopf hell" id="r-text">Textfassung kopieren</button>
+      <label for="m-vorlage">Vorlage</label>
+      <select id="m-vorlage">
+        <option value="newsletter">Newsletter</option>
+        <option value="einladung">Einladung zu einer Veranstaltung</option>
+        <option value="ankuendigung">Ankündigung (z. B. neues Whitepaper)</option>
+        <option value="rundmail">Kurze Rundmail</option>
+      </select>
+      <div class="knopfzeile"><button class="knopf hell klein" id="m-laden-vorlage">Vorlage neu laden</button></div>
+
+      <div class="gruppe">
+        <h3>Kopf</h3>
+        <label for="m-betreff">Betreff</label><input id="m-betreff" data-feld="betreff">
+        <label for="m-kicker">Zeile über der Überschrift</label><input id="m-kicker" data-feld="kicker">
+        <label for="m-titel">Überschrift</label><input id="m-titel" data-feld="titel">
+        <label for="m-satz">Satz (erscheint auch als Vorschauzeile im Posteingang)</label><textarea id="m-satz" data-feld="satz"></textarea>
       </div>
-      <div class="status" id="r-status"></div>
-      <p class="hinweis klein">Einträge immer von der Website laden und dort verlinken – nie von Hand abschreiben. Vor dem Versand eine Testmail an sich selbst schicken.</p>
+
+      <div class="gruppe">
+        <h3>Inhalt</h3>
+        <div id="m-bloecke"></div>
+        <div class="knopfzeile">
+          <button class="knopf hell klein" data-neu="abschnitt">+ Abschnitt</button>
+          <button class="knopf hell klein" data-neu="beitrag">+ Beitrag</button>
+          <button class="knopf hell klein" data-neu="kasten">+ Kasten mit Einträgen</button>
+          <button class="knopf hell klein" data-neu="termin">+ Termin</button>
+          <button class="knopf hell klein" data-neu="knopf">+ Button</button>
+          <button class="knopf hell klein" data-neu="bild">+ Bild</button>
+        </div>
+      </div>
+
+      <div class="gruppe">
+        <h3>Fuß</h3>
+        <label for="m-grund">Warum diese Mail</label><textarea id="m-grund" data-feld="grund"></textarea>
+        <label for="m-abmelden">Abmelden</label><input id="m-abmelden" data-feld="abmelden">
+      </div>
+
+      <div class="knopfzeile">
+        <button class="knopf" id="m-kopieren">Mail kopieren</button>
+        <button class="knopf hell" id="m-datei">HTML herunterladen</button>
+        <button class="knopf hell" id="m-text">Textfassung kopieren</button>
+      </div>
+      <div class="status" id="m-status"></div>
+      <p class="hinweis klein">Einträge immer von der Website laden und dorthin verlinken – nie von Hand abschreiben. Burgundy-Buttons höchstens zwei pro Mail. Vor dem Versand eine Testmail an sich selbst schicken.</p>
     </div>
-    <div class="vorschau"><h2>Vorschau</h2><iframe id="r-vorschau" title="Vorschau der Rundmail"></iframe></div>
+    <div class="vorschau"><h2><span>Vorschau</span><span id="m-warnung" class="warnung"></span></h2><iframe id="m-vorschau" title="Vorschau der Mail"></iframe></div>
   </section>
 </main>
 
@@ -108,11 +144,14 @@
   var SERIF = "'IBM Plex Serif',Georgia,'Times New Roman',serif";
   var LOGO = "https://casinitiative.org/wp-content/uploads/casi-mail/casi-logo-mail.png";
   var START = "https://casinitiative.org/";
+  var NEWS = "https://casinitiative.org/news/";
   var IMPRESSUM = "https://casinitiative.org/impressum/";
+  var API = "https://casinitiative.org/wp-json/casi/v1/news";
   var FONTS = "https://casinitiative.org/wp-content/uploads/casi-fonts/";
   var $ = function (id) { return document.getElementById(id); };
-  var esc = function (s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
-  var merk = function (k, v) { try { if (v === undefined) return localStorage.getItem("casi-mail-" + k); localStorage.setItem("casi-mail-" + k, v); } catch (e) { return null; } };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
+  var lies = function (k) { try { return localStorage.getItem("casi-mail-" + k); } catch (e) { return null; } };
+  var merk = function (k, v) { try { localStorage.setItem("casi-mail-" + k, v); } catch (e) {} };
 
   // ---------- Reiter
   [].forEach.call(document.querySelectorAll("[data-teil]"), function (b) {
@@ -122,63 +161,205 @@
     });
   });
 
-  // ---------- Kopieren (formatiert + Text)
   function kopieren(html, text, status) {
     var fertig = function (ok) { status.textContent = ok ? "Kopiert – jetzt im Mailprogramm einfügen." : "Kopieren nicht möglich – bitte „HTML herunterladen“ nutzen."; };
     if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
       navigator.clipboard.write([new ClipboardItem({ "text/html": new Blob([html], { type: "text/html" }), "text/plain": new Blob([text], { type: "text/plain" }) })])
         .then(function () { fertig(true); }, function () { fertig(false); });
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); });
-    } else { fertig(false); }
+    } else if (navigator.clipboard) { navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); }); }
+    else { fertig(false); }
   }
 
-  // ---------- Signatur
-  var sFelder = ["s-name", "s-funktion", "s-inst", "s-tel", "s-mail"];
-  sFelder.forEach(function (id) { var v = merk(id); if (v) $(id).value = v; $(id).addEventListener("input", function () { merk(id, $(id).value); signatur(); }); });
-
+  // ======================================================== Signatur
+  ["s-name", "s-funktion", "s-inst", "s-tel", "s-mail"].forEach(function (id) {
+    var v = lies(id); if (v) $(id).value = v;
+    $(id).addEventListener("input", function () { merk(id, $(id).value); signatur(); });
+  });
   function signaturHtml() {
     var n = $("s-name").value.trim() || "Vorname Nachname";
     var f = [$("s-funktion").value.trim(), $("s-inst").value.trim()].filter(Boolean).join(" · ");
-    var tel = $("s-tel").value.trim(), mail = $("s-mail").value.trim();
-    var kontakt = [];
+    var tel = $("s-tel").value.trim(), mail = $("s-mail").value.trim(), kontakt = [];
     if (tel) kontakt.push(esc(tel));
     if (mail) kontakt.push('<a href="mailto:' + esc(mail) + '" style="color:#5F7471;text-decoration:underline;">' + esc(mail) + "</a>");
     var td = 'style="font-family:' + SANS + ';';
     return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;color:#0E4D49;">'
       + "<tr><td " + td + 'padding:0 0 2px;font-size:14px;font-weight:600;line-height:1.35;color:#0E4D49;">' + esc(n) + "</td></tr>"
-      + (f ? "<tr><td " + td + 'padding:0 0 14px;font-size:13px;line-height:1.4;color:#5F7471;">' + esc(f) + "</td></tr>" : "<tr><td style=\"padding:0 0 12px;\"></td></tr>")
+      + (f ? "<tr><td " + td + 'padding:0 0 14px;font-size:13px;line-height:1.4;color:#5F7471;">' + esc(f) + "</td></tr>" : '<tr><td style="padding:0 0 12px;"></td></tr>')
       + '<tr><td style="padding:0 0 10px;"><a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a></td></tr>'
       + "<tr><td " + td + 'font-size:12px;line-height:1.55;color:#5F7471;">Carbon Accounting Standards Initiative · <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a>'
       + (kontakt.length ? "<br>" + kontakt.join(" · ") : "") + "</td></tr></table>";
   }
   function signaturText() {
-    var l = [$("s-name").value.trim(), [$("s-funktion").value.trim(), $("s-inst").value.trim()].filter(Boolean).join(" · "), "", "Carbon Accounting Standards Initiative · casinitiative.org", [$("s-tel").value.trim(), $("s-mail").value.trim()].filter(Boolean).join(" · ")];
-    return l.filter(function (x, i) { return x || i === 2; }).join("\n");
+    return [$("s-name").value.trim(), [$("s-funktion").value.trim(), $("s-inst").value.trim()].filter(Boolean).join(" · "), "",
+      "Carbon Accounting Standards Initiative · casinitiative.org", [$("s-tel").value.trim(), $("s-mail").value.trim()].filter(Boolean).join(" · ")].join("\n").trim();
   }
   function signatur() { $("s-vorschau").innerHTML = signaturHtml(); }
   $("s-kopieren").addEventListener("click", function () { kopieren(signaturHtml(), signaturText(), $("s-status")); });
-  $("s-html").addEventListener("click", function () {
-    navigator.clipboard.writeText(signaturHtml()).then(function () { $("s-status").textContent = "HTML kopiert."; }, function () { $("s-status").textContent = "Kopieren nicht möglich."; });
-  });
+  $("s-html").addEventListener("click", function () { navigator.clipboard.writeText(signaturHtml()).then(function () { $("s-status").textContent = "HTML kopiert."; }); });
   signatur();
 
-  // ---------- Rundmail
-  var eintraege = [];
-  function eintragFeld(e, i) {
-    var d = document.createElement("div"); d.className = "eintrag";
-    d.innerHTML = '<div class="eintrag-kopf"><span>Eintrag ' + (i + 1) + '</span><button type="button">entfernen</button></div>'
-      + '<label>Zeile (Rubrik · Datum)</label><input data-k="zeile">'
-      + '<label>Titel</label><input data-k="titel">'
-      + '<label>Link (absolut, auf die Website)</label><input data-k="link" placeholder="https://casinitiative.org/news/">'
-      + '<label>Text</label><textarea data-k="text"></textarea>';
-    [].forEach.call(d.querySelectorAll("[data-k]"), function (x) { x.value = e[x.dataset.k] || ""; x.addEventListener("input", function () { e[x.dataset.k] = x.value; rundmail(); }); });
-    d.querySelector("button").addEventListener("click", function () { eintraege.splice(i, 1); liste(); });
-    return d;
-  }
-  function liste() { var b = $("r-eintraege"); b.innerHTML = ""; eintraege.forEach(function (e, i) { b.appendChild(eintragFeld(e, i)); }); rundmail(); }
+  // ======================================================== Mails
+  var MONATE = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var heute = new Date(), MONAT = MONATE[heute.getMonth()] + " " + heute.getFullYear();
+  var FUSS_GRUND = "You are receiving this email because you are in contact with the Carbon Accounting Standards Initiative.";
+  var FUSS_AB = "To unsubscribe, simply reply to this email.";
 
-  // Text der Einträge darf Links enthalten – nur <a href>, <strong>, <em>, <br> bleiben
+  var VORLAGEN = {
+    newsletter: function () { return {
+      betreff: "CASI Newsletter · " + MONAT, kicker: "Newsletter · " + MONAT, titel: "", satz: "", grund: FUSS_GRUND, abmelden: FUSS_AB,
+      bloecke: [
+        { typ: "beitrag", zeile: "", titel: "", src: "", alt: "", text: "", link: "", linktext: "Read more on casinitiative.org" },
+        { typ: "kasten", label: "News", eintraege: [], quelle: "news" },
+        { typ: "kasten", label: "Upcoming events", eintraege: [], quelle: "events" },
+        { typ: "knopf", text: "All news on casinitiative.org", link: NEWS }
+      ] }; },
+    einladung: function () { return {
+      betreff: "Invitation: ", kicker: "Invitation", titel: "", satz: "", grund: FUSS_GRUND, abmelden: FUSS_AB,
+      bloecke: [
+        { typ: "termin", titel: "", zeilen: [{ label: "Date", wert: "" }, { label: "Time", wert: "" }, { label: "Place", wert: "" }, { label: "Format", wert: "" }], text: "" },
+        { typ: "abschnitt", titel: "Programme", text: "" },
+        { typ: "knopf", text: "Register", link: "" }
+      ] }; },
+    ankuendigung: function () { return {
+      betreff: "", kicker: "Publication", titel: "", satz: "", grund: FUSS_GRUND, abmelden: FUSS_AB,
+      bloecke: [
+        { typ: "abschnitt", titel: "", text: "" },
+        { typ: "knopf", text: "Download (PDF)", link: "" }
+      ] }; },
+    rundmail: function () { return {
+      betreff: "", kicker: "", titel: "", satz: "", grund: FUSS_GRUND, abmelden: FUSS_AB,
+      bloecke: [{ typ: "kasten", label: "News", eintraege: [], quelle: "alle" }] }; }
+  };
+  var NAMEN = { beitrag: "Beitrag", abschnitt: "Abschnitt", kasten: "Kasten mit Einträgen", termin: "Termin", knopf: "Button", bild: "Bild" };
+
+  var M;
+  try { M = JSON.parse(lies("entwurf") || "null"); } catch (e) { M = null; }
+  if (!M || !M.bloecke) { M = VORLAGEN.newsletter(); M.vorlage = "newsletter"; }
+  $("m-vorlage").value = M.vorlage || "newsletter";
+
+  function speichern() { merk("entwurf", JSON.stringify(M)); }
+  function kopf() { [].forEach.call(document.querySelectorAll("[data-feld]"), function (x) { x.value = M[x.dataset.feld] || ""; }); }
+  [].forEach.call(document.querySelectorAll("[data-feld]"), function (x) {
+    x.addEventListener("input", function () { M[x.dataset.feld] = x.value; neu(); });
+  });
+  $("m-laden-vorlage").addEventListener("click", function () {
+    var v = $("m-vorlage").value; M = VORLAGEN[v](); M.vorlage = v; kopf(); bloecke(); ladeAlle();
+  });
+  $("m-vorlage").addEventListener("change", function () { $("m-laden-vorlage").click(); });
+
+  // ---------- Formular der Blöcke
+  function feld(label, wert, setz, art) {
+    var w = document.createElement("div");
+    var l = document.createElement("label"); l.textContent = label; w.appendChild(l);
+    var i = document.createElement(art === "text" || art === "lang" ? "textarea" : "input"); i.value = wert || "";
+    var wachs = function () { if (i.tagName === "TEXTAREA") { i.style.height = "auto"; i.style.height = Math.max(art === "lang" ? 180 : 72, i.scrollHeight + 2) + "px"; } };
+    i.addEventListener("input", function () { setz(i.value); wachs(); neu(); });
+    setTimeout(wachs, 0);
+    w.appendChild(i); return w;
+  }
+  function schreibweise() {
+    var p = document.createElement("p"); p.className = "klein";
+    p.style.margin = "-6px 0 14px";
+    p.innerHTML = "Leerzeile = neuer Absatz · Zeile mit „## “ = Zwischenüberschrift · Zeilen mit „- “ = Liste · Links als &lt;a href=\"…\"&gt;Text&lt;/a&gt;";
+    return p;
+  }
+  function bloecke() {
+    var box = $("m-bloecke"); box.innerHTML = "";
+    M.bloecke.forEach(function (b, bi) {
+      var d = document.createElement("div"); d.className = "block";
+      var k = document.createElement("div"); k.className = "block-kopf";
+      k.innerHTML = "<span>" + NAMEN[b.typ] + '</span><span class="steuer"><button data-a="hoch">nach oben</button><button data-a="runter">nach unten</button><button data-a="weg">entfernen</button></span>';
+      k.querySelector('[data-a=hoch]').onclick = function () { if (bi > 0) { M.bloecke.splice(bi - 1, 0, M.bloecke.splice(bi, 1)[0]); bloecke(); } };
+      k.querySelector('[data-a=runter]').onclick = function () { if (bi < M.bloecke.length - 1) { M.bloecke.splice(bi + 1, 0, M.bloecke.splice(bi, 1)[0]); bloecke(); } };
+      k.querySelector('[data-a=weg]').onclick = function () { M.bloecke.splice(bi, 1); bloecke(); };
+      d.appendChild(k);
+      var set = function (key) { return function (v) { b[key] = v; }; };
+      if (b.typ === "abschnitt") {
+        d.appendChild(feld("Zwischenüberschrift (optional)", b.titel, set("titel")));
+        d.appendChild(feld("Text", b.text, set("text"), "lang"));
+        d.appendChild(schreibweise());
+      } else if (b.typ === "beitrag") {
+        d.appendChild(feld("Zeile (Rubrik · Datum, optional)", b.zeile, set("zeile")));
+        d.appendChild(feld("Titel", b.titel, set("titel")));
+        d.appendChild(feld("Bild-URL (optional)", b.src, set("src")));
+        d.appendChild(feld("Alternativtext zum Bild", b.alt, set("alt")));
+        d.appendChild(feld("Text", b.text, set("text"), "lang"));
+        d.appendChild(schreibweise());
+        d.appendChild(feld("Link zum ganzen Beitrag (optional)", b.link, set("link")));
+        d.appendChild(feld("Linktext", b.linktext, set("linktext")));
+      } else if (b.typ === "knopf") {
+        d.appendChild(feld("Beschriftung", b.text, set("text")));
+        d.appendChild(feld("Link (absolut)", b.link, set("link")));
+      } else if (b.typ === "bild") {
+        d.appendChild(feld("Bild-URL (absolut, z. B. aus der Mediathek der Website)", b.src, set("src")));
+        d.appendChild(feld("Alternativtext", b.alt, set("alt")));
+        d.appendChild(feld("Bildunterschrift (optional)", b.unterschrift, set("unterschrift")));
+        d.appendChild(feld("Link (optional)", b.link, set("link")));
+      } else if (b.typ === "termin") {
+        d.appendChild(feld("Titel der Veranstaltung", b.titel, set("titel")));
+        var z = document.createElement("div"); z.className = "zweispaltig";
+        b.zeilen.forEach(function (r) { z.appendChild(feld("Bezeichnung", r.label, function (v) { r.label = v; })); z.appendChild(feld("Angabe", r.wert, function (v) { r.wert = v; })); });
+        d.appendChild(z);
+        var plus = document.createElement("button"); plus.className = "link"; plus.textContent = "+ Zeile"; plus.onclick = function () { b.zeilen.push({ label: "", wert: "" }); bloecke(); };
+        d.appendChild(plus);
+        d.appendChild(feld("Text (optional)", b.text, set("text"), "text"));
+      } else if (b.typ === "kasten") {
+        d.appendChild(feld("Beschriftung des Kastens", b.label, set("label")));
+        var q = document.createElement("div"); q.className = "knopfzeile";
+        [["news", "News laden"], ["events", "Kommende Termine laden"], ["alle", "Neueste 3 laden"]].forEach(function (o) {
+          var bt = document.createElement("button"); bt.className = "knopf hell klein"; bt.textContent = o[1];
+          bt.onclick = function () { b.quelle = o[0]; lade(b); }; q.appendChild(bt);
+        });
+        var hand = document.createElement("button"); hand.className = "knopf hell klein"; hand.textContent = "+ Eintrag";
+        hand.onclick = function () { b.eintraege.push({ zeile: "", titel: "", link: NEWS, text: "" }); bloecke(); }; q.appendChild(hand);
+        d.appendChild(q);
+        b.eintraege.forEach(function (e, ei) {
+          var w = document.createElement("div"); w.className = "eintrag";
+          w.innerHTML = '<div class="eintrag-kopf"><span>Eintrag ' + (ei + 1) + "</span><button>entfernen</button></div>";
+          w.querySelector("button").onclick = function () { b.eintraege.splice(ei, 1); bloecke(); };
+          w.appendChild(feld("Zeile (Rubrik · Datum)", e.zeile, function (v) { e.zeile = v; }));
+          w.appendChild(feld("Titel", e.titel, function (v) { e.titel = v; }));
+          w.appendChild(feld("Link", e.link, function (v) { e.link = v; }));
+          w.appendChild(feld("Text", e.text, function (v) { e.text = v; }, "text"));
+          d.appendChild(w);
+        });
+      }
+      box.appendChild(d);
+    });
+    neu();
+  }
+  [].forEach.call(document.querySelectorAll("[data-neu]"), function (b) {
+    b.addEventListener("click", function () {
+      var t = b.dataset.neu, n = { typ: t };
+      if (t === "abschnitt") { n.titel = ""; n.text = ""; }
+      if (t === "beitrag") { n.zeile = ""; n.titel = ""; n.src = ""; n.alt = ""; n.text = ""; n.link = ""; n.linktext = "Read more on casinitiative.org"; }
+      if (t === "kasten") { n.label = "News"; n.eintraege = []; n.quelle = "news"; }
+      if (t === "termin") { n.titel = ""; n.zeilen = [{ label: "Date", wert: "" }, { label: "Time", wert: "" }, { label: "Place", wert: "" }]; n.text = ""; }
+      if (t === "knopf") { n.text = ""; n.link = ""; }
+      if (t === "bild") { n.src = ""; n.alt = ""; n.unterschrift = ""; n.link = ""; }
+      M.bloecke.push(n); bloecke();
+    });
+  });
+
+  // ---------- News von der Website
+  var cache = null;
+  function holen() { return cache ? Promise.resolve(cache) : fetch(API + "?anzahl=12").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) { cache = d; return d; }); }
+  function auswahl(d, quelle) {
+    var tag = new Date().toISOString().slice(0, 10);
+    if (quelle === "events") return d.filter(function (e) { return /event/i.test(e.rubrik || "") && (e.datum || "") >= tag; }).reverse().slice(0, 4);
+    if (quelle === "news") return d.filter(function (e) { return !/event/i.test(e.rubrik || ""); }).slice(0, 4);
+    return d.slice(0, 3);
+  }
+  function lade(b, still) {
+    if (!still) $("m-status").textContent = "Lade von der Website …";
+    return holen().then(function (d) {
+      b.eintraege = auswahl(d, b.quelle).map(function (e) { return { zeile: e.zeile, titel: e.titel, link: e.link || NEWS, text: e.text }; });
+      bloecke(); $("m-status").textContent = "Einträge von der Website geladen (Stand: jetzt).";
+    }).catch(function () { $("m-status").textContent = "Website nicht erreichbar – Einträge bitte von Hand anlegen und verlinken."; });
+  }
+  function ladeAlle() { M.bloecke.filter(function (b) { return b.typ === "kasten" && !b.eintraege.length; }).forEach(function (b) { lade(b, true); }); }
+
+  // ---------- HTML der Mail
   function sauber(html) {
     var t = document.createElement("template"); t.innerHTML = html || "";
     (function geh(n) {
@@ -194,73 +375,149 @@
     })(t.content);
     return t.innerHTML;
   }
+  var P = function (css, inner) { return '<p style="' + css + '">' + inner + "</p>"; };
+  var T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"';
+
+  var H2 = function (t) { return '<h2 style="margin:0 0 12px;font-family:' + SANS + ';font-weight:600;font-size:20px;line-height:1.3;color:#0E4D49;">' + t + "</h2>"; };
+  // Langer Text: Absätze, Zwischenüberschriften (## ), Listen (- ), Links
+  function langtext(text) {
+    var h = "";
+    (text || "").split(/\n\s*\n/).forEach(function (a) {
+      var z = a.split("\n").filter(function (x) { return x.trim(); });
+      if (!z.length) return;
+      if (z.length === 1 && /^##\s+/.test(z[0])) {
+        h += '<h3 style="margin:28px 0 8px;font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z[0].replace(/^##\s+/, "")) + "</h3>";
+      } else if (z.every(function (x) { return /^\s*[-–—•]\s+/.test(x); })) {
+        h += T + ' style="margin:0 0 16px;">';
+        z.forEach(function (x) {
+          h += '<tr><td width="22" valign="top" style="font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">–</td>'
+            + '<td valign="top" style="padding:0 0 6px;font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">' + sauber(x.replace(/^\s*[-–—•]\s+/, "")) + "</td></tr>";
+        });
+        h += "</table>";
+      } else {
+        if (/^##\s+/.test(z[0])) { h += '<h3 style="margin:28px 0 8px;font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z.shift().replace(/^##\s+/, "")) + "</h3>"; }
+        h += P("margin:0 0 16px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(z.join("\n")).replace(/\n/g, "<br>"));
+      }
+    });
+    return h;
+  }
+  function langtextKlar(text) { return (text || "").replace(/^##\s+/gm, "").replace(/<[^>]+>/g, "").trim(); }
+
+  function blockHtml(b) {
+    var h = "";
+    if (b.typ === "abschnitt") {
+      if ((b.titel || "").trim()) h += H2(esc(b.titel));
+      h += langtext(b.text);
+      return h ? '<div style="margin:0 0 24px;">' + h + "</div>" : "";
+    }
+    if (b.typ === "beitrag") {
+      if (!(b.titel || "").trim() && !(b.text || "").trim()) return "";
+      if ((b.zeile || "").trim()) h += P("margin:0 0 6px;font-family:" + SANS + ";font-size:13px;line-height:1.4;color:#5F7471;", esc(b.zeile));
+      if ((b.titel || "").trim()) h += H2((b.link || "").trim() ? '<a href="' + esc(b.link) + '" style="color:#0E4D49;text-decoration:none;">' + esc(b.titel) + "</a>" : esc(b.titel));
+      if ((b.src || "").trim()) h += '<div style="margin:4px 0 20px;"><img src="' + esc(b.src) + '" width="520" alt="' + esc(b.alt) + '" style="display:block;width:100%;max-width:520px;height:auto;border:0;border-radius:10px;"></div>';
+      h += langtext(b.text);
+      if ((b.link || "").trim()) h += P("margin:0 0 16px;font-family:" + SANS + ";font-size:15px;line-height:1.45;", '<a href="' + esc(b.link) + '" style="color:#0E4D49;text-decoration:underline;">' + esc(b.linktext || "Read more on casinitiative.org") + "</a>");
+      return '<div style="margin:0 0 40px;">' + h + "</div>";
+    }
+    if (b.typ === "knopf") {
+      if (!(b.text || "").trim()) return "";
+      return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 40px;"><tr><td style="background:#8B1538;border-radius:8px;">'
+        + '<a href="' + esc(b.link || START) + '" style="display:inline-block;padding:13px 22px;font-family:' + SANS + ';font-weight:600;font-size:15px;line-height:1.2;color:#FFFFFF;text-decoration:none;">' + esc(b.text) + "</a></td></tr></table>";
+    }
+    if (b.typ === "bild") {
+      if (!(b.src || "").trim()) return "";
+      var img = '<img src="' + esc(b.src) + '" width="520" alt="' + esc(b.alt) + '" style="display:block;width:100%;max-width:520px;height:auto;border:0;border-radius:10px;">';
+      if ((b.link || "").trim()) img = '<a href="' + esc(b.link) + '">' + img + "</a>";
+      return '<div style="margin:0 0 40px;">' + img + ((b.unterschrift || "").trim() ? P("margin:10px 0 0;font-family:" + SANS + ";font-size:13px;line-height:1.45;color:#5F7471;", esc(b.unterschrift)) : "") + "</div>";
+    }
+    if (b.typ === "termin") {
+      var rows = b.zeilen.filter(function (r) { return (r.wert || "").trim(); });
+      if (!rows.length && !(b.titel || "").trim()) return "";
+      h = T + ' style="background:#EEF2F1;border-radius:10px;margin:0 0 40px;"><tr><td class="kasten" style="padding:24px 24px 20px;">';
+      if ((b.titel || "").trim()) h += P("margin:0 0 14px;font-family:" + SANS + ";font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;", esc(b.titel));
+      rows.forEach(function (r, i) {
+        h += T + '><tr><td width="110" valign="top" style="padding:8px 12px 8px 0;' + (i ? "border-top:1px solid #C5D4D3;" : "") + "font-family:" + SANS + ';font-size:13px;line-height:1.5;color:#0E4D49;">' + esc(r.label) + "</td>"
+          + '<td valign="top" style="padding:8px 0;' + (i ? "border-top:1px solid #C5D4D3;" : "") + "font-family:" + SANS + ';font-size:15px;line-height:1.45;color:#0E4D49;">' + esc(r.wert) + "</td></tr></table>";
+      });
+      if ((b.text || "").trim()) h += P("margin:14px 0 0;font-family:" + SERIF + ";font-size:15px;line-height:1.55;color:#0E4D49;", sauber(b.text).replace(/\n/g, "<br>"));
+      return h + "</td></tr></table>";
+    }
+    if (b.typ === "kasten") {
+      var voll = b.eintraege.filter(function (e) { return (e.titel || "").trim(); });
+      if (!voll.length) return "";
+      h = T + ' style="background:#EEF2F1;border-radius:10px;margin:0 0 40px;"><tr><td class="kasten" style="padding:24px 24px 8px;">'
+        + P("margin:0 0 4px;font-family:" + SANS + ";font-size:14px;line-height:1.4;color:#0E4D49;", esc(b.label));
+      voll.forEach(function (e, i) {
+        h += T + '><tr><td style="padding:16px 0 16px;' + (i ? "border-top:1px solid #C5D4D3;" : "") + '">';
+        if ((e.zeile || "").trim()) h += P("margin:0 0 6px;font-family:" + SANS + ";font-size:13px;line-height:1.4;color:#0E4D49;", esc(e.zeile));
+        h += '<a class="titel" href="' + esc(e.link || NEWS) + '" style="font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;text-decoration:none;">' + esc(e.titel) + "</a>";
+        if ((e.text || "").trim()) h += P("margin:6px 0 0;font-family:" + SERIF + ";font-size:15px;line-height:1.55;color:#0E4D49;", sauber(e.text));
+        h += "</td></tr></table>";
+      });
+      return h + "</td></tr></table>";
+    }
+    return "";
+  }
 
   function mailHtml() {
-    var titel = $("r-titel").value.trim(), satz = $("r-satz").value.trim();
     var h = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-      + '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>' + esc($("r-betreff").value) + "</title><style>"
+      + '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>' + esc(M.betreff) + "</title><style>"
       + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:400;src:url(" + FONTS + "PPMori-Regular.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;src:url(" + FONTS + "IBMPlexSerif-Regular.woff2) format('woff2');font-display:swap;}"
       + "body{margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;}a{color:#0E4D49;text-decoration:underline;}a.titel:hover{text-decoration:underline !important;}p{margin:0;}"
       + "@media (max-width:620px){.rahmen{padding:32px 22px 36px !important;}.gross{font-size:26px !important;}.kasten{padding:20px 18px 6px !important;}}"
       + '</style></head><body style="margin:0;padding:0;background:#FFFFFF;">'
-      + '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#FFFFFF;">' + esc(satz) + "</div>"
-      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FFFFFF;"><tr><td align="center">'
+      + '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#FFFFFF;">' + esc(M.satz) + "</div>"
+      + T + ' style="background:#FFFFFF;"><tr><td align="center">'
       + '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;"><tr><td class="rahmen" style="padding:44px 40px 44px;">'
-      + '<a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a>'
-      + '<h1 class="gross" style="margin:56px 0 16px;font-family:' + SANS + ';font-weight:600;font-size:30px;line-height:1.15;color:#0E4D49;">' + esc(titel || "Überschrift") + "</h1>"
-      + '<p style="margin:0 0 40px;font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">' + esc(satz || "Satz") + "</p>";
-    var voll = eintraege.filter(function (e) { return (e.titel || "").trim(); });
-    if (voll.length) {
-      h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EEF2F1;border-radius:10px;"><tr><td class="kasten" style="padding:24px 24px 8px;">'
-        + '<p style="margin:0 0 4px;font-family:' + SANS + ';font-size:14px;line-height:1.4;color:#0E4D49;">' + esc($("r-kasten").value) + "</p>";
-      voll.forEach(function (e, i) {
-        h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:16px 0 16px;' + (i ? "border-top:1px solid #C5D4D3;" : "") + '">';
-        if ((e.zeile || "").trim()) h += '<p style="margin:0 0 6px;font-family:' + SANS + ';font-size:13px;line-height:1.4;color:#0E4D49;">' + esc(e.zeile) + "</p>";
-        h += '<a class="titel" href="' + esc(e.link || START + "news/") + '" style="font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;text-decoration:none;">' + esc(e.titel) + "</a>";
-        if ((e.text || "").trim()) h += '<p style="margin:6px 0 0;font-family:' + SERIF + ';font-size:15px;line-height:1.55;color:#0E4D49;">' + sauber(e.text) + "</p>";
-        h += "</td></tr></table>";
-      });
-      h += "</td></tr></table>";
-    }
-    h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:44px 0 0;font-family:' + SANS + ';font-size:13px;line-height:1.55;color:#5F7471;">'
-      + '<p style="margin:0 0 10px;">Carbon Accounting Standards Initiative &middot; <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a></p>'
-      + '<p style="margin:0 0 10px;">' + esc($("r-grund").value) + " " + esc($("r-abmelden").value) + "</p>"
-      + '<p style="margin:0;"><a href="' + IMPRESSUM + '" style="color:#5F7471;text-decoration:underline;">Imprint &amp; Privacy Policy</a></p>'
+      + '<a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a>';
+    var oben = 56;
+    if ((M.kicker || "").trim()) { h += P("margin:" + oben + "px 0 0;font-family:" + SANS + ";font-size:13px;line-height:1.4;color:#5F7471;", esc(M.kicker)); oben = 12; }
+    h += '<h1 class="gross" style="margin:' + oben + 'px 0 16px;font-family:' + SANS + ';font-weight:600;font-size:30px;line-height:1.15;color:#0E4D49;">' + esc(M.titel || "Überschrift") + "</h1>";
+    if ((M.satz || "").trim()) h += P("margin:0 0 40px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(M.satz));
+    else h += '<div style="height:24px;"></div>';
+    M.bloecke.forEach(function (b) { h += blockHtml(b); });
+    h += T + '><tr><td style="padding:4px 0 0;font-family:' + SANS + ';font-size:13px;line-height:1.55;color:#5F7471;">'
+      + P("margin:0 0 10px;", 'Carbon Accounting Standards Initiative &middot; <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a>')
+      + P("margin:0 0 10px;", esc(M.grund) + " " + esc(M.abmelden))
+      + P("margin:0;", '<a href="' + IMPRESSUM + '" style="color:#5F7471;text-decoration:underline;">Imprint &amp; Privacy Policy</a>')
       + "</td></tr></table></td></tr></table></td></tr></table></body></html>";
     return h;
   }
+  function klar(html) { var d = document.createElement("div"); d.innerHTML = html || ""; return d.textContent.trim(); }
   function mailText() {
-    var t = ($("r-titel").value.trim()) + "\n\n" + ($("r-satz").value.trim()) + "\n\n";
-    var voll = eintraege.filter(function (e) { return (e.titel || "").trim(); });
-    if (voll.length) {
-      t += $("r-kasten").value + "\n\n";
-      voll.forEach(function (e) {
-        var d = document.createElement("div"); d.innerHTML = e.text || "";
-        t += (e.zeile ? e.zeile + "\n" : "") + e.titel + "\n" + (d.textContent.trim() ? d.textContent.trim() + "\n" : "") + (e.link || START + "news/") + "\n\n";
-      });
-    }
-    return t + "Carbon Accounting Standards Initiative · " + START + "\n" + $("r-grund").value + " " + $("r-abmelden").value + "\nImprint & Privacy Policy: " + IMPRESSUM + "\n";
+    var t = (M.kicker ? M.kicker + "\n\n" : "") + (M.titel || "") + "\n\n" + (M.satz ? klar(M.satz) + "\n\n" : "");
+    M.bloecke.forEach(function (b) {
+      if (b.typ === "abschnitt") t += (b.titel ? b.titel + "\n\n" : "") + (b.text ? langtextKlar(b.text) + "\n\n" : "");
+      if (b.typ === "beitrag") t += (b.zeile ? b.zeile + "\n" : "") + (b.titel ? b.titel + "\n\n" : "") + (b.text ? langtextKlar(b.text) + "\n\n" : "") + (b.link ? (b.linktext || "Read more") + ": " + b.link + "\n\n" : "");
+      if (b.typ === "knopf" && b.text) t += b.text + ": " + (b.link || START) + "\n\n";
+      if (b.typ === "bild" && b.unterschrift) t += b.unterschrift + "\n\n";
+      if (b.typ === "termin") t += (b.titel ? b.titel + "\n" : "") + b.zeilen.filter(function (r) { return r.wert; }).map(function (r) { return r.label + ": " + r.wert; }).join("\n") + "\n" + (b.text ? klar(b.text) + "\n" : "") + "\n";
+      if (b.typ === "kasten") {
+        var voll = b.eintraege.filter(function (e) { return e.titel; });
+        if (voll.length) t += b.label + "\n\n" + voll.map(function (e) { return (e.zeile ? e.zeile + "\n" : "") + e.titel + "\n" + (klar(e.text) ? klar(e.text) + "\n" : "") + (e.link || NEWS); }).join("\n\n") + "\n\n";
+      }
+    });
+    return t + "Carbon Accounting Standards Initiative · " + START + "\n" + M.grund + " " + M.abmelden + "\nImprint & Privacy Policy: " + IMPRESSUM + "\n";
   }
-  function rundmail() { $("r-vorschau").srcdoc = mailHtml(); }
-
-  ["r-betreff", "r-titel", "r-satz", "r-kasten", "r-grund", "r-abmelden"].forEach(function (id) { $(id).addEventListener("input", rundmail); });
-  $("r-neu").addEventListener("click", function () { eintraege.push({ zeile: "", titel: "", link: START + "news/", text: "" }); liste(); });
-  $("r-laden").addEventListener("click", function () {
-    $("r-status").textContent = "Lade News …";
-    fetch("https://casinitiative.org/wp-json/casi/v1/news").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { eintraege = d.map(function (e) { return { zeile: e.zeile, titel: e.titel, link: e.link, text: e.text }; }); liste(); $("r-status").textContent = d.length + " News von der Website geladen."; })
-      .catch(function () { $("r-status").textContent = "News konnten nicht geladen werden – Einträge bitte von Hand anlegen und verlinken."; });
-  });
-  $("r-kopieren").addEventListener("click", function () { kopieren(mailHtml(), mailText(), $("r-status")); });
-  $("r-text").addEventListener("click", function () { navigator.clipboard.writeText(mailText()).then(function () { $("r-status").textContent = "Textfassung kopiert."; }); });
-  $("r-datei").addEventListener("click", function () {
+  var zeit;
+  function neu() {
+    speichern();
+    var n = M.bloecke.filter(function (b) { return b.typ === "knopf" && (b.text || "").trim(); }).length;
+    $("m-warnung").textContent = n > 2 ? "Mehr als zwei Buttons – Burgundy höchstens zweimal pro Mail." : "";
+    clearTimeout(zeit); zeit = setTimeout(function () { $("m-vorschau").srcdoc = mailHtml(); }, 120);
+  }
+  $("m-kopieren").addEventListener("click", function () { kopieren(mailHtml(), mailText(), $("m-status")); });
+  $("m-text").addEventListener("click", function () { navigator.clipboard.writeText(mailText()).then(function () { $("m-status").textContent = "Textfassung kopiert."; }); });
+  $("m-datei").addEventListener("click", function () {
     var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([mailHtml()], { type: "text/html" }));
-    a.download = "CASI-Rundmail.html"; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
-    $("r-status").textContent = "HTML-Datei gespeichert – für Versanddienste (z. B. Brevo, Mailchimp) oder als Archiv.";
+    a.download = "CASI-" + (M.vorlage || "Mail") + ".html"; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+    $("m-status").textContent = "HTML-Datei gespeichert – für Versanddienste (z. B. Brevo, Mailchimp) oder als Archiv.";
   });
-  liste();
+
+  kopf(); bloecke(); ladeAlle();
+  window.CASI_MAIL = { mailHtml: mailHtml, setze: function (m) { M = m; kopf(); bloecke(); } };
 })();
 </script>
 </body>
