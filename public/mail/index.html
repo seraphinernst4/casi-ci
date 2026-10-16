@@ -141,10 +141,12 @@
       </div>
 
       <div class="knopfzeile">
-        <button class="knopf" id="m-kopieren">Mail kopieren</button>
+        <button class="knopf" id="m-senden">Über CASI versenden</button>
+        <button class="knopf hell" id="m-kopieren">Mail kopieren</button>
         <button class="knopf hell" id="m-datei">HTML herunterladen</button>
         <button class="knopf hell" id="m-text">Textfassung kopieren</button>
       </div>
+      <p class="klein">„Über CASI versenden“ öffnet den Mailversand der Website (WordPress-Login). Dort Absender wählen, Empfänger eintragen (BCC), Testmail an dich, dann senden – die Mail kommt genau so an, wie sie hier aussieht, auch auf dem Handy.</p>
       <div class="status" id="m-status"></div>
       <p class="hinweis klein">Einträge immer von der Website laden und dorthin verlinken – nie von Hand abschreiben. Burgundy-Buttons höchstens zwei pro Mail. Vor dem Versand eine Testmail an sich selbst schicken.</p>
     </div>
@@ -421,12 +423,12 @@
         h += T + ' style="margin:0 0 16px;">';
         z.forEach(function (x) {
           h += '<tr><td width="22" valign="top" style="font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">–</td>'
-            + '<td valign="top" style="padding:0 0 6px;font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">' + sauber(x.replace(/^\s*[-–—•]\s+/, "")) + "</td></tr>";
+            + '<td valign="top" style="padding:0 0 6px;font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;overflow-wrap:anywhere;word-break:break-word;">' + sauber(x.replace(/^\s*[-–—•]\s+/, "")) + "</td></tr>";
         });
         h += "</table>";
       } else {
         if (/^##\s+/.test(z[0])) { h += '<h3 style="margin:28px 0 8px;font-family:' + SB + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z.shift().replace(/^##\s+/, "")) + "</h3>"; }
-        h += P("margin:0 0 16px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(z.join("\n")).replace(/\n/g, "<br>"));
+        h += P("margin:0 0 16px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;overflow-wrap:anywhere;word-break:break-word;", sauber(z.join("\n")).replace(/\n/g, "<br>"));
       }
     });
     return h;
@@ -507,7 +509,7 @@
       + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'PP Mori Semibold';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;src:url(" + FONTS + "IBMPlexSerif-Regular.woff2) format('woff2');font-display:swap;}"
-      + "body{margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;}a{color:#0E4D49;text-decoration:underline;}a.titel:hover{text-decoration:underline !important;}p{margin:0;}"
+      + "body{margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;}p,td,h1,h2,h3,a{overflow-wrap:anywhere;word-break:break-word;}a{color:#0E4D49;text-decoration:underline;}a.titel:hover{text-decoration:underline !important;}p{margin:0;}"
       + "@media (max-width:620px){.rahmen{padding:32px 22px 36px !important;}.gross{font-size:26px !important;}.kasten{padding:20px 18px 6px !important;}}"
       + '</style></head><body style="margin:0;padding:0;background:#FFFFFF;">'
       + '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#FFFFFF;">' + esc(M.satz) + "</div>"
@@ -553,6 +555,16 @@
     $("m-warnung").textContent = n > 2 ? "Mehr als zwei Buttons – Burgundy höchstens zweimal pro Mail." : "";
     clearTimeout(zeit); zeit = setTimeout(function () { $("m-vorschau").srcdoc = mailHtml(); }, 120);
   }
+  // Versand über den CASI-Server: Mail als Formular an WordPress, dort Absender, Empfänger, Testmail, Senden
+  $("m-senden").addEventListener("click", function () {
+    var f = document.createElement("form");
+    f.method = "post"; f.action = "https://casinitiative.org/wp-admin/admin-post.php"; f.target = "_blank"; f.acceptCharset = "UTF-8";
+    [["action", "casi_mail_entwurf"], ["html", mailHtml()], ["text", mailText()], ["betreff", M.betreff || M.titel || "CASI"]].forEach(function (x) {
+      var i = document.createElement("input"); i.type = "hidden"; i.name = x[0]; i.value = x[1]; f.appendChild(i);
+    });
+    document.body.appendChild(f); f.submit(); f.remove();
+    $("m-status").textContent = "Mailversand geöffnet – im neuen Tab weiter.";
+  });
   $("m-kopieren").addEventListener("click", function () { kopieren(mailHtml(), mailText(), $("m-status")); });
   $("m-text").addEventListener("click", function () { navigator.clipboard.writeText(mailText()).then(function () { $("m-status").textContent = "Textfassung kopiert."; }); });
   $("m-datei").addEventListener("click", function () {
