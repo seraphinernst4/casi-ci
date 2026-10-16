@@ -152,9 +152,9 @@
       "medium": "document"
     },
     {
-      "link": "https://ci.casinitiative.org/kacheln/",
-      "titel": "Kachel-Baukasten (LinkedIn, Social Media)",
-      "wofuer": "Web tool for social media tiles: statement, quote, key figure, event, image with title; formats 4:5, 1:1 and link image; PNG download and alt text. Agents open it pre-filled with casi_kachel_link.",
+      "link": "https://casinitiative.org/wp-admin/admin.php?page=casi-kacheln",
+      "titel": "Kachel-Baukasten im Backend (LinkedIn, Social Media)",
+      "wofuer": "Tool in the WordPress back end of casinitiative.org (login required) for social media tiles: statement, quote, key figure, event, image with title; formats 4:5, 1:1 and link image; PNG download and alt text. Agents open it pre-filled with casi_kachel_link.",
       "medium": "social"
     },
     {

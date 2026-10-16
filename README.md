@@ -35,7 +35,7 @@ Wenn du den CASI-Skill in Claude änderst: denselben Text hier in `ci/SKILL.md` 
 
 ## Einrichten (pro Person, einmalig)
 
-**Claude (Web/Desktop):** Einstellungen → Connectors → *Benutzerdefinierten Connector hinzufügen* → Name „CASI CI“, URL `https://ci.casinitiative.org/mcp/CasimirMonnem`.
+**Claude (Web/Desktop):** auf claude.ai „Customize“ → „Connectors“ → „+ Add“ → „Add custom connector“ → Name „CASI CI“, URL `https://ci.casinitiative.org/mcp/CasimirMonnem`, „No sign in“ → „Add“. Im Chat über „+“ → „Connectors“ einschalten.
 Im Chat dann z. B.: „Mach mir Folien im CASI-Design“ – Claude ruft die CI selbst ab.
 
 **Claude Code:** `claude mcp add --transport http casi-ci https://ci.casinitiative.org/mcp/CasimirMonnem`
@@ -49,6 +49,9 @@ Im Chat dann z. B.: „Mach mir Folien im CASI-Design“ – Claude ruft die CI 
 | `casi_ci_guidelines` | CI als Text – komplett, pro Medium (`slides`, `document`, `email`, `website`, `chart`, `poster`, `social`) oder pro Abschnitt |
 | `casi_design_tokens` | Tokens als JSON oder CSS-Variablen (für Code) |
 | `casi_templates` | Offizielle Vorlagen mit Download-Link |
+| `casi_mail_link` | Link, der den Mail-Baukasten im Backend fertig ausgefüllt öffnet (Newsletter, Einladung, Ankündigung, Rundmail, persönliche Mail) |
+| `casi_signatur_link` | Link zur vorausgefüllten Signatur im Mail-Baukasten |
+| `casi_kachel_link` | Link, der den Kachel-Baukasten im Backend fertig ausgefüllt öffnet |
 
 Dazu die Ressourcen `casi://ci/SKILL.md`, `casi://ci/tokens.json` und den Prompt `casi-ci`.
 
@@ -58,6 +61,20 @@ Die Adresse endet auf ein festes Wort (`CI_ACCESS_KEY` in Vercel → Settings �
 Wort ändern: Wert dort ändern → Redeploy → neue Adresse an alle verteilen.
 
 Domain `ci.casinitiative.org`: CNAME `ci` → `cc65b2ebf437c988.vercel-dns-017.com` bei IONOS.
+Das Wort steht auch in `wordpress/casi-werkzeuge.php` (Dashboard-Kasten und Vorlagenliste) – bei einer Änderung dort mitändern.
+
+## Teil im WordPress-Backend
+
+Was Menschen benutzen, liegt im Backend von casinitiative.org (Login), ci.casinitiative.org ist nur die Technik-Adresse für Claude; ihre Seiten leiten ins Backend weiter.
+
+| Datei (Repo `wordpress/`) | Zweck |
+|---|---|
+| `casi-mailversand.php` | Menü „Mail-Baukasten“: Baukasten, Versand über IONOS (Absender info@ oder eigenes Postfach, BCC, Testmail-Pflicht), Unterseite „Postfächer“ mit Protokoll |
+| `casi-mailbaukasten.html` | der Mail-Baukasten selbst (wird von `casi-mailversand.php` ausgeliefert) |
+| `casi-werkzeuge.php` | Menü „Kachel-Baukasten“ und Dashboard-Kasten „CASI-Werkzeuge“ (Einrichtung, Baukästen, Vorlagen live vom Connector) |
+| `casi-kachelbaukasten.html` | der Kachel-Baukasten selbst |
+
+Live liegen die Dateien in `/wp-content/novamira-sandbox/` und werden automatisch geladen. **Vercel spielt sie nicht aus** – nach jeder Änderung hochladen und die Prüfsumme vergleichen. Schriften und Logos kommen aus `/wp-content/uploads/casi-fonts/`, `/casi-marke/` und `/casi-mail/`.
 
 ## Lokal testen
 

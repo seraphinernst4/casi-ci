@@ -1,5 +1,5 @@
 // Liefert eine Vorlage aus vorlagen/ aus – nur mit dem Wort aus der Connector-Adresse.
-// Adresse: /vorlagen/<WORT>/<Datei>
+// Adresse: /vorlagen/<WORT>/<Datei> – ohne Datei (/vorlagen/<WORT>) die Liste als JSON
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
@@ -24,6 +24,14 @@ export default function handler(req, res) {
   const file = decodeURIComponent(req.query?.file ?? m?.[2] ?? "");
   const expected = process.env.CI_ACCESS_KEY;
   const list = JSON.parse(readFileSync(path.join(process.cwd(), "vorlagen", "vorlagen.json"), "utf8")).vorlagen;
+  // Ohne Datei: Liste aller Vorlagen als JSON (für die Übersicht im WordPress-Backend)
+  if (!file) {
+    if (expected && key !== expected) { res.statusCode = 404; return res.end("Not found"); }
+    const base = `https://${req.headers.host || "ci.casinitiative.org"}/vorlagen/${encodeURIComponent(key)}/`;
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store");
+    return res.end(JSON.stringify({ vorlagen: list.map((v) => ({ ...v, url: v.datei ? base + encodeURIComponent(v.datei) : v.link })) }));
+  }
   const known = list.some((v) => v.datei && v.datei === file);
   const p = path.join(process.cwd(), "vorlagen", path.basename(file));
   if ((expected && key !== expected) || !known || !existsSync(p)) {

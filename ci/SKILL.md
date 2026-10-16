@@ -9,6 +9,8 @@ The look is the website casinitiative.org: white page, PP Mori and IBM Plex Seri
 
 **Always current version:** this file mirrors `ci/SKILL.md` in the GitHub repo `seraphinernst4/casi-ci`. If the CASI CI connector (`https://ci.casinitiative.org/mcp/…`) is available, prefer its `casi_ci_guidelines` and `casi_templates` tools – they always serve the latest rules and templates.
 
+**Where things live:** everything people use is in the WordPress back end of casinitiative.org (login): the dashboard box "CASI-Werkzeuge" with the connector setup, the Mail-Baukasten (`/wp-admin/admin.php?page=casi-mailversand`), the Kachel-Baukasten (`/wp-admin/admin.php?page=casi-kacheln`) and all template downloads. `ci.casinitiative.org` is only the technical address for Claude (connector, downloads, brand assets); its pages forward to the back end.
+
 ## Two rules above all
 
 **1. Less is more.** Dress the author's material in CASI type and boxes — add nothing for branding's sake. A plain page in the two typefaces is a correct CASI page. When unsure: leave it out.
@@ -199,7 +201,7 @@ A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, seri
 - *Leer*: only wordmark and footer.
 Print: export as PDF from PowerPoint (fonts are embedded); no bleed needed – the white page is the ground.
 
-**Social media tiles:** the Kachel-Baukasten `https://ci.casinitiative.org/kacheln/` (connector tool `casi_kachel_link` opens it pre-filled). Formats: LinkedIn post 4:5 (1080 × 1350), square 1:1 (1080 × 1080), link image 1200 × 627. Motifs: statement/announcement, quote, key figure (with source), event (grey box with rows), image with title (own or licensed images only). Ground white or `#EEF2F1`; wordmark in Deep Green top left (40 px at 1080), "casinitiative.org" PP Mori 24 px bottom left; margins 80 px; text block sits at the bottom above the footer; title PP Mori SemiBold sized to fit (92 → 40 px), kicker PP Mori 28 px; small text Slate on white, Deep Green on grey ground and in grey boxes; sentence and quote IBM Plex Serif. No colour fields, no Burgundy areas, no stock decoration, no hashtags on the image. Always give an alt text (the builder suggests one).
+**Social media tiles:** the Kachel-Baukasten in the WordPress back end `https://casinitiative.org/wp-admin/admin.php?page=casi-kacheln` (connector tool `casi_kachel_link` opens it pre-filled). Formats: LinkedIn post 4:5 (1080 × 1350), square 1:1 (1080 × 1080), link image 1200 × 627. Motifs: statement/announcement, quote, key figure (with source), event (grey box with rows), image with title (own or licensed images only). Ground white or `#EEF2F1`; wordmark in Deep Green top left (40 px at 1080), "casinitiative.org" PP Mori 24 px bottom left; margins 80 px; text block sits at the bottom above the footer; title PP Mori SemiBold sized to fit (92 → 40 px), kicker PP Mori 28 px; small text Slate on white, Deep Green on grey ground and in grey boxes; sentence and quote IBM Plex Serif. No colour fields, no Burgundy areas, no stock decoration, no hashtags on the image. Always give an alt text (the builder suggests one).
 
 **Colours and fonts in other programs:** `CASI.thmx` – Office theme (Word, PowerPoint, Excel: Design → Themes → Browse) with the UI colours as theme colours, the extra colours as custom colours, headings PP Mori Semibold and body PP Mori; `CASI-Farben.ase` – swatches for Illustrator, InDesign and Photoshop (groups "UI colours" and "extra colours – graphics only"). Fonts: `CASI-Schriften.zip`.
 

@@ -21,6 +21,10 @@
     {
       "source": "/vorlagen/:key/:file",
       "destination": "/api/vorlage?key=:key&file=:file"
+    },
+    {
+      "source": "/vorlagen/:key",
+      "destination": "/api/vorlage?key=:key"
     }
   ]
 }
