@@ -24,6 +24,24 @@
       "titel": "CASI-Schriften (PP Mori, IBM Plex Serif)",
       "wofuer": "Font package for installing the CASI typefaces on a computer: TTF for Office (Installieren/), WOFF2 for web (Web/). Offer it whenever fonts are missing. PP Mori is licensed to CASI – for CASI staff only, do not pass on to third parties.",
       "medium": "fonts"
+    },
+    {
+      "datei": "CASI-Whitepaper.dotx",
+      "titel": "Word-Vorlage Whitepaper",
+      "wofuer": "Every CASI whitepaper or paper. Double-click opens a new document: cover with input fields (series · number, title, abstract, authors, publisher · date), automatic contents, sample page with every style (CASI Kicker, CASI Ueberschrift 1/2, CASI Fliesstext, CASI Liste, figure field, CASI Bildunterschrift), references and imprint. Header fills itself from the cover. Fonts embedded. Export as PDF for print.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Whitepaper-Beispiel.pdf",
+      "titel": "Whitepaper No. 1 (Beispiel)",
+      "wofuer": "CASI Whitepaper No. 1 set with this template – reference for how a finished CASI paper looks.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Whitepaper-Vorlage-Vorschau.pdf",
+      "titel": "Whitepaper-Vorlage (Vorschau)",
+      "wofuer": "Preview of the empty whitepaper template.",
+      "medium": "document"
     }
   ]
 }

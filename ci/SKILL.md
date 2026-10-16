@@ -60,7 +60,7 @@ One typeface per element, never mixed in one paragraph or label. Weights: Regula
 | Scale | Title | H1 | H2 | Body | Small (captions, meta, footnotes) |
 |---|---|---|---|---|---|
 | Website / email (px) | 44 (email 30) | 30 | 20 | 17 / 1.6 serif | 15 · 14 · 13 |
-| Documents A4 (pt) | 24–28 | 14 | 11 | 10 / 1.45 serif | 8.5 · 8 |
+| Documents A4 (pt) | 27 | 18.5 | 12.5 | 10.5 / 1.6 serif | 9.5 kicker · 8.5 |
 | Slides 16:9 (pt) | 17 (cover 40, section 30) | — | — | 12 / 1.35 serif | 7.5 |
 
 Headings SemiBold, body Regular — both Deep Green; small text Slate. Max five sizes per page. Ragged right, never justified. No letter-spacing except on text the author wrote in capitals (+0.08–0.18 em).
@@ -123,7 +123,23 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 
 ## Documents
 
-A4, margins 25 mm top/bottom, 22 mm left/right. Title page: the author's lines in their order, flush left, logo only if the author has one. Headings: the author's levels on the scale, no numbering unless the author numbered, new page only where the source has one. Footnotes IBM Plex Serif 8 pt Slate, separated by space. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. Third-party images unchanged; captions in the author's wording and position.
+**Template:** `CASI-Whitepaper.dotx` (connector tool `casi_templates`, medium `document`) – the set of CASI Whitepaper No. 1. Start every whitepaper, paper or longer document from it and use its styles only:
+
+| Style | Use | Set |
+|---|---|---|
+| CASI Reihe | series · number on the cover (shown in capitals, typed normally) | PP Mori SemiBold 9.5 pt |
+| CASI Titel | title | PP Mori SemiBold 27 pt |
+| CASI Vorspann | abstract on the cover | IBM Plex Serif 10.5 pt Slate |
+| CASI Meta | authors, publisher · date | PP Mori 8.5 pt Slate |
+| CASI Kicker | small line above a chapter heading (Foreword, Section 1, Bibliography, Imprint) | PP Mori SemiBold 9.5 pt |
+| CASI Ueberschrift 1 / 2 / 3 | headings (number and tab before the text if the author numbered) | PP Mori SemiBold 18.5 / 12.5 / 10.5 pt |
+| CASI Fliesstext | running text | IBM Plex Serif 10.5 pt / 1.6 |
+| CASI Liste | list item: "—", tab, text | IBM Plex Serif 10.5 pt, hanging indent |
+| CASI Abbildung / CASI Bildunterschrift | figure / caption ("Figure N" SemiBold Deep Green, then the author's caption) | PP Mori 8.5 pt Slate |
+| CASI Literatur | references | IBM Plex Serif 9.5 pt |
+| CASI Fussnote | footnotes | IBM Plex Serif 8.5 pt |
+
+A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, series, title, abstract, authors, publisher · date, contents (automatic, no page numbers). Running header from the cover (series · title) above a hairline `#E1E7E5`; footer "Carbon Accounting Standards Initiative · casinitiative.org" and page number. Every chapter starts on a new page with its kicker. Headings: the author's levels, no numbering unless the author numbered. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. Third-party images unchanged; captions in the author's wording and position. Print: export as PDF from Word (fonts are embedded).
 
 ## Other media
 
