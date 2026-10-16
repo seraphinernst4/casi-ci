@@ -18,6 +18,52 @@ CT_DOC = "application/vnd.openxmlformats-officedocument.wordprocessingml.documen
 CT_DOT = "application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml"
 
 
+
+# Reihenfolge der Kindelemente laut OOXML-Schema – Word meldet sonst „unlesbaren Inhalt“.
+PPR_ORDNUNG = ["pStyle", "keepNext", "keepLines", "pageBreakBefore", "framePr", "widowControl", "numPr", "suppressLineNumbers",
+               "pBdr", "shd", "tabs", "suppressAutoHyphens", "kinsoku", "wordWrap", "overflowPunct", "topLinePunct", "autoSpaceDE",
+               "autoSpaceDN", "bidi", "adjustRightInd", "snapToGrid", "spacing", "ind", "contextualSpacing", "mirrorIndents",
+               "suppressOverlap", "jc", "textDirection", "textAlignment", "textboxTightWrap", "outlineLvl", "divId", "cnfStyle",
+               "rPr", "sectPr", "pPrChange"]
+SETTINGS_KOPF = ["writeProtection", "view", "zoom", "removePersonalInformation", "removeDateAndTime", "doNotDisplayPageBoundaries",
+                 "displayBackgroundShape", "printPostScriptOverText", "printFractionalCharacterWidth", "printFormsData",
+                 "embedTrueTypeFonts", "embedSystemFonts", "saveSubsetFonts"]
+
+
+def ordne(name, data):
+    """Bringt pPr-Kinder und den Kopf von settings.xml in Schema-Reihenfolge."""
+    if not (name.startswith("word/") and name.endswith(".xml")):
+        return data
+    from lxml import etree
+    W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+    root = etree.fromstring(data)
+    def sortiere(el, ordnung, nur_kopf=False):
+        kinder = list(el)
+        rang = {n: i for i, n in enumerate(ordnung)}
+        def r(k):
+            loc = etree.QName(k).localname if isinstance(k.tag, str) else ""
+            return rang.get(loc, len(ordnung))
+        if nur_kopf:
+            kopf = sorted([k for k in kinder if r(k) < len(ordnung)], key=r)
+            rest = [k for k in kinder if r(k) >= len(ordnung)]
+            neu = kopf + rest
+        else:
+            neu = sorted(kinder, key=r)  # stabil: Unbekanntes behält seine Reihenfolge am Ende
+        if neu != kinder:
+            for k in kinder:
+                el.remove(k)
+            for k in neu:
+                el.append(k)
+    for ppr in root.iter(W + "pPr"):
+        sortiere(ppr, PPR_ORDNUNG)
+    if name == "word/settings.xml":
+        sortiere(root, SETTINGS_KOPF, nur_kopf=True)
+        for z in root.iter(W + "zoom"):
+            if z.get(W + "percent") is None:
+                z.set(W + "percent", "100")
+    return etree.tostring(root, xml_declaration=True, encoding="UTF-8", standalone=True)
+
+
 def esc(t):
     return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -218,7 +264,7 @@ def build(out_dir):
                 d = files[n]
                 if n == "[Content_Types].xml":
                     d = d.decode().replace(CT_DOC, ctype).encode()
-                z.writestr(n, d)
+                z.writestr(n, ordne(n, d))
         print("geschrieben:", out)
 
 

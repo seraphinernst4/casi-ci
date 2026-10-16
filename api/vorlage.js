@@ -13,6 +13,8 @@ const TYPES = {
   ".html": "text/html; charset=utf-8",
   ".png": "image/png",
   ".zip": "application/zip",
+  ".thmx": "application/vnd.ms-officetheme",
+  ".ase": "application/octet-stream",
 };
 
 export default function handler(req, res) {

@@ -108,6 +108,66 @@
       "titel": "Ankündigung (HTML)",
       "wofuer": "Announcement (e.g. new whitepaper) with placeholders: kicker 'Publication', title, sentence, text, download button, footer.",
       "medium": "email"
+    },
+    {
+      "datei": "CASI-Plakat-A3.potx",
+      "titel": "Plakat A3 (PowerPoint-Vorlage)",
+      "wofuer": "Posters A3 portrait: layouts 'Plakat' (event, announcement, publication with info box), 'Poster (Konferenz)' (two text columns) and 'Leer'. PP Mori and IBM Plex Serif embedded. Export as PDF for print.",
+      "medium": "poster"
+    },
+    {
+      "datei": "CASI-Plakat-A1.potx",
+      "titel": "Plakat A1 (PowerPoint-Vorlage)",
+      "wofuer": "Same layouts as A3, every measure × 2; conference poster with three columns. Prints correctly scaled on A3.",
+      "medium": "poster"
+    },
+    {
+      "datei": "CASI-Plakat-A3-Beispiel.pdf",
+      "titel": "Plakat A3 – Beispiel (PDF)",
+      "wofuer": "Example: announcement poster and conference poster with the texts of CASI Whitepaper No. 1.",
+      "medium": "poster"
+    },
+    {
+      "datei": "CASI-Plakat-A1-Beispiel.pdf",
+      "titel": "Plakat A1 – Beispiel (PDF)",
+      "wofuer": "Example in A1 with the three-column conference poster.",
+      "medium": "poster"
+    },
+    {
+      "datei": "CASI-Factsheet.dotx",
+      "titel": "Factsheet A4 (Word-Vorlage)",
+      "wofuer": "One-page factsheet: series, title, lead, three key figures in a grey box, two-column text, contact. Fill the fields, keep to one page.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Factsheet-Beispiel.pdf",
+      "titel": "Factsheet – Beispiel (PDF)",
+      "wofuer": "Example factsheet with texts from CASI Whitepaper No. 1.",
+      "medium": "document"
+    },
+    {
+      "datei": "CASI-Factsheet-Vorlage-Vorschau.pdf",
+      "titel": "Factsheet – Vorlage (Vorschau)",
+      "wofuer": "The empty factsheet template with its fields.",
+      "medium": "document"
+    },
+    {
+      "link": "https://ci.casinitiative.org/kacheln/",
+      "titel": "Kachel-Baukasten (LinkedIn, Social Media)",
+      "wofuer": "Web tool for social media tiles: statement, quote, key figure, event, image with title; formats 4:5, 1:1 and link image; PNG download and alt text. Agents open it pre-filled with casi_kachel_link.",
+      "medium": "social"
+    },
+    {
+      "datei": "CASI.thmx",
+      "titel": "Office-Design CASI (.thmx)",
+      "wofuer": "Office theme for Word, PowerPoint and Excel: CASI colours (extra colours as custom colours) and fonts. Word/PowerPoint: Design → Themes → Browse for Themes.",
+      "medium": "farben"
+    },
+    {
+      "datei": "CASI-Farben.ase",
+      "titel": "CASI-Farbfelder (Adobe .ase)",
+      "wofuer": "Swatches for Illustrator, InDesign and Photoshop: UI colours and extra colours (graphics only).",
+      "medium": "farben"
     }
   ]
 }

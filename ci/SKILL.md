@@ -65,6 +65,8 @@ One typeface per element, never mixed in one paragraph or label. Weights: Regula
 | Website / email (px) | 44 (email 30) | 30 | 20 | 17 / 1.6 serif | 15 · 14 · 13 |
 | Documents A4 (pt) | 27 | 18.5 | 12.5 | 10.5 / 1.6 serif | 9.5 kicker · 8.5 |
 | Slides 16:9 (pt) | 17 (cover 40, section 30) | — | — | 12 / 1.35 serif | 7.5 |
+| Posters A3 (pt; A1 = × 2) | 60 (conference poster 40) | — | 14 | 20 lead · 12 / 1.4 serif | 14 kicker · 10 |
+| Social tiles (px at 1080) | 92 → 40, sized to fit | — | — | 34 / 1.4 serif (quote 64 → 30) | 28 kicker · 24 |
 
 Headings SemiBold, body Regular — both Deep Green; small text Slate. Max five sizes per page. Ragged right, never justified. No letter-spacing except on text the author wrote in capitals (+0.08–0.18 em).
 
@@ -158,7 +160,7 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 
 ## Documents
 
-**Templates** (connector tool `casi_templates`, medium `document`): `CASI-Whitepaper.dotx` – the set of CASI Whitepaper No. 1, for whitepapers and papers; `CASI-Dokument.dotx` – reports, minutes, memos; `CASI-Brief.dotx` – letters. Start every document from one of them and use their styles only:
+**Templates** (connector tool `casi_templates`, medium `document`): `CASI-Whitepaper.dotx` – the set of CASI Whitepaper No. 1, for whitepapers and papers; `CASI-Dokument.dotx` – reports, minutes, memos; `CASI-Brief.dotx` – letters; `CASI-Factsheet.dotx` – one-page factsheets. Start every document from one of them and use their styles only:
 
 | Style | Use | Set |
 |---|---|---|
@@ -179,9 +181,21 @@ A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, seri
 
 **Letters** (`CASI-Brief.dotx`): DIN 5008 form B for window envelopes. Margins 27 mm top, 20 mm right, 25 mm left (text edge). First page: long logo top left; sender line PP Mori 7 pt Slate above the address field (45 mm from top, 80 × 45 mm), "CASI · Universität Mannheim · Schloss Ostflügel · 68161 Mannheim"; address PP Mori 8.5 pt; information block from 125 mm (date, contact, e-mail: label Slate, value below); subject CASI Überschrift 2 at about 103 mm; salutation, text and closing in CASI Fließtext; name and function CASI Meta. Footer of the first page: the sender as in the website imprint (CASI · MISES · Universität Mannheim · Schloss Ostflügel, Raum O 351–359 · 68161 Mannheim · Deutschland · casinitiative.org); following pages: page number only.
 
+**Factsheets** (`CASI-Factsheet.dotx`): A4, one page. Long logo and hairline as in the document template; CASI Reihe ("Factsheet · topic"), CASI Titel (6 pt less space after), CASI Vorspann; up to three key figures in one grey box (number "CASI Kennzahl" PP Mori SemiBold 24 pt, meaning CASI Meta below; numbers only with a source); then running text in two columns (CASI Überschrift 2, CASI Fließtext, CASI Liste) ending with the contact (CASI Kicker "Contact", CASI Meta). If it does not fit on one page, shorten with the author – never shrink type.
+
 ## Other media
 
-Web: as the website (reading text 17 px serif, links in the text colour). Posters: document scale × ~2.8 for A1. Social: the user's text on white. Charts: white or grey ground, no border/3D/shadow, PP Mori, direct labels, gridlines only if values must be read, colours per the palette above.
+**Posters** (`CASI-Plakat-A3.potx`, `CASI-Plakat-A1.potx`, connector tool `casi_templates`, medium `poster`): portrait, white, margins 18 mm (A3) / 36 mm (A1); A1 is A3 × 2 in every measure, so an A1 file prints correctly scaled on A3. Wordmark top left (height 0.42 in on A3); footer "Carbon Accounting Standards Initiative · casinitiative.org" PP Mori Slate bottom left. Layouts:
+- *Plakat* (event, announcement, publication): kicker PP Mori SemiBold 14 pt (author's capitals, +0.08 em), title PP Mori SemiBold 60 pt, lead IBM Plex Serif 20 pt, picture or internal graphic, grey info box at the bottom (corners 0.14 in on A3) with three fields: label PP Mori 11 pt Slate, value PP Mori SemiBold 15 pt.
+- *Poster (Konferenz)*: kicker 12 pt, title 40 pt, authors · institution PP Mori 14 pt Slate, running text IBM Plex Serif 12 pt / 1.4 in two columns (A3) or three (A1), subheadings PP Mori SemiBold 14 pt as their own paragraph, figures with caption PP Mori 9 pt Slate.
+- *Leer*: only wordmark and footer.
+Print: export as PDF from PowerPoint (fonts are embedded); no bleed needed – the white page is the ground.
+
+**Social media tiles:** the Kachel-Baukasten `https://ci.casinitiative.org/kacheln/` (connector tool `casi_kachel_link` opens it pre-filled). Formats: LinkedIn post 4:5 (1080 × 1350), square 1:1 (1080 × 1080), link image 1200 × 627. Motifs: statement/announcement, quote, key figure (with source), event (grey box with rows), image with title (own or licensed images only). Ground white or `#EEF2F1`; wordmark top left (40 px at 1080), "casinitiative.org" PP Mori 24 px Slate bottom left; margins 80 px; text block sits at the bottom above the footer; title PP Mori SemiBold sized to fit (92 → 40 px), kicker PP Mori 28 px Slate, sentence and quote IBM Plex Serif. No colour fields, no Burgundy areas, no stock decoration, no hashtags on the image. Always give an alt text (the builder suggests one).
+
+**Colours and fonts in other programs:** `CASI.thmx` – Office theme (Word, PowerPoint, Excel: Design → Themes → Browse) with the UI colours as theme colours, the extra colours as custom colours, headings PP Mori Semibold and body PP Mori; `CASI-Farben.ase` – swatches for Illustrator, InDesign and Photoshop (groups "UI colours" and "extra colours – graphics only"). Fonts: `CASI-Schriften.zip`.
+
+Web: as the website (reading text 17 px serif, links in the text colour). Charts: white or grey ground, no border/3D/shadow, PP Mori, direct labels, gridlines only if values must be read, colours per the palette above.
 
 ## Check before delivering
 

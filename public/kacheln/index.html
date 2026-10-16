@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CASI Kachel-Baukasten</title>
+<style>
+  @font-face { font-family: "PP Mori"; font-weight: 400; src: url(/schriften/PPMori-Regular.woff2) format("woff2"); font-display: block; }
+  @font-face { font-family: "PP Mori"; font-weight: 600; src: url(/schriften/PPMori-SemiBold.woff2) format("woff2"); font-display: block; }
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; src: url(/schriften/IBMPlexSerif-Regular.woff2) format("woff2"); font-display: block; }
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; font-style: italic; src: url(/schriften/IBMPlexSerif-Italic.woff2) format("woff2"); font-display: block; }
+  :root { --papier:#FFFFFF; --block:#EEF2F1; --tinte:#0E4D49; --leise:#5F7471; --linie:#E1E7E5; --kante:#C5D4D3; --akzent:#8B1538;
+          --sans:"PP Mori","Helvetica Neue",Helvetica,Arial,sans-serif; --serif:"IBM Plex Serif",Georgia,serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--papier); color: var(--tinte); font: 16px/1.5 var(--sans); }
+  main { max-width: 1180px; margin: 0 auto; padding: 48px 16px 80px; }
+  h1 { font-weight: 600; font-size: 30px; line-height: 1.15; margin: 0 0 8px; }
+  .lead { font-family: var(--serif); font-size: 17px; line-height: 1.6; margin: 0 0 32px; max-width: 680px; }
+  .raster { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 900px) { .raster { grid-template-columns: 1fr; } }
+  label { display: block; font-size: 13px; color: var(--leise); margin: 0 0 4px; }
+  input, textarea, select { width: 100%; font: inherit; font-size: 15px; color: var(--tinte); background: #fff; border: 1px solid var(--kante); border-radius: 8px; padding: 9px 12px; margin: 0 0 14px; }
+  textarea { min-height: 72px; resize: vertical; font-family: var(--serif); line-height: 1.5; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--tinte); }
+  input[type=file] { padding: 8px; font-size: 14px; }
+  .zweispaltig { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+  .knopfzeile { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 18px; }
+  .knopf { font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
+  .knopf.hell { background: #fff; color: var(--tinte); border-color: var(--kante); font-weight: 400; }
+  .knopf.hell:hover { border-color: var(--tinte); }
+  .link { font: inherit; font-size: 13px; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+  .status { font-size: 14px; color: var(--leise); min-height: 21px; }
+  .gruppe { border-top: 1px solid var(--linie); padding: 18px 0 4px; }
+  .gruppe > h3 { font-size: 15px; font-weight: 600; margin: 0 0 12px; }
+  .vorschau { background: var(--block); border-radius: 10px; padding: 24px; position: sticky; top: 16px; }
+  .vorschau h2 { font-size: 14px; font-weight: 400; margin: 0 0 12px; display: flex; justify-content: space-between; }
+  canvas { display: block; width: 100%; height: auto; max-height: 78vh; object-fit: contain; border-radius: 4px; background: #fff; box-shadow: 0 0 0 1px var(--kante); }
+  .klein { font-size: 13px; color: var(--leise); }
+  .hinweis { margin-top: 20px; font-size: 14px; line-height: 1.55; }
+  .hinweis p { margin: 0 0 6px; font-family: var(--serif); }
+  .vorbelegt { background: var(--block); border-radius: 10px; padding: 14px 18px; margin: 0 0 24px; font-size: 14px; line-height: 1.5; }
+  .vorbelegt[hidden], [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kachel-Baukasten</h1>
+  <p class="lead">Kacheln für LinkedIn und andere Kanäle im Gestaltungssystem der CASI: Format und Motiv wählen, Text eintragen, als PNG herunterladen oder kopieren.</p>
+  <div class="vorbelegt" id="vorbelegt" hidden><strong>Von Claude vorausgefüllt.</strong> Bitte alles prüfen, dann herunterladen.</div>
+
+  <div class="raster">
+    <div>
+      <div class="zweispaltig">
+        <div><label for="k-format">Format</label>
+          <select id="k-format" data-feld="format">
+            <option value="hoch">Beitrag 4:5 (1080 × 1350)</option>
+            <option value="quadrat">Quadrat 1:1 (1080 × 1080)</option>
+            <option value="quer">Link-Bild (1200 × 627)</option>
+          </select></div>
+        <div><label for="k-motiv">Motiv</label>
+          <select id="k-motiv" data-feld="motiv">
+            <option value="aussage">Aussage / Ankündigung</option>
+            <option value="zitat">Zitat</option>
+            <option value="kennzahl">Kennzahl</option>
+            <option value="termin">Termin</option>
+            <option value="bild">Bild mit Titel</option>
+          </select></div>
+      </div>
+      <label for="k-hintergrund">Hintergrund</label>
+      <select id="k-hintergrund" data-feld="hintergrund">
+        <option value="weiss">Weiß</option>
+        <option value="grau">Grau (#EEF2F1)</option>
+      </select>
+
+      <div class="gruppe">
+        <h3>Text</h3>
+        <div data-fuer="aussage termin bild"><label for="k-kicker">Zeile über dem Titel (optional)</label><input id="k-kicker" data-feld="kicker" placeholder="z. B. New whitepaper"></div>
+        <div data-fuer="aussage termin bild"><label for="k-titel">Titel</label><textarea id="k-titel" data-feld="titel"></textarea></div>
+        <div data-fuer="kennzahl"><label for="k-zahl">Zahl</label><input id="k-zahl" data-feld="zahl" placeholder="z. B. 4"></div>
+        <div data-fuer="aussage kennzahl zitat"><label for="k-text" id="k-text-label">Satz (optional)</label><textarea id="k-text" data-feld="text"></textarea></div>
+        <div data-fuer="zitat"><div class="zweispaltig">
+          <div><label for="k-name">Name</label><input id="k-name" data-feld="name"></div>
+          <div><label for="k-funktion">Funktion (optional)</label><input id="k-funktion" data-feld="funktion"></div>
+        </div></div>
+        <div data-fuer="kennzahl"><label for="k-quelle">Quelle (optional)</label><input id="k-quelle" data-feld="quelle"></div>
+        <div data-fuer="termin" id="k-zeilen"></div>
+        <div data-fuer="termin"><button class="link" id="k-zeile-plus">+ Zeile</button><p></p></div>
+        <div data-fuer="bild"><label for="k-bild">Bild (eigenes oder lizenziertes)</label><input id="k-bild" type="file" accept="image/*"></div>
+      </div>
+
+      <div class="knopfzeile">
+        <button class="knopf" id="k-png">PNG herunterladen</button>
+        <button class="knopf hell" id="k-kopieren">Bild kopieren</button>
+        <button class="knopf hell" id="k-alle">Alle drei Formate</button>
+      </div>
+      <div class="status" id="k-status"></div>
+
+      <div class="gruppe">
+        <h3>Alternativtext für LinkedIn</h3>
+        <textarea id="k-alt" readonly></textarea>
+        <button class="link" id="k-alt-kopieren">Alternativtext kopieren</button>
+      </div>
+      <div class="hinweis">
+        <p>Text immer im Wortlaut der Autorin oder des Autors. Zahlen nur mit Quelle. Nur eigene oder lizenzierte Bilder; Grafiken von CASI aus Backend → Texte → Grafiken.</p>
+        <p class="klein">LinkedIn: Bild beim Beitrag hochladen, Alternativtext unter „Alt-Text“ einfügen.</p>
+      </div>
+    </div>
+    <div class="vorschau"><h2><span>Vorschau</span><span id="k-masse" class="klein"></span></h2><canvas id="k-canvas"></canvas></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var C = { papier: "#FFFFFF", block: "#EEF2F1", tinte: "#0E4D49", leise: "#5F7471", kante: "#C5D4D3" };
+  var SANS = '"PP Mori", "Helvetica Neue", Helvetica, Arial, sans-serif', SERIF = '"IBM Plex Serif", Georgia, serif';
+  var FORMATE = { hoch: [1080, 1350], quadrat: [1080, 1080], quer: [1200, 627] };
+  var NAMEN = { hoch: "4x5", quadrat: "1x1", quer: "Link-Bild" };
+  var lies = function () { try { return JSON.parse(localStorage.getItem("casi-kachel") || "null"); } catch (e) { return null; } };
+  var merk = function () { try { localStorage.setItem("casi-kachel", JSON.stringify(K)); } catch (e) {} };
+
+  var STANDARD = { format: "hoch", motiv: "aussage", hintergrund: "weiss", kicker: "", titel: "", text: "", zahl: "", quelle: "", name: "", funktion: "",
+    zeilen: [{ label: "Date", wert: "" }, { label: "Time", wert: "" }, { label: "Place", wert: "" }] };
+  var K = Object.assign({}, STANDARD, lies() || {});
+  var bild = null;
+
+  var logo = new Image(), logoOk = false;
+  logo.onload = function () { logoOk = true; zeichne(); };
+  logo.src = "/marke/casi-logo.svg";
+
+  // ---------- Formular
+  function formular() {
+    [].forEach.call(document.querySelectorAll("[data-feld]"), function (x) { x.value = K[x.dataset.feld] || ""; });
+    [].forEach.call(document.querySelectorAll("[data-fuer]"), function (x) { x.hidden = x.dataset.fuer.split(" ").indexOf(K.motiv) < 0; });
+    $("k-text-label").textContent = K.motiv === "zitat" ? "Zitat (mit Anführungszeichen)" : K.motiv === "kennzahl" ? "Was die Zahl bedeutet" : "Satz (optional)";
+    var z = $("k-zeilen"); z.innerHTML = "";
+    K.zeilen.forEach(function (r, i) {
+      var w = document.createElement("div"); w.className = "zweispaltig";
+      w.innerHTML = '<div><label>Bezeichnung</label><input></div><div><label>Angabe</label><input></div>';
+      var ins = w.querySelectorAll("input"); ins[0].value = r.label; ins[1].value = r.wert;
+      ins[0].oninput = function () { r.label = this.value; neu(); }; ins[1].oninput = function () { r.wert = this.value; neu(); };
+      z.appendChild(w);
+    });
+  }
+  [].forEach.call(document.querySelectorAll("[data-feld]"), function (x) {
+    x.addEventListener(x.tagName === "SELECT" ? "change" : "input", function () { K[x.dataset.feld] = x.value; if (x.tagName === "SELECT") formular(); neu(); });
+  });
+  $("k-zeile-plus").onclick = function () { K.zeilen.push({ label: "", wert: "" }); formular(); neu(); };
+  $("k-bild").onchange = function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    var r = new FileReader(); r.onload = function () { var i = new Image(); i.onload = function () { bild = i; zeichne(); }; i.src = r.result; }; r.readAsDataURL(f);
+  };
+
+  // ---------- Satz
+  function setz(ctx, gewicht, groesse, familie, stil) { ctx.font = (stil || "normal") + " " + gewicht + " " + groesse + "px " + familie; }
+  function umbruch(ctx, text, breite) {
+    var out = [];
+    String(text || "").split("\n").forEach(function (absatz) {
+      var zeile = "";
+      absatz.split(/\s+/).filter(Boolean).forEach(function (wort) {
+        var t = zeile ? zeile + " " + wort : wort;
+        if (ctx.measureText(t).width > breite && zeile) { out.push(zeile); zeile = wort; } else zeile = t;
+      });
+      out.push(zeile);
+    });
+    return out;
+  }
+  // größte Schrift zwischen max und min, bei der der Text in Breite und Höhe passt
+  function passend(ctx, text, o) {
+    for (var g = o.max; g >= o.min; g -= 2) {
+      setz(ctx, o.gewicht, g, o.familie, o.stil);
+      var z = umbruch(ctx, text, o.breite);
+      var breitOk = z.every(function (l) { return ctx.measureText(l).width <= o.breite; });
+      if (breitOk && z.length * g * o.zeilenabstand <= o.hoehe) return { g: g, z: z, h: z.length * g * o.zeilenabstand };
+    }
+    setz(ctx, o.gewicht, o.min, o.familie, o.stil);
+    var zz = umbruch(ctx, text, o.breite);
+    return { g: o.min, z: zz, h: zz.length * o.min * o.zeilenabstand };
+  }
+  function schreib(ctx, b, x, y, farbe, zeilenabstand) {
+    ctx.fillStyle = farbe; ctx.textBaseline = "alphabetic";
+    b.z.forEach(function (l, i) { ctx.fillText(l, x, y + b.g * 0.82 + i * b.g * zeilenabstand); });
+    return y + b.h;
+  }
+  function rund(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+
+  function male(canvas, k) {
+    var F = FORMATE[k.format] || FORMATE.hoch, W = F[0], H = F[1];
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext("2d");
+    var u = Math.sqrt(W * H) / 1080, M = Math.round(80 * u), grau = k.hintergrund === "grau";
+    var quer = W > H;
+    ctx.fillStyle = grau ? C.block : C.papier; ctx.fillRect(0, 0, W, H);
+
+    // Kopf: Wortmarke; Fuß: Adresse
+    var lh = 40 * u;
+    if (logoOk) ctx.drawImage(logo, M, M, lh * 510.75 / 169.58, lh);
+    setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = C.leise; ctx.textBaseline = "alphabetic";
+    ctx.fillText("casinitiative.org", M, H - M);
+
+    var BW = W - 2 * M, oben = M + lh + 56 * u, unten = H - M - 24 * u - 56 * u, frei = unten - oben;
+    var bloecke = []; // von unten nach oben gestapelt: [hoehe, malfunktion]
+    function block(h, f, abstand) { bloecke.push({ h: h, f: f, a: abstand || 0 }); }
+    var kicker = (k.kicker || "").trim();
+
+    if (k.motiv === "zitat") {
+      var name = (k.name || "").trim(), fn = (k.funktion || "").trim();
+      var nh = (name ? 30 * u * 1.3 : 0) + (fn ? 24 * u * 1.35 : 0);
+      var q = passend(ctx, k.text || "„Zitat“", { max: Math.round(64 * u), min: Math.round(30 * u), gewicht: 400, familie: SERIF, breite: BW * (quer ? 1 : 0.94), hoehe: frei - nh - 40 * u, zeilenabstand: 1.3 });
+      block(q.h, function (y) { setz(ctx, 400, q.g, SERIF); schreib(ctx, q, M, y, C.tinte, 1.3); }, 40 * u);
+      if (name || fn) block(nh, function (y) {
+        if (name) { setz(ctx, 600, Math.round(30 * u), SANS); ctx.fillStyle = C.tinte; ctx.fillText(name, M, y + 30 * u * 0.95); y += 30 * u * 1.3; }
+        if (fn) { setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(fn, M, y + 24 * u * 0.95); }
+      });
+    } else if (k.motiv === "kennzahl") {
+      var tz = (k.text || "").trim(), qu = (k.quelle || "").trim();
+      setz(ctx, 400, Math.round(36 * u), SERIF);
+      var tb = tz ? passend(ctx, tz, { max: Math.round(38 * u), min: Math.round(26 * u), gewicht: 400, familie: SERIF, breite: BW * 0.9, hoehe: frei * 0.4, zeilenabstand: 1.4 }) : null;
+      var zb = passend(ctx, k.zahl || "0", { max: Math.round((quer ? 200 : 260) * u), min: Math.round(80 * u), gewicht: 600, familie: SANS, breite: BW, hoehe: frei - (tb ? tb.h : 0) - 80 * u, zeilenabstand: 1.0 });
+      block(zb.h, function (y) { setz(ctx, 600, zb.g, SANS); schreib(ctx, zb, M - zb.g * 0.04, y, C.tinte, 1.0); }, 28 * u);
+      if (tb) block(tb.h, function (y) { setz(ctx, 400, tb.g, SERIF); schreib(ctx, tb, M, y, C.tinte, 1.4); }, 24 * u);
+      if (qu) block(22 * u * 1.4, function (y) { setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText("Source: " + qu, M, y + 22 * u * 0.95); });
+    } else {
+      // Aussage, Termin, Bild: Kicker, Titel, darunter Satz / Termin-Box / Bild
+      var zeilen = (k.zeilen || []).filter(function (r) { return (r.wert || "").trim(); });
+      var boxH = 0, PAD = 32 * u, ZH = 30 * u * 1.25 + 22 * u * 1.3 + 2 * 18 * u;
+      if (k.motiv === "termin" && zeilen.length) boxH = 2 * PAD + zeilen.length * ZH - 2 * 18 * u;
+      var bildH = 0;
+      if (k.motiv === "bild") bildH = Math.round(frei * (quer ? 1 : 0.58));
+      var satz = k.motiv === "aussage" ? (k.text || "").trim() : "";
+      setz(ctx, 400, Math.round(34 * u), SERIF);
+      var sb = satz ? passend(ctx, satz, { max: Math.round(34 * u), min: Math.round(24 * u), gewicht: 400, familie: SERIF, breite: BW * 0.92, hoehe: frei * 0.35, zeilenabstand: 1.4 }) : null;
+      var kh = kicker ? 28 * u * 1.3 + 14 * u : 0;
+      var rest = frei - kh - (sb ? sb.h + 32 * u : 0) - (boxH ? boxH + 48 * u : 0) - (bildH && !quer ? bildH + 48 * u : 0);
+      var titelBreite = quer && bildH ? BW * 0.5 : BW;
+      var tt = passend(ctx, k.titel || "Titel", { max: Math.round((k.motiv === "bild" ? 64 : 92) * u), min: Math.round(40 * u), gewicht: 600, familie: SANS, breite: titelBreite, hoehe: Math.max(rest, 60 * u), zeilenabstand: 1.08 });
+      if (bildH && !quer) block(bildH, function (y) { bildMalen(ctx, M, y, BW, bildH, 16 * u); }, 48 * u);
+      if (bildH && quer) bildMalen(ctx, M + BW * 0.55, oben, BW * 0.45, frei, 16 * u);
+      if (kicker) block(28 * u * 1.3, function (y) { setz(ctx, 400, Math.round(28 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(kicker, M, y + 28 * u * 0.95); }, 14 * u);
+      block(tt.h, function (y) { setz(ctx, 600, tt.g, SANS); schreib(ctx, tt, M - tt.g * 0.03, y, C.tinte, 1.08); }, sb || boxH ? 32 * u : 0);
+      if (sb) block(sb.h, function (y) { setz(ctx, 400, sb.g, SERIF); schreib(ctx, sb, M, y, C.tinte, 1.4); });
+      if (boxH) block(boxH, function (y) {
+        if (grau) { ctx.fillStyle = C.papier; rund(ctx, M, y, BW, boxH, 16 * u); ctx.fill(); ctx.strokeStyle = C.kante; ctx.lineWidth = Math.max(1, 2 * u); ctx.stroke(); }
+        else { ctx.fillStyle = C.block; rund(ctx, M, y, BW, boxH, 16 * u); ctx.fill(); }
+        var yy = y + PAD;
+        zeilen.forEach(function (r, i) {
+          if (i) { ctx.fillStyle = C.kante; ctx.fillRect(M + PAD, yy - 18 * u, BW - 2 * PAD, Math.max(1, 2 * u)); }
+          setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(r.label || "", M + PAD, yy + 22 * u * 0.95);
+          setz(ctx, 600, Math.round(30 * u), SANS); ctx.fillStyle = C.tinte;
+          var w = r.wert; while (ctx.measureText(w).width > BW - 2 * PAD && w.length > 4) w = w.slice(0, -2) + "…";
+          ctx.fillText(w, M + PAD, yy + 22 * u * 1.3 + 28 * u);
+          yy += ZH;
+        });
+      }, 48 * u);
+      // Block-Abstände: Abstand gehört zum vorigen Block
+      bloecke.forEach(function (b, i) { if (i < bloecke.length - 1 && !b.a) b.a = 0; });
+    }
+
+    // Stapel unten bündig über dem Fuß
+    var gesamt = bloecke.reduce(function (s, b, i) { return s + b.h + (i < bloecke.length - 1 ? b.a : 0); }, 0);
+    var y = Math.max(oben, unten - gesamt);
+    // Bild steht oben, Text darunter
+    if (k.motiv === "bild" && !quer) y = oben;
+    bloecke.forEach(function (b) { b.f(y); y += b.h + b.a; });
+    return canvas;
+  }
+  function bildMalen(ctx, x, y, w, h, r) {
+    ctx.save(); rund(ctx, x, y, w, h, r); ctx.clip();
+    if (bild) {
+      var s = Math.max(w / bild.width, h / bild.height), bw = bild.width * s, bh = bild.height * s;
+      ctx.drawImage(bild, x + (w - bw) / 2, y + (h - bh) / 2, bw, bh);
+    } else {
+      ctx.fillStyle = K.hintergrund === "grau" ? C.papier : C.block; ctx.fillRect(x, y, w, h);
+      setz(ctx, 400, Math.round(24 * Math.sqrt(ctx.canvas.width * ctx.canvas.height) / 1080), SANS); ctx.fillStyle = C.leise; ctx.fillText("Bild auswählen", x + 24, y + 48);
+    }
+    ctx.restore();
+  }
+
+  function altText() {
+    var t = [];
+    if (K.motiv === "zitat") t.push("Quote" + (K.name ? " by " + K.name : "") + ": " + (K.text || ""));
+    else if (K.motiv === "kennzahl") t.push((K.zahl || "") + " – " + (K.text || "") + (K.quelle ? " (Source: " + K.quelle + ")" : ""));
+    else {
+      if (K.kicker) t.push(K.kicker + ":");
+      t.push((K.titel || "").replace(/\n/g, " "));
+      if (K.motiv === "aussage" && K.text) t.push(K.text);
+      if (K.motiv === "termin") t.push(K.zeilen.filter(function (r) { return r.wert; }).map(function (r) { return r.label + ": " + r.wert; }).join(", "));
+    }
+    return ("CASI – " + t.join(" ")).replace(/\s+/g, " ").trim();
+  }
+
+  var zeit;
+  function zeichne() { male($("k-canvas"), K); var F = FORMATE[K.format]; $("k-masse").textContent = F[0] + " × " + F[1] + " px"; $("k-alt").value = altText(); }
+  function neu() { merk(); clearTimeout(zeit); zeit = setTimeout(zeichne, 60); }
+
+  function dateiname(f) { return "CASI-Kachel-" + NAMEN[f] + "-" + (K.titel || K.zahl || K.name || K.motiv).replace(/[^\wäöüÄÖÜß-]+/g, "-").slice(0, 40).replace(/-+$/, "") + ".png"; }
+  function speichere(canvas, name) {
+    return new Promise(function (ok) { canvas.toBlob(function (b) {
+      var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); ok(); }, 400);
+    }, "image/png"); });
+  }
+  $("k-png").onclick = function () { speichere($("k-canvas"), dateiname(K.format)).then(function () { $("k-status").textContent = "PNG gespeichert."; }); };
+  $("k-alle").onclick = function () {
+    var p = Promise.resolve();
+    Object.keys(FORMATE).forEach(function (f) { p = p.then(function () { return speichere(male(document.createElement("canvas"), Object.assign({}, K, { format: f })), dateiname(f)); }); });
+    p.then(function () { $("k-status").textContent = "Drei PNG gespeichert (4:5, 1:1, Link-Bild)."; });
+  };
+  $("k-kopieren").onclick = function () {
+    $("k-canvas").toBlob(function (b) {
+      if (!window.ClipboardItem) { $("k-status").textContent = "Kopieren nicht möglich – bitte herunterladen."; return; }
+      navigator.clipboard.write([new ClipboardItem({ "image/png": b })]).then(function () { $("k-status").textContent = "Bild kopiert."; }, function () { $("k-status").textContent = "Kopieren nicht möglich – bitte herunterladen."; });
+    }, "image/png");
+  };
+  $("k-alt-kopieren").onclick = function () { navigator.clipboard.writeText($("k-alt").value).then(function () { $("k-status").textContent = "Alternativtext kopiert."; }); };
+
+  // ---------- Vorausgefüllte Links: #k=<"z." + base64url(deflate-raw(JSON))> – erzeugt vom Connector-Tool casi_kachel_link
+  function entpacke(s) {
+    var b64 = s.slice(2).replace(/-/g, "+").replace(/_/g, "/"); while (b64.length % 4) b64 += "=";
+    var bin = atob(b64), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    if (s.slice(0, 2) === "j.") return Promise.resolve(JSON.parse(new TextDecoder().decode(bytes)));
+    return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text().then(JSON.parse);
+  }
+  function ausLink() {
+    var p = new URLSearchParams(location.hash.replace(/^#/, ""));
+    if (!p.has("k")) return;
+    entpacke(p.get("k")).then(function (d) {
+      K = Object.assign({}, STANDARD);
+      Object.keys(STANDARD).forEach(function (key) { if (d[key] !== undefined && d[key] !== null) K[key] = d[key]; });
+      if (!Array.isArray(K.zeilen)) K.zeilen = STANDARD.zeilen;
+      K.zeilen = K.zeilen.map(function (r) { return { label: r.label || "", wert: r.wert || "" }; });
+      formular(); neu(); $("vorbelegt").hidden = false;
+      history.replaceState(null, "", location.pathname + location.search);
+    }).catch(function () { $("k-status").textContent = "Der Link ließ sich nicht lesen – bitte neu erzeugen lassen."; });
+  }
+
+  formular();
+  document.fonts.load("600 40px 'PP Mori'").then(function () { return Promise.all([document.fonts.load("400 40px 'PP Mori'"), document.fonts.load("400 40px 'IBM Plex Serif'")]); }).then(zeichne, zeichne);
+  zeichne();
+  ausLink();
+  window.addEventListener("hashchange", ausLink);
+  window.CASI_KACHEL = { male: male, setze: function (k) { K = Object.assign({}, STANDARD, k); formular(); zeichne(); } };
+})();
+</script>
+</body>
+</html>

@@ -43,6 +43,7 @@ FONTS = [
 BOX_PROMPT = "Text in der Box"
 EMU = 914400
 BOX_PAD = int(0.3 * EMU)
+RADIUS = 0.1  # Eckenradius der Boxen in Zoll (Plakate setzen ihn je Format)
 REL_FONT = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/font"
 CT_PRES = "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"
 CT_POTX = "application/vnd.openxmlformats-officedocument.presentationml.template.main+xml"
@@ -101,7 +102,7 @@ def exact_radius(xml):
     So decken sich Layout-Box und Folien-Box an den oberen Ecken genau."""
     def radius(m):
         w, h = int(m.group(1)), int(m.group(2))
-        adj = round(0.1 * EMU / min(w, h) * 100000)
+        adj = round(RADIUS * EMU / min(w, h) * 100000)
         return f'<a:ext cx="{w}" cy="{h}"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val {adj}"/></a:avLst>'
     return re.sub(r'<a:ext cx="(\d+)" cy="(\d+)"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val \d+"/></a:avLst>', radius, xml)
 

@@ -11,7 +11,7 @@ import sys
 import zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from whitepaper import SRC, CT_DOC, CT_DOT, run, para, field, fld, styles, header  # noqa: E402
+from whitepaper import SRC, CT_DOC, CT_DOT, ordne, run, para, field, fld, styles, header  # noqa: E402
 
 HDR_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"
 FTR_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"
@@ -145,7 +145,7 @@ def build(out_dir):
                     d = files[n]
                     if n == "[Content_Types].xml":
                         d = d.decode().replace(CT_DOC, ctype).encode()
-                    z.writestr(n, d)
+                    z.writestr(n, ordne(n, d))
             print("geschrieben:", out)
 
     os.makedirs(out_dir, exist_ok=True)
