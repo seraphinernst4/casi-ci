@@ -28,7 +28,7 @@
     {
       "datei": "CASI-Whitepaper.dotx",
       "titel": "Word-Vorlage Whitepaper",
-      "wofuer": "Every CASI whitepaper or paper. Double-click opens a new document: cover with input fields (series · number, title, abstract, authors, publisher · date), automatic contents, sample page with every style (CASI Kicker, CASI Ueberschrift 1/2, CASI Fliesstext, CASI Liste, figure field, CASI Bildunterschrift), references and imprint. Header fills itself from the cover. Fonts embedded. Export as PDF for print.",
+      "wofuer": "Every CASI whitepaper or paper. Double-click opens a new document: cover with input fields (series · number, title, abstract, authors, publisher · date), automatic contents, sample page with every style (CASI Kicker, CASI Überschrift 1/2, CASI Fließtext, CASI Liste, figure field, CASI Bildunterschrift), references and imprint. Header fills itself from the cover. Fonts embedded. Export as PDF for print.",
       "medium": "document"
     },
     {

@@ -80,11 +80,11 @@ def body(orig_paras):
     b.append(field("CASIMeta", "Autorinnen und Autoren", "Autorinnen und Autoren, mit · getrennt"))
     b.append(field("CASIMeta", "Herausgeber und Datum", "The Carbon Accounting Standards Initiative (CASI) · Monat Jahr"))
     b.append(para("CASIUeberschrift2", run("Contents")))
-    # Inhaltsverzeichnis: alle Absätze in „CASI Ueberschrift 1“, ohne Seitenzahlen (wie im Neusatz)
+    # Inhaltsverzeichnis: alle Absätze in „CASI Überschrift 1“, ohne Seitenzahlen (wie im Neusatz)
     b.append(
         '<w:p><w:pPr><w:pStyle w:val="TOC1"/></w:pPr>'
         '<w:r><w:fldChar w:fldCharType="begin" w:dirty="true"/></w:r>'
-        '<w:r><w:instrText xml:space="preserve"> TOC \\n \\t "CASI Ueberschrift 1,1" </w:instrText></w:r>'
+        '<w:r><w:instrText xml:space="preserve"> TOC \\n \\t "CASI Überschrift 1,1" </w:instrText></w:r>'
         '<w:r><w:fldChar w:fldCharType="separate"/></w:r>'
         + run("Inhaltsverzeichnis – Rechtsklick → „Feld aktualisieren“")
         + "</w:p>"
@@ -93,9 +93,9 @@ def body(orig_paras):
 
     # ---------------- Musterseite: jede Formatvorlage einmal
     b.append(para("CASIKicker", run("Section 1"), "<w:pageBreakBefore/>"))
-    b.append(para("CASIUeberschrift1", run("1\tÜberschrift 1 – CASI Ueberschrift 1")))
-    b.append(para("CASIFliesstext", run("Fließtext – CASI Fliesstext: IBM Plex Serif 10,5 pt. Den Text des Autors unverändert übernehmen; Kursiv bleibt kursiv, Fett wird SemiBold.")))
-    b.append(para("CASIUeberschrift2", run("Überschrift 2 – CASI Ueberschrift 2")))
+    b.append(para("CASIUeberschrift1", run("1\tÜberschrift 1 – CASI Überschrift 1")))
+    b.append(para("CASIFliesstext", run("Fließtext – CASI Fließtext: IBM Plex Serif 10,5 pt. Den Text des Autors unverändert übernehmen; Kursiv bleibt kursiv, Fett wird SemiBold.")))
+    b.append(para("CASIUeberschrift2", run("Überschrift 2 – CASI Überschrift 2")))
     b.append(para("CASIFliesstext", run("Weiterer Absatz im Fließtext.")))
     b.append(para("CASIListe", run("—\tListenpunkt – CASI Liste, mit Gedankenstrich und Tabulator.")))
     b.append(para("CASIListe", run("—\tZweiter Listenpunkt.")))
@@ -165,7 +165,12 @@ def styles(xml):
         m = style_block(sid)
         if m:
             xml = xml.replace(m.group(0), "")
-    return xml.replace("</w:styles>", extra + "</w:styles>")
+    xml = xml.replace("</w:styles>", extra + "</w:styles>")
+    # Sichtbare Namen mit Umlauten; die Kennungen (styleId) bleiben ohne, damit nichts bricht
+    for old, new in (("CASI Ueberschrift 1", "CASI Überschrift 1"), ("CASI Ueberschrift 2", "CASI Überschrift 2"),
+                     ("CASI Ueberschrift 3", "CASI Überschrift 3"), ("CASI Fliesstext", "CASI Fließtext"), ("CASI Fussnote", "CASI Fußnote")):
+        xml = xml.replace(f'<w:name w:val="{old}"/>', f'<w:name w:val="{new}"/>')
+    return xml
 
 
 def header(xml):

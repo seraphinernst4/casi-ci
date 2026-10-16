@@ -15,6 +15,8 @@ The look is the website casinitiative.org: white page, PP Mori and IBM Plex Seri
 
 **2. The author's text is untouchable.** Same words, spelling, case, punctuation, numbers, order. "CO2" stays "CO2" unless the source uses CO₂. Never add (taglines, kickers, titles, headers/footers, "Source:", numbering, notes), never remove or merge, never change case. Typos are listed in the reply, not fixed. Italics stay italic, bold becomes SemiBold, underlines go.
 
+**German text always with ä, ö, ü, ß** – in documents, style names, labels, descriptions and read-me files. Plain ASCII (ae, oe, ue, ss) only in file names, internal IDs and URLs.
+
 ## Colour: the website's UI colours only
 
 | Role | Hex |
@@ -149,12 +151,12 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 | CASI Vorspann | abstract on the cover | IBM Plex Serif 10.5 pt Slate |
 | CASI Meta | authors, publisher · date | PP Mori 8.5 pt Slate |
 | CASI Kicker | small line above a chapter heading (Foreword, Section 1, Bibliography, Imprint) | PP Mori SemiBold 9.5 pt |
-| CASI Ueberschrift 1 / 2 / 3 | headings (number and tab before the text if the author numbered) | PP Mori SemiBold 18.5 / 12.5 / 10.5 pt |
-| CASI Fliesstext | running text | IBM Plex Serif 10.5 pt / 1.6 |
+| CASI Überschrift 1 / 2 / 3 | headings (number and tab before the text if the author numbered) | PP Mori SemiBold 18.5 / 12.5 / 10.5 pt |
+| CASI Fließtext | running text | IBM Plex Serif 10.5 pt / 1.6 |
 | CASI Liste | list item: "—", tab, text | IBM Plex Serif 10.5 pt, hanging indent |
 | CASI Abbildung / CASI Bildunterschrift | figure / caption ("Figure N" SemiBold Deep Green, then the author's caption) | PP Mori 8.5 pt Slate |
 | CASI Literatur | references | IBM Plex Serif 9.5 pt |
-| CASI Fussnote | footnotes | IBM Plex Serif 8.5 pt |
+| CASI Fußnote | footnotes | IBM Plex Serif 8.5 pt |
 
 A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, series, title, abstract, authors, publisher · date, contents (automatic, no page numbers). Running header from the cover (series · title) above a hairline `#E1E7E5`; footer "Carbon Accounting Standards Initiative · casinitiative.org" and page number. Every chapter starts on a new page with its kicker. Headings: the author's levels, no numbering unless the author numbered. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. External figures unchanged, internal figures in the website graphic style (see Graphics); captions in the author's wording and position. Print: export as PDF from Word (fonts are embedded).
 
