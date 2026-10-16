@@ -23,10 +23,10 @@ Wenn du den CASI-Skill in Claude änderst: denselben Text hier in `ci/SKILL.md` 
 
 ## Einrichten (pro Person, einmalig)
 
-**Claude (Web/Desktop):** Einstellungen → Connectors → *Benutzerdefinierten Connector hinzufügen* → Name „CASI CI“, URL `https://<projekt>.vercel.app/mcp/<SCHLÜSSEL>`.
+**Claude (Web/Desktop):** Einstellungen → Connectors → *Benutzerdefinierten Connector hinzufügen* → Name „CASI CI“, URL `https://casi-ci.vercel.app/mcp/<SCHLÜSSEL>`.
 Im Chat dann z. B.: „Mach mir Folien im CASI-Design“ – Claude ruft die CI selbst ab.
 
-**Claude Code:** `claude mcp add --transport http casi-ci https://<projekt>.vercel.app/mcp/<SCHLÜSSEL>`
+**Claude Code:** `claude mcp add --transport http casi-ci https://casi-ci.vercel.app/mcp/<SCHLÜSSEL>`
 
 **Andere Tools (Cursor, ChatGPT, Copilot …):** dieselbe URL als „Remote MCP Server / Streamable HTTP“ eintragen.
 
