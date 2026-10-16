@@ -1,6 +1,6 @@
 ---
 name: "casi-skill"
-description: "Corporate identity of CASI (casinitiative.org) and ICCA — slides, papers, Word/PDF, posters, social, web, charts, emails and newsletters. Two typefaces, website UI colours only, grey rounded boxes, author's text unchanged."
+description: "Corporate identity of CASI (casinitiative.org) and ICCA — slides, papers, Word/PDF, posters, social, web, charts, emails and newsletters. Two typefaces, website UI colours (extra colours for graphics), grey rounded boxes, official templates, author's text unchanged."
 ---
 
 # CASI Corporate Identity
@@ -131,7 +131,7 @@ Web: as the website (reading text 17 px serif, links in the text colour). Poster
 
 1. Text identical to the source; nothing added or removed.
 2. Right typeface per element, set on every run; Regular/Italic/SemiBold only.
-3. Only the UI colours above, in emails too; graphic colours stay in their graphics.
+3. Text, surfaces and UI only in the UI colours, in emails too; extra colours only in graphics and charts.
 4. Boxes grey or white-edged, 8/10 px corners, only where the author had them; lines only with meaning.
 5. Emails: content linked to the website with absolute URLs, plain-text version, test mail sent.
 6. Website changes: every visible text editable in Backend → Texte.
