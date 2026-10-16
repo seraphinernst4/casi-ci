@@ -7,6 +7,8 @@ description: "Corporate identity of CASI (casinitiative.org) and ICCA — slides
 
 The look is the website casinitiative.org: white page, PP Mori and IBM Plex Serif, a few calm UI colours, light grey boxes with rounded corners, generous space.
 
+**Always current version:** this file mirrors `ci/SKILL.md` in the GitHub repo `seraphinernst4/casi-ci`. If the CASI CI connector (`https://ci.casinitiative.org/mcp/…`) is available, prefer its `casi_ci_guidelines` and `casi_templates` tools – they always serve the latest rules and templates.
+
 ## Two rules above all
 
 **1. Less is more.** Dress the author's material in CASI type and boxes — add nothing for branding's sake. A plain page in the two typefaces is a correct CASI page. When unsure: leave it out.
