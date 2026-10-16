@@ -28,7 +28,6 @@ const SIDE = 4.2; // Breite der Box neben Text
 const BOX_PROMPT = "Text in der Box";
 
 const pageNumber = { x: W - M - 1.5, y: 7.07, w: 1.5, h: 0.2, fontFace: SANS, fontSize: 7.5, color: C.leise, align: "right", valign: "top", margin: 0 };
-const smallC = { image: { x: M, y: 7.04, w: 0.2 * C_RATIO, h: 0.2, path: C_TINTE, altText: "CASI" } };
 
 const title = () => ({
   placeholder: {
@@ -47,7 +46,7 @@ const text = (name, x, y, w, h, extra = {}) => ({
 const label = (name, x, y, w, h, extra = {}) => text(name, x, y, w, h, { fontFace: SANS, lineSpacingMultiple: 1.2, paraSpaceAfter: 0, ...extra });
 const boxText = (name, x, y, w, h) => text(name, x, y, w, h, { prompt: BOX_PROMPT });
 
-const content = (titleName, objects) => ({ title: titleName, background: { color: C.papier }, slideNumber: pageNumber, objects: [smallC, ...objects] });
+const content = (titleName, objects) => ({ title: titleName, background: { color: C.papier }, slideNumber: pageNumber, objects });
 
 function defineLayouts(pres) {
   // 1 Titel (Deckblatt)

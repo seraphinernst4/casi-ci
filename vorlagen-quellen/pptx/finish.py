@@ -110,10 +110,10 @@ def text_height(paras, width_emu, fonts_dir):
     tt = TTFont(ttf)
     upm = tt["head"].unitsPerEm
     os2 = tt["OS/2"]
-    single = max(tt["hhea"].ascent - tt["hhea"].descent + tt["hhea"].lineGap, os2.usWinAscent + os2.usWinDescent) / upm
-    line = single * size * 1.35
+    # Gemessen in PowerPoint (Mac): IBM Plex Serif 12 pt bei 135 % → Zeilenabstand ≈ 1,625 × Schriftgröße
+    line = 1.625 * size
     font = ImageFont.truetype(ttf, size * 10)
-    inner = (width_emu - 2 * BOX_PAD) / EMU * 72 * 10 * 0.94  # Sicherheitsabstand: PowerPoint bricht früher um
+    inner = (width_emu - 2 * BOX_PAD) / EMU * 72 * 10 * 0.97  # Sicherheitsabstand: PowerPoint bricht früher um
     lines = 0
     for para in paras:
         cur = ""
@@ -127,7 +127,7 @@ def text_height(paras, width_emu, fonts_dir):
                 cur = test
         lines += n
     pts = lines * line + 6 * (len(paras) - 1)
-    return int((pts * 1.06 / 72 + 0.6 + 0.15) * EMU)
+    return int(((pts + line) / 72 + 2 * BOX_PAD / EMU) * EMU)  # eine Zeile Reserve
 
 
 def fix_slide(xml, boxes, fonts_dir):
@@ -150,7 +150,15 @@ def fix_slide(xml, boxes, fonts_dir):
         h = text_height(paras, w, fonts_dir)
         sp = re.sub(r'(<a:ext cx="\d+" cy=")\d+(")', lambda e: f"{e.group(1)}{h}{e.group(2)}", sp, count=1)
         return sp
-    return re.sub(r"<p:sp>[\s\S]*?</p:sp>", one, xml)
+    xml = re.sub(r"<p:sp>[\s\S]*?</p:sp>", one, xml)
+    # Boxen nebeneinander (gleiche y-Position) bekommen die gleiche Höhe – die größte
+    rows = {}
+    for m in re.finditer(r'<a:off x="\d+" y="(\d+)"/><a:ext cx="\d+" cy="(\d+)"/></a:xfrm><a:prstGeom prst="roundRect"', xml):
+        rows.setdefault(m.group(1), []).append(int(m.group(2)))
+    for y, hs in rows.items():
+        if len(hs) > 1:
+            xml = re.sub(rf'(<a:off x="\d+" y="{y}"/><a:ext cx="\d+" cy=")\d+("/></a:xfrm><a:prstGeom prst="roundRect")', lambda e: f"{e.group(1)}{max(hs)}{e.group(2)}", xml)
+    return xml
 
 
 def process(src, fonts_dir, potx=False, grafiken=None):

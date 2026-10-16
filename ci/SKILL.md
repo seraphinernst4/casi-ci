@@ -110,7 +110,7 @@ Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-news
 
 **Template:** `CASI-Folien.potx` (connector tool `casi_templates`). Start every deck from it and pick the layout per slide: Titel, Abschnitt, Inhalt, Nur Titel, Zwei Spalten, Text mit Box, Zwei Boxen, Abbildung, Schluss, Leer. PP Mori and IBM Plex Serif are embedded.
 
-16:9, 13.333 × 7.5 in, white. Margins 0.67 in; content y 1.05–7.0. Title (only if the author has one) PP Mori 17 pt SemiBold Deep Green at (0.67, 0.54), w 11.99. Running text IBM Plex Serif 12 pt / 1.35 Deep Green, paragraphs 6 pt apart; labels inside running text (a term above its explanation) PP Mori SemiBold as their own paragraph. Page number PP Mori 7.5 pt Slate right-aligned at y 7.07; the short logo (the "C") small at bottom left (0.67, 7.04, height 0.2 in) on every slide except cover and closing.
+16:9, 13.333 × 7.5 in, white. Margins 0.67 in; content y 1.05–7.0. Title (only if the author has one) PP Mori 17 pt SemiBold Deep Green at (0.67, 0.54), w 11.99. Running text IBM Plex Serif 12 pt / 1.35 Deep Green, paragraphs 6 pt apart; labels inside running text (a term above its explanation) PP Mori SemiBold as their own paragraph. Page number PP Mori 7.5 pt Slate right-aligned at y 7.07. No logo on content slides – the "C" appears only on cover and closing.
 
 Boxes on slides grow with their text (`spAutoFit`), top-aligned at y 1.05, padding 0.3 in, `#EEF2F1`, never as large empty panels; only where the author had a box, panel or highlighted passage.
 
