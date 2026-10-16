@@ -127,7 +127,7 @@
 
   var logo = new Image(), logoOk = false;
   logo.onload = function () { logoOk = true; zeichne(); };
-  logo.src = "/marke/casi-logo.svg";
+  logo.src = "/marke/casi-logo-tinte.svg";
 
   // ---------- Formular
   function formular() {
@@ -192,14 +192,14 @@
     var F = FORMATE[k.format] || FORMATE.hoch, W = F[0], H = F[1];
     canvas.width = W; canvas.height = H;
     var ctx = canvas.getContext("2d");
-    var u = Math.sqrt(W * H) / 1080, M = Math.round(80 * u), grau = k.hintergrund === "grau";
+    var u = Math.sqrt(W * H) / 1080, M = Math.round(80 * u), grau = k.hintergrund === "grau"; var LEISE = grau ? C.tinte : C.leise; // auf grauem Grund keine Schrift in Slate (nur 4,41:1)
     var quer = W > H;
     ctx.fillStyle = grau ? C.block : C.papier; ctx.fillRect(0, 0, W, H);
 
     // Kopf: Wortmarke; Fuß: Adresse
     var lh = 40 * u;
     if (logoOk) ctx.drawImage(logo, M, M, lh * 510.75 / 169.58, lh);
-    setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = C.leise; ctx.textBaseline = "alphabetic";
+    setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = LEISE; ctx.textBaseline = "alphabetic";
     ctx.fillText("casinitiative.org", M, H - M);
 
     var BW = W - 2 * M, oben = M + lh + 56 * u, unten = H - M - 24 * u - 56 * u, frei = unten - oben;
@@ -214,7 +214,7 @@
       block(q.h, function (y) { setz(ctx, 400, q.g, SERIF); schreib(ctx, q, M, y, C.tinte, 1.3); }, 40 * u);
       if (name || fn) block(nh, function (y) {
         if (name) { setz(ctx, 600, Math.round(30 * u), SANS); ctx.fillStyle = C.tinte; ctx.fillText(name, M, y + 30 * u * 0.95); y += 30 * u * 1.3; }
-        if (fn) { setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(fn, M, y + 24 * u * 0.95); }
+        if (fn) { setz(ctx, 400, Math.round(24 * u), SANS); ctx.fillStyle = LEISE; ctx.fillText(fn, M, y + 24 * u * 0.95); }
       });
     } else if (k.motiv === "kennzahl") {
       var tz = (k.text || "").trim(), qu = (k.quelle || "").trim();
@@ -223,7 +223,7 @@
       var zb = passend(ctx, k.zahl || "0", { max: Math.round((quer ? 200 : 260) * u), min: Math.round(80 * u), gewicht: 600, familie: SANS, breite: BW, hoehe: frei - (tb ? tb.h : 0) - 80 * u, zeilenabstand: 1.0 });
       block(zb.h, function (y) { setz(ctx, 600, zb.g, SANS); schreib(ctx, zb, M - zb.g * 0.04, y, C.tinte, 1.0); }, 28 * u);
       if (tb) block(tb.h, function (y) { setz(ctx, 400, tb.g, SERIF); schreib(ctx, tb, M, y, C.tinte, 1.4); }, 24 * u);
-      if (qu) block(22 * u * 1.4, function (y) { setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText("Source: " + qu, M, y + 22 * u * 0.95); });
+      if (qu) block(22 * u * 1.4, function (y) { setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = LEISE; ctx.fillText("Source: " + qu, M, y + 22 * u * 0.95); });
     } else {
       // Aussage, Termin, Bild: Kicker, Titel, darunter Satz / Termin-Box / Bild
       var zeilen = (k.zeilen || []).filter(function (r) { return (r.wert || "").trim(); });
@@ -240,7 +240,7 @@
       var tt = passend(ctx, k.titel || "Titel", { max: Math.round((k.motiv === "bild" ? 64 : 92) * u), min: Math.round(40 * u), gewicht: 600, familie: SANS, breite: titelBreite, hoehe: Math.max(rest, 60 * u), zeilenabstand: 1.08 });
       if (bildH && !quer) block(bildH, function (y) { bildMalen(ctx, M, y, BW, bildH, 16 * u); }, 48 * u);
       if (bildH && quer) bildMalen(ctx, M + BW * 0.55, oben, BW * 0.45, frei, 16 * u);
-      if (kicker) block(28 * u * 1.3, function (y) { setz(ctx, 400, Math.round(28 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(kicker, M, y + 28 * u * 0.95); }, 14 * u);
+      if (kicker) block(28 * u * 1.3, function (y) { setz(ctx, 400, Math.round(28 * u), SANS); ctx.fillStyle = LEISE; ctx.fillText(kicker, M, y + 28 * u * 0.95); }, 14 * u);
       block(tt.h, function (y) { setz(ctx, 600, tt.g, SANS); schreib(ctx, tt, M - tt.g * 0.03, y, C.tinte, 1.08); }, sb || boxH ? 32 * u : 0);
       if (sb) block(sb.h, function (y) { setz(ctx, 400, sb.g, SERIF); schreib(ctx, sb, M, y, C.tinte, 1.4); });
       if (boxH) block(boxH, function (y) {
@@ -249,7 +249,7 @@
         var yy = y + PAD;
         zeilen.forEach(function (r, i) {
           if (i) { ctx.fillStyle = C.kante; ctx.fillRect(M + PAD, yy - 18 * u, BW - 2 * PAD, Math.max(1, 2 * u)); }
-          setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = C.leise; ctx.fillText(r.label || "", M + PAD, yy + 22 * u * 0.95);
+          setz(ctx, 400, Math.round(22 * u), SANS); ctx.fillStyle = grau ? C.leise : C.tinte; /* auf Grau Deep Green, Slate dort zu kontrastarm */ ctx.fillText(r.label || "", M + PAD, yy + 22 * u * 0.95);
           setz(ctx, 600, Math.round(30 * u), SANS); ctx.fillStyle = C.tinte;
           var w = r.wert; while (ctx.measureText(w).width > BW - 2 * PAD && w.length > 4) w = w.slice(0, -2) + "…";
           ctx.fillText(w, M + PAD, yy + 22 * u * 1.3 + 28 * u);

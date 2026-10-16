@@ -7,7 +7,7 @@ const pptxgen = require("pptxgenjs");
 
 const OUT = process.argv[2] || ".";
 const ASSETS = path.join(__dirname, "..", "assets");
-const LOGO = path.join(ASSETS, "casi-logo.png"); // Wortmarke CASI, 3000 × 996 px
+const LOGO = path.join(ASSETS, "casi-logo-tinte.png"); // Wortmarke CASI in Deep Green, 3000 × 996 px
 const LOGO_RATIO = 3000 / 996;
 const C = { papier: "FFFFFF", block: "EEF2F1", tinte: "0E4D49", leise: "5F7471" };
 const SANS = "PP Mori", SANS_SB = "PP Mori Semibold", SERIF = "IBM Plex Serif";
@@ -41,7 +41,7 @@ function build(name, f, beispiel) {
   const BILD_Y = 9.0 * s, BILD_H = BOX_Y - 0.45 * s - BILD_Y;
   const SP3 = (CW - 2 * PAD - 2 * 0.3 * s) / 3;
   const infoFeld = (i) => [
-    ph(`label${i + 1}`, M + PAD + i * (SP3 + 0.3 * s), BOX_Y + PAD, SP3, 0.3 * s, { fontFace: SANS, fontSize: pt(11), color: C.leise }, ["Datum", "Ort", "Anmeldung"][i]),
+    ph(`label${i + 1}`, M + PAD + i * (SP3 + 0.3 * s), BOX_Y + PAD, SP3, 0.3 * s, { fontFace: SANS, fontSize: pt(11) }, ["Datum", "Ort", "Anmeldung"][i]), // in der grauen Box Deep Green (Slate dort zu kontrastarm),
     ph(`info${i + 1}`, M + PAD + i * (SP3 + 0.3 * s), BOX_Y + PAD + 0.36 * s, SP3, BOX_H - 2 * PAD - 0.36 * s, { fontFace: SANS_SB, fontSize: pt(15), lineSpacingMultiple: 1.15 }, "Angabe"),
   ];
   pres.defineSlideMaster({

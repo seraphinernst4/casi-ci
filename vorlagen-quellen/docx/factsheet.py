@@ -1,6 +1,6 @@
 """Baut die CASI-Word-Vorlage „Factsheet“ (A4, eine bis zwei Seiten) und ein ausgefülltes Beispiel.
 
-Aufbau: Logo und Linie · Reihe · Titel · Vorspann · Kennzahlen (eine graue Box, drei Felder) ·
+Aufbau: Logo und Linie · Reihe · Titel · Vorspann · Kennzahlen (drei getrennte graue Boxen) ·
 zweispaltiger Text (Zwischenüberschriften, Fließtext, Liste) und Kontakt am Ende. Grundlage wie bei Dokument und Brief:
 der Neusatz von Whitepaper No. 1 (Formatvorlagen, Schriften, Logo, Kopf- und Fußzeilen).
 
@@ -20,25 +20,58 @@ BREITE = 9412  # Satzspiegel in Twips (A4, 22 mm links und rechts)
 
 def kennzahl_styles():
     return (
-        '<w:style w:type="paragraph" w:customStyle="1" w:styleId="CASIKennzahl"><w:name w:val="CASI Kennzahl"/><w:next w:val="CASIMeta"/><w:qFormat/>'
-        '<w:pPr><w:spacing w:before="0" w:after="40" w:line="240" w:lineRule="auto"/></w:pPr>'
+        '<w:style w:type="paragraph" w:customStyle="1" w:styleId="CASIKennzahl"><w:name w:val="CASI Kennzahl"/><w:next w:val="CASIKennzahltext"/><w:qFormat/>'
+        '<w:pPr><w:spacing w:before="0" w:after="40" w:line="240" w:lineRule="auto"/><w:ind w:left="0"/></w:pPr>'
         '<w:rPr><w:rFonts w:ascii="PP Mori Semibold" w:hAnsi="PP Mori Semibold" w:cs="PP Mori Semibold" w:eastAsia="PP Mori Semibold"/><w:color w:val="0E4D49"/><w:sz w:val="48"/></w:rPr></w:style>'
+        # Text in der grauen Box: Deep Green (Slate erreicht auf Grau nur 4,41:1)
+        '<w:style w:type="paragraph" w:customStyle="1" w:styleId="CASIKennzahltext"><w:name w:val="CASI Kennzahltext"/><w:basedOn w:val="CASIMeta"/><w:qFormat/>'
+        '<w:pPr><w:spacing w:before="0" w:after="0" w:line="288" w:lineRule="auto"/><w:ind w:left="0"/></w:pPr><w:rPr><w:color w:val="0E4D49"/></w:rPr></w:style>'
+    )
+
+
+# Drei getrennte graue Boxen (abgerundet, gleich hoch) nebeneinander.
+# Jede Box ist eine abgerundete Form mit Textfeld; feste Höhe für Zahl + drei Zeilen Erklärung.
+TW = 635  # EMU je Twip
+LUECKE = 284  # 5 mm zwischen den Boxen
+BOX_B = (BREITE - 2 * LUECKE) // 3
+BOX_H = 2400  # 42 mm: Zahl + bis zu vier Zeilen Erklärung
+RADIUS = 142  # 2,5 mm
+INNEN = (227, 255, 227, 227)  # links, oben, rechts, unten (4 / 4,5 / 4 / 4 mm)
+
+
+def box(n, inhalt):
+    cx, cy = BOX_B * TW, BOX_H * TW
+    adj = round(RADIUS / min(BOX_B, BOX_H) * 100000)
+    l, t, r, b = (v * TW for v in INNEN)
+    return (
+        '<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:left="0"/></w:pPr><w:r><w:drawing>'
+        f'<wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="{cx}" cy="{cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/>'
+        f'<wp:docPr id="{100 + n}" name="Kennzahl {n}"/><wp:cNvGraphicFramePr/>'
+        '<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.microsoft.com/office/word/2010/wordprocessingShape">'
+        '<wps:wsp><wps:cNvSpPr/><wps:spPr>'
+        f'<a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm>'
+        f'<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val {adj}"/></a:avLst></a:prstGeom>'
+        '<a:solidFill><a:srgbClr val="EEF2F1"/></a:solidFill><a:ln><a:noFill/></a:ln></wps:spPr>'
+        f'<wps:txbx><w:txbxContent>{inhalt}</w:txbxContent></wps:txbx>'
+        f'<wps:bodyPr rot="0" vert="horz" wrap="square" lIns="{l}" tIns="{t}" rIns="{r}" bIns="{b}" anchor="t" anchorCtr="0"><a:noAutofit/></wps:bodyPr>'
+        "</wps:wsp></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>"
     )
 
 
 def kennzahlen(werte):
-    """Drei Kennzahlen in einer grauen Box (eine schattierte Tabelle = eine graue Box)."""
-    w = BREITE // 3
-    shade = '<w:shd w:val="clear" w:color="auto" w:fill="EEF2F1"/>'
+    """Drei Kennzahlen in drei getrennten, gleich hohen grauen Boxen (Tabelle nur zum Ausrichten)."""
+    breiten = (BOX_B, LUECKE, BOX_B, LUECKE, BOX_B)
     out = [
-        '<w:tbl><w:tblPr><w:tblW w:w="%d" w:type="dxa"/><w:tblInd w:w="284" w:type="dxa"/>' % BREITE,
+        '<w:tbl><w:tblPr><w:tblW w:w="%d" w:type="dxa"/><w:tblInd w:w="0" w:type="dxa"/>' % sum(breiten),
         '<w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders>',
-        '<w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="255" w:type="dxa"/><w:left w:w="284" w:type="dxa"/><w:bottom w:w="227" w:type="dxa"/><w:right w:w="170" w:type="dxa"/></w:tblCellMar>',
+        '<w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="0" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar>',
         '<w:tblLook w:val="0000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="1" w:noVBand="1"/></w:tblPr>',
-        "<w:tblGrid>" + f'<w:gridCol w:w="{w}"/>' * 3 + "</w:tblGrid><w:tr>",
+        "<w:tblGrid>" + "".join(f'<w:gridCol w:w="{w}"/>' for w in breiten) + "</w:tblGrid><w:tr>",
     ]
-    for zahl, text in werte:
-        out.append(f'<w:tc><w:tcPr><w:tcW w:w="{w}" w:type="dxa"/>{shade}</w:tcPr>{zahl}{text}</w:tc>')
+    leer = '<w:p><w:pPr><w:spacing w:before="0" w:after="0"/></w:pPr></w:p>'
+    for i, w in enumerate(breiten):
+        inhalt = box(i // 2 + 1, "".join(werte[i // 2])) if i % 2 == 0 else leer
+        out.append(f'<w:tc><w:tcPr><w:tcW w:w="{w}" w:type="dxa"/></w:tcPr>{inhalt}</w:tc>')
     out.append("</w:tr></w:tbl>")
     return "".join(out)
 
@@ -64,9 +97,9 @@ def koerper(orig, sect0, beispiel=None):
     for i in range(3):
         if B:
             z, t = B["kennzahlen"][i]
-            zellen.append((para("CASIKennzahl", run(z)), para("CASIMeta", run(t), '<w:spacing w:after="0"/><w:ind w:left="0"/>')))
+            zellen.append((para("CASIKennzahl", run(z)), para("CASIKennzahltext", run(t))))
         else:
-            zellen.append((field("CASIKennzahl", f"Kennzahl {i + 1}", "00"), field("CASIMeta", f"Erklärung {i + 1}", "Was die Zahl bedeutet", '<w:spacing w:after="0"/><w:ind w:left="0"/>')))
+            zellen.append((field("CASIKennzahl", f"Kennzahl {i + 1}", "00"), field("CASIKennzahltext", f"Erklärung {i + 1}", "Was die Zahl bedeutet")))
     b.append(kennzahlen(zellen))
     # Ende Abschnitt 1 (einspaltig, erste Seite)
     b.append(f'<w:p><w:pPr><w:spacing w:after="0"/>{abschnitt(sect0, erste=True)}</w:pPr></w:p>')
