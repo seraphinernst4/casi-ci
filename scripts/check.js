@@ -22,6 +22,6 @@ for (const h of skillHex) if (!tokenHex.has(h)) fail(`Farbe ${h} steht in SKILL.
 
 import { existsSync } from "node:fs";
 const vl = JSON.parse(readFileSync("vorlagen/vorlagen.json", "utf8")).vorlagen;
-for (const v of vl) if (!existsSync("vorlagen/" + v.datei)) fail(`vorlagen.json nennt ${v.datei}, die Datei fehlt in vorlagen/`);
+for (const v of vl) if (v.datei && !existsSync("vorlagen/" + v.datei)) fail(`vorlagen.json nennt ${v.datei}, die Datei fehlt in vorlagen/`);
 
 if (!process.exitCode) console.log(`✓ CASI-CI geprüft: ${skillHex.size} Farben, SKILL.md und tokens.json stimmen überein`);

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CASI Mail-Baukasten</title>
+<style>
+  @font-face { font-family: "PP Mori"; font-weight: 400; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/PPMori-Regular.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "PP Mori"; font-weight: 600; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/PPMori-SemiBold.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/IBMPlexSerif-Regular.woff2) format("woff2"); font-display: swap; }
+  :root { --papier:#FFFFFF; --block:#EEF2F1; --tinte:#0E4D49; --leise:#5F7471; --linie:#E1E7E5; --kante:#C5D4D3; --akzent:#8B1538;
+          --sans:"PP Mori","Helvetica Neue",Helvetica,Arial,sans-serif; --serif:"IBM Plex Serif",Georgia,serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--papier); color: var(--tinte); font: 16px/1.5 var(--sans); }
+  main { max-width: 1120px; margin: 0 auto; padding: 48px 16px 80px; }
+  h1 { font-weight: 600; font-size: 30px; line-height: 1.15; margin: 0 0 8px; }
+  .lead { font-family: var(--serif); font-size: 17px; line-height: 1.6; margin: 0 0 32px; max-width: 680px; }
+  .reiter { display: flex; gap: 8px; margin: 0 0 28px; border-bottom: 1px solid var(--linie); }
+  .reiter button { font: inherit; font-size: 15px; background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 2px; margin-right: 18px; color: var(--leise); cursor: pointer; }
+  .reiter button[aria-selected="true"] { color: var(--tinte); border-bottom-color: var(--tinte); font-weight: 600; }
+  .teil { display: none; } .teil.an { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 860px) { .teil.an { grid-template-columns: 1fr; } }
+  label { display: block; font-size: 13px; color: var(--leise); margin: 0 0 4px; }
+  input, textarea { width: 100%; font: inherit; font-size: 15px; color: var(--tinte); background: #fff; border: 1px solid var(--kante); border-radius: 8px; padding: 9px 12px; margin: 0 0 14px; }
+  textarea { min-height: 72px; resize: vertical; font-family: var(--serif); }
+  input:focus, textarea:focus { outline: none; border-color: var(--tinte); }
+  .knopfzeile { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 18px; }
+  .knopf { font: inherit; font-size: 15px; font-weight: 600; height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
+  .knopf.hell { background: #fff; color: var(--tinte); border-color: var(--kante); font-weight: 400; }
+  .knopf.hell:hover { border-color: var(--tinte); }
+  .status { font-size: 14px; color: var(--leise); min-height: 21px; }
+  .vorschau { background: var(--block); border-radius: 10px; padding: 24px; }
+  .vorschau h2 { font-size: 14px; font-weight: 400; margin: 0 0 12px; }
+  .blatt { background: #fff; border-radius: 8px; padding: 24px; overflow: auto; }
+  iframe { width: 100%; height: 760px; border: 0; background: #fff; border-radius: 8px; }
+  .eintrag { border-top: 1px solid var(--linie); padding: 14px 0 0; margin: 0 0 4px; }
+  .eintrag-kopf { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--leise); margin: 0 0 8px; }
+  .eintrag-kopf button { font: inherit; font-size: 13px; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+  .hinweis { margin-top: 28px; font-size: 14px; line-height: 1.55; }
+  .hinweis h3 { font-size: 15px; font-weight: 600; margin: 18px 0 4px; }
+  .hinweis p { margin: 0 0 6px; font-family: var(--serif); }
+  .klein { font-size: 13px; color: var(--leise); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Mail-Baukasten</h1>
+  <p class="lead">E-Mail-Signatur und Rundmail im Gestaltungssystem der CASI. Felder ausfüllen, Vorschau prüfen, kopieren und in das Mailprogramm einfügen.</p>
+
+  <div class="reiter" role="tablist">
+    <button role="tab" aria-selected="true" data-teil="signatur">Signatur</button>
+    <button role="tab" aria-selected="false" data-teil="rundmail">Rundmail</button>
+  </div>
+
+  <!-- ===================== Signatur ===================== -->
+  <section class="teil an" id="signatur">
+    <div>
+      <label for="s-name">Name</label><input id="s-name" placeholder="Vorname Nachname">
+      <label for="s-funktion">Funktion</label><input id="s-funktion" placeholder="z. B. Managing Director">
+      <label for="s-inst">Institution (optional)</label><input id="s-inst" placeholder="z. B. University of Mannheim">
+      <label for="s-tel">Telefon (optional)</label><input id="s-tel" placeholder="+49 …">
+      <label for="s-mail">E-Mail</label><input id="s-mail" placeholder="name@casinitiative.org">
+      <div class="knopfzeile">
+        <button class="knopf" id="s-kopieren">Signatur kopieren</button>
+        <button class="knopf hell" id="s-html">HTML kopieren</button>
+      </div>
+      <div class="status" id="s-status"></div>
+      <div class="hinweis">
+        <h3>Apple Mail</h3>
+        <p>Mail → Einstellungen → Signaturen → „+“ → Signatur einfügen. Den Haken „Immer meiner Standardschrift entsprechen“ entfernen.</p>
+        <h3>Outlook (Mac, Windows, Web)</h3>
+        <p>Einstellungen → Signaturen → Neue Signatur → einfügen → speichern.</p>
+        <h3>Gmail</h3>
+        <p>Einstellungen → Alle Einstellungen anzeigen → Signatur → Neu → einfügen → Änderungen speichern.</p>
+        <p class="klein">Apple Mail zeigt die CASI-Schriften; Gmail und Outlook setzen Helvetica – das ist so gewollt.</p>
+      </div>
+    </div>
+    <div class="vorschau"><h2>Vorschau</h2><div class="blatt" id="s-vorschau"></div></div>
+  </section>
+
+  <!-- ===================== Rundmail ===================== -->
+  <section class="teil" id="rundmail">
+    <div>
+      <label for="r-betreff">Betreff</label><input id="r-betreff" placeholder="Betreff der Mail">
+      <label for="r-titel">Überschrift</label><input id="r-titel" placeholder="Überschrift">
+      <label for="r-satz">Satz</label><textarea id="r-satz" placeholder="Ein, zwei Sätze unter der Überschrift"></textarea>
+      <label for="r-kasten">Beschriftung des Kastens</label><input id="r-kasten" value="News">
+      <div class="knopfzeile"><button class="knopf hell" id="r-laden">Neueste News von der Website laden</button><button class="knopf hell" id="r-neu">Eintrag hinzufügen</button></div>
+      <div id="r-eintraege"></div>
+      <label for="r-grund">Warum diese Mail (Fuß)</label><textarea id="r-grund">You are receiving this email because you are in contact with the Carbon Accounting Standards Initiative.</textarea>
+      <label for="r-abmelden">Abmelden (Fuß)</label><input id="r-abmelden" value="To unsubscribe, simply reply to this email.">
+      <div class="knopfzeile">
+        <button class="knopf" id="r-kopieren">Mail kopieren</button>
+        <button class="knopf hell" id="r-datei">HTML herunterladen</button>
+        <button class="knopf hell" id="r-text">Textfassung kopieren</button>
+      </div>
+      <div class="status" id="r-status"></div>
+      <p class="hinweis klein">Einträge immer von der Website laden und dort verlinken – nie von Hand abschreiben. Vor dem Versand eine Testmail an sich selbst schicken.</p>
+    </div>
+    <div class="vorschau"><h2>Vorschau</h2><iframe id="r-vorschau" title="Vorschau der Rundmail"></iframe></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var SANS = "'PP Mori','Helvetica Neue',Helvetica,Arial,sans-serif";
+  var SERIF = "'IBM Plex Serif',Georgia,'Times New Roman',serif";
+  var LOGO = "https://casinitiative.org/wp-content/uploads/casi-mail/casi-logo-mail.png";
+  var START = "https://casinitiative.org/";
+  var IMPRESSUM = "https://casinitiative.org/impressum/";
+  var FONTS = "https://casinitiative.org/wp-content/uploads/casi-fonts/";
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
+  var merk = function (k, v) { try { if (v === undefined) return localStorage.getItem("casi-mail-" + k); localStorage.setItem("casi-mail-" + k, v); } catch (e) { return null; } };
+
+  // ---------- Reiter
+  [].forEach.call(document.querySelectorAll("[data-teil]"), function (b) {
+    b.addEventListener("click", function () {
+      [].forEach.call(document.querySelectorAll("[data-teil]"), function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      [].forEach.call(document.querySelectorAll(".teil"), function (t) { t.classList.toggle("an", t.id === b.dataset.teil); });
+    });
+  });
+
+  // ---------- Kopieren (formatiert + Text)
+  function kopieren(html, text, status) {
+    var fertig = function (ok) { status.textContent = ok ? "Kopiert – jetzt im Mailprogramm einfügen." : "Kopieren nicht möglich – bitte „HTML herunterladen“ nutzen."; };
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      navigator.clipboard.write([new ClipboardItem({ "text/html": new Blob([html], { type: "text/html" }), "text/plain": new Blob([text], { type: "text/plain" }) })])
+        .then(function () { fertig(true); }, function () { fertig(false); });
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function () { fertig(true); }, function () { fertig(false); });
+    } else { fertig(false); }
+  }
+
+  // ---------- Signatur
+  var sFelder = ["s-name", "s-funktion", "s-inst", "s-tel", "s-mail"];
+  sFelder.forEach(function (id) { var v = merk(id); if (v) $(id).value = v; $(id).addEventListener("input", function () { merk(id, $(id).value); signatur(); }); });
+
+  function signaturHtml() {
+    var n = $("s-name").value.trim() || "Vorname Nachname";
+    var f = [$("s-funktion").value.trim(), $("s-inst").value.trim()].filter(Boolean).join(" · ");
+    var tel = $("s-tel").value.trim(), mail = $("s-mail").value.trim();
+    var kontakt = [];
+    if (tel) kontakt.push(esc(tel));
+    if (mail) kontakt.push('<a href="mailto:' + esc(mail) + '" style="color:#5F7471;text-decoration:underline;">' + esc(mail) + "</a>");
+    var td = 'style="font-family:' + SANS + ';';
+    return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;color:#0E4D49;">'
+      + "<tr><td " + td + 'padding:0 0 2px;font-size:14px;font-weight:600;line-height:1.35;color:#0E4D49;">' + esc(n) + "</td></tr>"
+      + (f ? "<tr><td " + td + 'padding:0 0 14px;font-size:13px;line-height:1.4;color:#5F7471;">' + esc(f) + "</td></tr>" : "<tr><td style=\"padding:0 0 12px;\"></td></tr>")
+      + '<tr><td style="padding:0 0 10px;"><a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a></td></tr>'
+      + "<tr><td " + td + 'font-size:12px;line-height:1.55;color:#5F7471;">Carbon Accounting Standards Initiative · <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a>'
+      + (kontakt.length ? "<br>" + kontakt.join(" · ") : "") + "</td></tr></table>";
+  }
+  function signaturText() {
+    var l = [$("s-name").value.trim(), [$("s-funktion").value.trim(), $("s-inst").value.trim()].filter(Boolean).join(" · "), "", "Carbon Accounting Standards Initiative · casinitiative.org", [$("s-tel").value.trim(), $("s-mail").value.trim()].filter(Boolean).join(" · ")];
+    return l.filter(function (x, i) { return x || i === 2; }).join("\n");
+  }
+  function signatur() { $("s-vorschau").innerHTML = signaturHtml(); }
+  $("s-kopieren").addEventListener("click", function () { kopieren(signaturHtml(), signaturText(), $("s-status")); });
+  $("s-html").addEventListener("click", function () {
+    navigator.clipboard.writeText(signaturHtml()).then(function () { $("s-status").textContent = "HTML kopiert."; }, function () { $("s-status").textContent = "Kopieren nicht möglich."; });
+  });
+  signatur();
+
+  // ---------- Rundmail
+  var eintraege = [];
+  function eintragFeld(e, i) {
+    var d = document.createElement("div"); d.className = "eintrag";
+    d.innerHTML = '<div class="eintrag-kopf"><span>Eintrag ' + (i + 1) + '</span><button type="button">entfernen</button></div>'
+      + '<label>Zeile (Rubrik · Datum)</label><input data-k="zeile">'
+      + '<label>Titel</label><input data-k="titel">'
+      + '<label>Link (absolut, auf die Website)</label><input data-k="link" placeholder="https://casinitiative.org/news/">'
+      + '<label>Text</label><textarea data-k="text"></textarea>';
+    [].forEach.call(d.querySelectorAll("[data-k]"), function (x) { x.value = e[x.dataset.k] || ""; x.addEventListener("input", function () { e[x.dataset.k] = x.value; rundmail(); }); });
+    d.querySelector("button").addEventListener("click", function () { eintraege.splice(i, 1); liste(); });
+    return d;
+  }
+  function liste() { var b = $("r-eintraege"); b.innerHTML = ""; eintraege.forEach(function (e, i) { b.appendChild(eintragFeld(e, i)); }); rundmail(); }
+
+  // Text der Einträge darf Links enthalten – nur <a href>, <strong>, <em>, <br> bleiben
+  function sauber(html) {
+    var t = document.createElement("template"); t.innerHTML = html || "";
+    (function geh(n) {
+      [].slice.call(n.childNodes).forEach(function (c) {
+        if (c.nodeType === 1) {
+          var tag = c.tagName.toLowerCase();
+          if (["a", "strong", "b", "em", "i", "br", "sub"].indexOf(tag) < 0) { c.replaceWith.apply(c, [].slice.call(c.childNodes)); return; }
+          [].slice.call(c.attributes).forEach(function (a) { if (!(tag === "a" && a.name === "href")) c.removeAttribute(a.name); });
+          if (tag === "a") c.setAttribute("style", "color:#0E4D49;text-decoration:underline;");
+          geh(c);
+        }
+      });
+    })(t.content);
+    return t.innerHTML;
+  }
+
+  function mailHtml() {
+    var titel = $("r-titel").value.trim(), satz = $("r-satz").value.trim();
+    var h = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+      + '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>' + esc($("r-betreff").value) + "</title><style>"
+      + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:400;src:url(" + FONTS + "PPMori-Regular.woff2) format('woff2');font-display:swap;}"
+      + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
+      + "@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;src:url(" + FONTS + "IBMPlexSerif-Regular.woff2) format('woff2');font-display:swap;}"
+      + "body{margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;}a{color:#0E4D49;text-decoration:underline;}a.titel:hover{text-decoration:underline !important;}p{margin:0;}"
+      + "@media (max-width:620px){.rahmen{padding:32px 22px 36px !important;}.gross{font-size:26px !important;}.kasten{padding:20px 18px 6px !important;}}"
+      + '</style></head><body style="margin:0;padding:0;background:#FFFFFF;">'
+      + '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#FFFFFF;">' + esc(satz) + "</div>"
+      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FFFFFF;"><tr><td align="center">'
+      + '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;"><tr><td class="rahmen" style="padding:44px 40px 44px;">'
+      + '<a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a>'
+      + '<h1 class="gross" style="margin:56px 0 16px;font-family:' + SANS + ';font-weight:600;font-size:30px;line-height:1.15;color:#0E4D49;">' + esc(titel || "Überschrift") + "</h1>"
+      + '<p style="margin:0 0 40px;font-family:' + SERIF + ';font-size:17px;line-height:1.6;color:#0E4D49;">' + esc(satz || "Satz") + "</p>";
+    var voll = eintraege.filter(function (e) { return (e.titel || "").trim(); });
+    if (voll.length) {
+      h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#EEF2F1;border-radius:10px;"><tr><td class="kasten" style="padding:24px 24px 8px;">'
+        + '<p style="margin:0 0 4px;font-family:' + SANS + ';font-size:14px;line-height:1.4;color:#0E4D49;">' + esc($("r-kasten").value) + "</p>";
+      voll.forEach(function (e, i) {
+        h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:16px 0 16px;' + (i ? "border-top:1px solid #C5D4D3;" : "") + '">';
+        if ((e.zeile || "").trim()) h += '<p style="margin:0 0 6px;font-family:' + SANS + ';font-size:13px;line-height:1.4;color:#0E4D49;">' + esc(e.zeile) + "</p>";
+        h += '<a class="titel" href="' + esc(e.link || START + "news/") + '" style="font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;text-decoration:none;">' + esc(e.titel) + "</a>";
+        if ((e.text || "").trim()) h += '<p style="margin:6px 0 0;font-family:' + SERIF + ';font-size:15px;line-height:1.55;color:#0E4D49;">' + sauber(e.text) + "</p>";
+        h += "</td></tr></table>";
+      });
+      h += "</td></tr></table>";
+    }
+    h += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:44px 0 0;font-family:' + SANS + ';font-size:13px;line-height:1.55;color:#5F7471;">'
+      + '<p style="margin:0 0 10px;">Carbon Accounting Standards Initiative &middot; <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a></p>'
+      + '<p style="margin:0 0 10px;">' + esc($("r-grund").value) + " " + esc($("r-abmelden").value) + "</p>"
+      + '<p style="margin:0;"><a href="' + IMPRESSUM + '" style="color:#5F7471;text-decoration:underline;">Imprint &amp; Privacy Policy</a></p>'
+      + "</td></tr></table></td></tr></table></td></tr></table></body></html>";
+    return h;
+  }
+  function mailText() {
+    var t = ($("r-titel").value.trim()) + "\n\n" + ($("r-satz").value.trim()) + "\n\n";
+    var voll = eintraege.filter(function (e) { return (e.titel || "").trim(); });
+    if (voll.length) {
+      t += $("r-kasten").value + "\n\n";
+      voll.forEach(function (e) {
+        var d = document.createElement("div"); d.innerHTML = e.text || "";
+        t += (e.zeile ? e.zeile + "\n" : "") + e.titel + "\n" + (d.textContent.trim() ? d.textContent.trim() + "\n" : "") + (e.link || START + "news/") + "\n\n";
+      });
+    }
+    return t + "Carbon Accounting Standards Initiative · " + START + "\n" + $("r-grund").value + " " + $("r-abmelden").value + "\nImprint & Privacy Policy: " + IMPRESSUM + "\n";
+  }
+  function rundmail() { $("r-vorschau").srcdoc = mailHtml(); }
+
+  ["r-betreff", "r-titel", "r-satz", "r-kasten", "r-grund", "r-abmelden"].forEach(function (id) { $(id).addEventListener("input", rundmail); });
+  $("r-neu").addEventListener("click", function () { eintraege.push({ zeile: "", titel: "", link: START + "news/", text: "" }); liste(); });
+  $("r-laden").addEventListener("click", function () {
+    $("r-status").textContent = "Lade News …";
+    fetch("https://casinitiative.org/wp-json/casi/v1/news").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { eintraege = d.map(function (e) { return { zeile: e.zeile, titel: e.titel, link: e.link, text: e.text }; }); liste(); $("r-status").textContent = d.length + " News von der Website geladen."; })
+      .catch(function () { $("r-status").textContent = "News konnten nicht geladen werden – Einträge bitte von Hand anlegen und verlinken."; });
+  });
+  $("r-kopieren").addEventListener("click", function () { kopieren(mailHtml(), mailText(), $("r-status")); });
+  $("r-text").addEventListener("click", function () { navigator.clipboard.writeText(mailText()).then(function () { $("r-status").textContent = "Textfassung kopiert."; }); });
+  $("r-datei").addEventListener("click", function () {
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([mailHtml()], { type: "text/html" }));
+    a.download = "CASI-Rundmail.html"; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+    $("r-status").textContent = "HTML-Datei gespeichert – für Versanddienste (z. B. Brevo, Mailchimp) oder als Archiv.";
+  });
+  liste();
+})();
+</script>
+</body>
+</html>

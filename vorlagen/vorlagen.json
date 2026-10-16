@@ -72,6 +72,24 @@
       "titel": "Brief-Vorlage (Vorschau)",
       "wofuer": "Preview of the empty letter template.",
       "medium": "document"
+    },
+    {
+      "link": "https://ci.casinitiative.org/mail/",
+      "titel": "Mail-Baukasten (Signatur und Rundmail)",
+      "wofuer": "Web tool for staff: fill in name/function/contact and copy the CASI e-mail signature into Apple Mail, Outlook or Gmail; build a CASI round mail (heading, sentence, news box loaded live from the website, footer) and copy it or download it as HTML. Send people here instead of writing signatures or mails by hand.",
+      "medium": "email"
+    },
+    {
+      "datei": "CASI-Signatur-Vorlage.html",
+      "titel": "E-Mail-Signatur (HTML)",
+      "wofuer": "The CASI signature as HTML with placeholders {{NAME}}, {{FUNKTION}}, {{TELEFON}}, {{E-MAIL}} – for generating signatures in code.",
+      "medium": "email"
+    },
+    {
+      "datei": "CASI-Rundmail-Vorlage.html",
+      "titel": "Rundmail (HTML)",
+      "wofuer": "The CASI round mail as HTML (600 px table layout, inline styles) with placeholders – same layout as the newsletter confirmation mail of the website. Entries must come from the website and link to it.",
+      "medium": "email"
     }
   ]
 }

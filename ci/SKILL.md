@@ -103,6 +103,10 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 
 ## Email and newsletter
 
+**Tools:** the Mail-Baukasten `https://ci.casinitiative.org/mail/` builds signatures and round mails (copy into Apple Mail, Outlook, Gmail, or download HTML); HTML templates `CASI-Signatur-Vorlage.html` and `CASI-Rundmail-Vorlage.html` via `casi_templates` (medium `email`). News entries come live from `https://casinitiative.org/wp-json/casi/v1/news` (the three newest, as on the start page).
+
+**Signature:** name PP Mori SemiBold 14 px Deep Green; function (· institution) 13 px Slate; logo PNG 84 × 28 px linked to the start page; then 12 px Slate: "Carbon Accounting Standards Initiative · casinitiative.org", phone · e-mail. Nothing else – no quotes, banners, social icons, extra colours or images.
+
 Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-newsletter-mail.php`; preview `/wp-admin/admin-post.php?action=casi_nl_vorschau`, test mail to yourself `…?action=casi_nl_test`). Every CASI mail copies it — layout, sizes and colours — and changes only the heading, the sentence and the entries.
 
 **Mail colours — the UI colours only:** all text inside the page and the box Deep Green `#0E4D49` (Slate reaches only 4.41:1 on the grey box, so label and meta lines in the box are Deep Green too); footer on white Slate `#5F7471`; links underlined in the colour of their text; box `#EEF2F1`, dividers `#C5D4D3`; page white.

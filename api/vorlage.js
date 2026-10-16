@@ -22,7 +22,7 @@ export default function handler(req, res) {
   const file = decodeURIComponent(req.query?.file ?? m?.[2] ?? "");
   const expected = process.env.CI_ACCESS_KEY;
   const list = JSON.parse(readFileSync(path.join(process.cwd(), "vorlagen", "vorlagen.json"), "utf8")).vorlagen;
-  const known = list.some((v) => v.datei === file);
+  const known = list.some((v) => v.datei && v.datei === file);
   const p = path.join(process.cwd(), "vorlagen", path.basename(file));
   if ((expected && key !== expected) || !known || !existsSync(p)) {
     res.statusCode = 404;
