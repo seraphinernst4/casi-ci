@@ -17,12 +17,12 @@ HDR_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.header+
 FTR_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"
 REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
-# Absender – Wortlaut wie im Impressum (casinitiative.org/impressum)
-ABSENDER_ZEILE = "CASI · Universität Mannheim · Schloss Ostflügel · 68161 Mannheim"
+# Absender – Angaben wie im Impressum (casinitiative.org/impressum), Briefe auf Englisch
+ABSENDER_ZEILE = "CASI · University of Mannheim · Schloss Ostflügel · 68161 Mannheim"
 FUSS = [
     "Carbon Accounting Standards Initiative (CASI)",
-    "Mannheim Institute for Sustainable Energy Studies (MISES) · Universität Mannheim",
-    "Schloss Ostflügel, Raum O 351–359 · 68161 Mannheim · Deutschland · casinitiative.org",
+    "Mannheim Institute for Sustainable Energy Studies (MISES) · University of Mannheim",
+    "Schloss Ostflügel, Room O 351–359 · 68161 Mannheim · Germany · casinitiative.org",
 ]
 
 
@@ -87,18 +87,18 @@ def brief_body():
     meta_r = '<w:rFonts w:ascii="PP Mori" w:hAnsi="PP Mori" w:cs="PP Mori"/><w:color w:val="5F7471"/><w:sz w:val="14"/>'
     b = []
     b.append(f'<w:p><w:pPr><w:pStyle w:val="CASIMeta"/>{adr}<w:spacing w:after="170"/><w:ind w:left="0"/></w:pPr>{run(ABSENDER_ZEILE, meta_r)}</w:p>')
-    for i, (alias, prompt) in enumerate((("Empfänger", "Empfängerin oder Empfänger"), ("Organisation", "Organisation"), ("Straße", "Straße Nr."), ("Ort", "PLZ Ort"))):
+    for i, (alias, prompt) in enumerate((("Recipient", "Recipient"), ("Organisation", "Organisation"), ("Street", "Street and number"), ("City", "Postcode City"), ("Country", "Country (if abroad)"))):
         b.append(field("CASIMeta", alias, prompt, f'{adr}<w:spacing w:after="0" w:line="276" w:lineRule="auto"/><w:ind w:left="0"/>'))
-    for label, prompt in (("Datum", "TT. Monat JJJJ"), ("Ansprechperson", "Name"), ("E-Mail", "name@casinitiative.org")):
+    for label, prompt in (("Date", "16 October 2026"), ("Contact", "Name"), ("Email", "name@casinitiative.org")):
         b.append(f'<w:p><w:pPr><w:pStyle w:val="CASIMeta"/>{info}<w:spacing w:after="0"/><w:ind w:left="0"/></w:pPr>{run(label)}</w:p>')
         b.append(field("CASIMeta", label, prompt, f'{info}<w:spacing w:after="113"/><w:ind w:left="0"/>'))
-    # Betreff auf Höhe ~103 mm (oberer Rand 27 mm)
-    b.append(field("CASIUeberschrift2", "Betreff", "Betreff", '<w:spacing w:before="4250" w:after="400"/>'))
-    b.append(field("CASIFliesstext", "Anrede", "Anrede,"))
-    b.append(field("CASIFliesstext", "Brieftext", "Brieftext – CASI Fließtext."))
-    b.append(field("CASIFliesstext", "Grußformel", "Grußformel", '<w:spacing w:after="840"/>'))
-    b.append(field("CASIMeta", "Name", "Vorname Nachname", '<w:spacing w:after="0"/>'))
-    b.append(field("CASIMeta", "Funktion", "Funktion"))
+    # Betreff auf Höhe ~103 mm (oberer Rand 36 mm, Logo wie in allen Dokumenten 25 mm von oben)
+    b.append(field("CASIUeberschrift2", "Subject", "Subject", '<w:spacing w:before="3740" w:after="400"/>'))
+    b.append(field("CASIFliesstext", "Salutation", "Dear …,"))
+    b.append(field("CASIFliesstext", "Letter text", "Letter text – style CASI Fließtext."))
+    b.append(field("CASIFliesstext", "Closing", "Kind regards,", '<w:spacing w:after="840"/>'))
+    b.append(field("CASIMeta", "Name", "First name Last name", '<w:spacing w:after="0"/>'))
+    b.append(field("CASIMeta", "Function", "Function"))
     return "".join(b)
 
 
@@ -197,11 +197,11 @@ def build(out_dir):
     sect = (
         '<w:sectPr><w:headerReference w:type="default" r:id="rIdBriefKopf2"/><w:footerReference w:type="default" r:id="rId29"/>'
         '<w:headerReference w:type="first" r:id="rIdBriefKopf1"/><w:footerReference w:type="first" r:id="rIdBriefFuss1"/>'
-        '<w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1531" w:right="1134" w:bottom="1417" w:left="1253" w:header="850" w:footer="567" w:gutter="0"/>'
+        '<w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="2041" w:right="1247" w:bottom="1417" w:left="1247" w:header="1417" w:footer="567" w:gutter="0"/>'
         '<w:cols w:space="720"/><w:titlePg/><w:docGrid w:linePitch="360"/></w:sectPr>'
     )
     f["word/document.xml"] = (doc0[:start] + brief_body() + sect + "</w:body></w:document>").encode()
-    f["docProps/core.xml"] = re.sub(r"<dc:title>.*?</dc:title>", "<dc:title>CASI Brief</dc:title>", base["docProps/core.xml"].decode()).encode()
+    f["docProps/core.xml"] = re.sub(r"<dc:title>.*?</dc:title>", "<dc:title>CASI Letter</dc:title>", base["docProps/core.xml"].decode()).encode()
     write("CASI-Brief", f, extra_order=("word/header3.xml", "word/_rels/header3.xml.rels", "word/header4.xml", "word/footer3.xml"))
 
 
