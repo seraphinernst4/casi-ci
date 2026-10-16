@@ -11,6 +11,18 @@ Stellt die Corporate Identity von CASI als **MCP-Connector** bereit. Jede KI, di
 
 **Nur diese zwei Dateien ändern.** Alles andere ist Technik.
 
+## Vorlagen
+
+Liegen in `vorlagen/` und stehen in `vorlagen/vorlagen.json`. Der Connector listet sie mit `casi_templates` und gibt Download-Links (`/vorlagen/<WORT>/<Datei>`) aus.
+Die Quellen (Bau-Skripte) liegen in `vorlagen-quellen/`. PowerPoint neu bauen:
+
+```
+node vorlagen-quellen/pptx/build.cjs vorlagen
+python3 vorlagen-quellen/pptx/finish.py vorlagen <Ordner mit den CASI-Schriften (TTF)>
+```
+
+Die Schriftdateien selbst liegen nicht im Repo (PP Mori ist lizenzpflichtig) – sie kommen aus `CASI-Schriften.zip`.
+
 ## CI ändern
 
 1. `ci/SKILL.md` (und ggf. `ci/tokens.json`) auf GitHub bearbeiten – direkt im Browser über das Stift-Symbol.
@@ -36,6 +48,7 @@ Im Chat dann z. B.: „Mach mir Folien im CASI-Design“ – Claude ruft die CI 
 |---|---|
 | `casi_ci_guidelines` | CI als Text – komplett, pro Medium (`slides`, `document`, `email`, `website`, `chart`, `poster`, `social`) oder pro Abschnitt |
 | `casi_design_tokens` | Tokens als JSON oder CSS-Variablen (für Code) |
+| `casi_templates` | Offizielle Vorlagen mit Download-Link |
 
 Dazu die Ressourcen `casi://ci/SKILL.md`, `casi://ci/tokens.json` und den Prompt `casi-ci`.
 

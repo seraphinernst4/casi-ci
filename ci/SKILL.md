@@ -35,8 +35,8 @@ Contrast on white: Deep Green 9.65:1, Burgundy 9.28:1, Slate 4.97:1 — fine for
 
 | Typeface | Job |
 |---|---|
-| **IBM Plex Serif** | text read as sentences: paragraphs, footnotes, abstracts, quotations, references, web body text |
-| **PP Mori** | everything that names, orders, counts or points: titles, headings, labels, metadata, captions, tables, figures, charts, navigation, buttons, all slide text |
+| **IBM Plex Serif** | text read as sentences: paragraphs, footnotes, abstracts, quotations, references, web body text, running text on slides |
+| **PP Mori** | everything that names, orders, counts or points: titles, headings, labels, metadata, captions, tables, figures, charts, navigation, buttons, slide titles and labels |
 
 One typeface per element, never mixed in one paragraph or label. Weights: Regular 400, Italic, SemiBold 600 only. Set the typeface on every run — no inheritance.
 
@@ -49,7 +49,7 @@ One typeface per element, never mixed in one paragraph or label. Weights: Regula
 |---|---|---|---|---|---|
 | Website / email (px) | 44 (email 30) | 30 | 20 | 17 / 1.6 serif | 15 · 14 · 13 |
 | Documents A4 (pt) | 24–28 | 14 | 11 | 10 / 1.45 serif | 8.5 · 8 |
-| Slides 16:9 (pt) | 17 (cover 30–40) | — | — | 9–12 | 7.5 |
+| Slides 16:9 (pt) | 17 (cover 40, section 30) | — | — | 12 / 1.35 serif | 7.5 |
 
 Headings SemiBold, body Regular — both Deep Green; small text Slate. Max five sizes per page. Ragged right, never justified. No letter-spacing except on text the author wrote in capitals (+0.08–0.18 em).
 
@@ -99,7 +99,15 @@ Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-news
 
 ## Slides
 
-16:9, 13.333 × 7.5 in, white, blank layout. Margins 0.67 in; content y 1.05–7.0. Title (only if the author has one) PP Mori 17 pt SemiBold Deep Green at (0.67, 0.54), w 11.99. Page number 7.5 pt Slate right-aligned at y 7.14. Author's panels → website boxes; none added. Cover/closing templates only on request (cover: title 40 pt at (0.67, 2.62), subtitle 14 pt Slate; closing: Burgundy panel left, texts from the user). python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` adj = radius / min(w, h) × 100000; no shadows (`a:effectLst` empty).
+**Template:** `CASI-Folien.potx` (connector tool `casi_templates`). Start every deck from it and pick the layout per slide: Titel, Abschnitt, Inhalt, Nur Titel, Zwei Spalten, Text mit Box, Zwei Boxen, Abbildung, Schluss, Leer. PP Mori and IBM Plex Serif are embedded.
+
+16:9, 13.333 × 7.5 in, white. Margins 0.67 in; content y 1.05–7.0. Title (only if the author has one) PP Mori 17 pt SemiBold Deep Green at (0.67, 0.54), w 11.99. Running text IBM Plex Serif 12 pt / 1.35 Deep Green, paragraphs 6 pt apart; labels inside running text (a term above its explanation) PP Mori SemiBold as their own paragraph. Page number PP Mori 7.5 pt Slate right-aligned at y 7.07; the short logo (the "C") small at bottom left (0.67, 7.04, height 0.2 in) on every slide except cover and closing.
+
+Boxes on slides grow with their text (`spAutoFit`), top-aligned at y 1.05, padding 0.3 in, `#EEF2F1`, never as large empty panels; only where the author had a box, panel or highlighted passage.
+
+Cover: "C" at (0.67, 0.54), height 0.55 in; kicker PP Mori SemiBold 10 pt (author's capitals, +0.08 em) at y 2.2; title 40 pt at (0.67, 2.62); subtitle PP Mori 14 pt Slate at y 4.55; sender · date PP Mori 9 pt Slate at y 6.7. Section divider: kicker as on the cover, title 30 pt at (0.67, 2.62). Closing: Burgundy panel left (w 4.6 in, full height), white "C" and closing sentence (PP Mori SemiBold 24 pt white) in it; contact PP Mori 12 pt on the right — texts from the user.
+
+python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` adj = radius / min(w, h) × 100000; no shadows (`a:effectLst` empty).
 
 ## Documents
 

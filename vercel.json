@@ -4,9 +4,23 @@
   "buildCommand": "npm run check",
   "outputDirectory": "public",
   "functions": {
-    "api/mcp.js": { "includeFiles": "ci/**", "maxDuration": 10 }
+    "api/mcp.js": {
+      "includeFiles": "{ci/**,vorlagen/vorlagen.json}",
+      "maxDuration": 10
+    },
+    "api/vorlage.js": {
+      "includeFiles": "vorlagen/**",
+      "maxDuration": 10
+    }
   },
   "rewrites": [
-    { "source": "/mcp/:key", "destination": "/api/mcp?key=:key" }
+    {
+      "source": "/mcp/:key",
+      "destination": "/api/mcp?key=:key"
+    },
+    {
+      "source": "/vorlagen/:key/:file",
+      "destination": "/api/vorlage?key=:key&file=:file"
+    }
   ]
 }

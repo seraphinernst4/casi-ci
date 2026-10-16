@@ -1,0 +1,23 @@
+{
+  "$beschreibung": "Liste der CASI-Vorlagen. Neue Vorlage: Datei in vorlagen/ legen und hier eintragen.",
+  "vorlagen": [
+    {
+      "datei": "CASI-Folien.potx",
+      "titel": "PowerPoint-Vorlage",
+      "wofuer": "Every CASI / ICCA slide deck. Open the .potx (creates a new deck), pick layouts: Titel, Abschnitt, Inhalt, Nur Titel, Zwei Spalten, Text mit Box, Zwei Boxen, Abbildung, Schluss, Leer. Fonts embedded.",
+      "medium": "slides"
+    },
+    {
+      "datei": "CASI-Folien.pptx",
+      "titel": "PowerPoint-Vorlage (als .pptx)",
+      "wofuer": "Same as CASI-Folien.potx for tools that cannot open .potx (python-pptx, Keynote, Google Slides): copy it, delete the sample slide, add slides from its layouts.",
+      "medium": "slides"
+    },
+    {
+      "datei": "CASI-Folien-Beispiel.pdf",
+      "titel": "Beispielfolien (PDF)",
+      "wofuer": "Shows every slide layout filled with text from CASI Whitepaper No. 1 – reference for how a finished CASI deck looks.",
+      "medium": "slides"
+    }
+  ]
+}
