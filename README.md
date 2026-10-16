@@ -23,10 +23,10 @@ Wenn du den CASI-Skill in Claude änderst: denselben Text hier in `ci/SKILL.md` 
 
 ## Einrichten (pro Person, einmalig)
 
-**Claude (Web/Desktop):** Einstellungen → Connectors → *Benutzerdefinierten Connector hinzufügen* → Name „CASI CI“, URL `https://casi-ci-ivory.vercel.app/mcp/<SCHLÜSSEL>`.
+**Claude (Web/Desktop):** Einstellungen → Connectors → *Benutzerdefinierten Connector hinzufügen* → Name „CASI CI“, URL `https://ci.casinitiative.org/mcp/CasimirMonnem`.
 Im Chat dann z. B.: „Mach mir Folien im CASI-Design“ – Claude ruft die CI selbst ab.
 
-**Claude Code:** `claude mcp add --transport http casi-ci https://casi-ci-ivory.vercel.app/mcp/<SCHLÜSSEL>`
+**Claude Code:** `claude mcp add --transport http casi-ci https://ci.casinitiative.org/mcp/CasimirMonnem`
 
 **Andere Tools (Cursor, ChatGPT, Copilot …):** dieselbe URL als „Remote MCP Server / Streamable HTTP“ eintragen.
 
@@ -41,8 +41,10 @@ Dazu die Ressourcen `casi://ci/SKILL.md`, `casi://ci/tokens.json` und den Prompt
 
 ## Zugang
 
-Die URL enthält einen Schlüssel (`CI_ACCESS_KEY`, Vercel → Settings → Environment Variables). Ohne ihn antwortet der Server mit 404.
-Neuer Schlüssel: Wert dort ändern → Redeploy → neue URL an alle verteilen.
+Die Adresse endet auf ein festes Wort (`CI_ACCESS_KEY` in Vercel → Settings → Environment Variables, derzeit `CasimirMonnem`). Ohne das Wort antwortet der Server mit 404 – so ist die CI nicht für jeden auffindbar, der die Domain kennt.
+Wort ändern: Wert dort ändern → Redeploy → neue Adresse an alle verteilen.
+
+Domain `ci.casinitiative.org`: CNAME `ci` → `cc65b2ebf437c988.vercel-dns-017.com` bei IONOS.
 
 ## Lokal testen
 
