@@ -49,7 +49,8 @@ Contrast on white: Deep Green 9.65:1, Burgundy 9.28:1, Slate 4.97:1 — fine for
 
 One typeface per element, never mixed in one paragraph or label. Weights: Regular 400, Italic, SemiBold 600 only. Set the typeface on every run — no inheritance.
 
-- Fonts: `/wp-content/uploads/casi-fonts/` (PP Mori `.woff2`, `.fntdata` for PowerPoint; IBM Plex Serif `.woff2` — a subset without ₂ and →; for documents use the full IBM Plex Serif, OFL). PP Mori is commercial — check the licence before passing files on.
+- Fonts: `/wp-content/uploads/casi-fonts/` (PP Mori `.woff2`, `.fntdata` for PowerPoint; IBM Plex Serif `.woff2` – a subset without ₂ and →; for documents use the full IBM Plex Serif, OFL). PP Mori is commercial – CASI staff only, check the licence before passing files on.
+- **Missing fonts:** the CASI templates embed both typefaces, so they display without installation. To install them, use the font package `CASI-Schriften.zip` (connector tool `casi_templates`, medium `fonts`): TTF from `Installieren/` for Office, OTF for InDesign/Illustrator, WOFF2 for web. When a user's file shows a substitute font, offer this download instead of switching to a fallback.
 - PPTX: PP Mori on every run, embed the `.fntdata`. DOCX: styles set explicitly; recommend "embed fonts". PDF/HTML/PNG: embed or `@font-face`; never a system default.
 - Fallbacks only if fonts are unavailable: PP Mori → Helvetica Neue; IBM Plex Serif → Georgia. Say so.
 - CSS: `"PP Mori", "Helvetica Neue", Helvetica, Arial, sans-serif` · `"IBM Plex Serif", Georgia, serif`.
@@ -112,7 +113,7 @@ Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-news
 
 16:9, 13.333 × 7.5 in, white. Margins 0.67 in; content y 1.05–7.0. Title (only if the author has one) PP Mori 17 pt SemiBold Deep Green at (0.67, 0.54), w 11.99. Running text IBM Plex Serif 12 pt / 1.35 Deep Green, paragraphs 6 pt apart; labels inside running text (a term above its explanation) PP Mori SemiBold as their own paragraph. Page number PP Mori 7.5 pt Slate right-aligned at y 7.07. No logo on content slides – the "C" appears only on cover and closing.
 
-Boxes on slides grow with their text (`spAutoFit`), top-aligned at y 1.05, padding 0.3 in, `#EEF2F1`, never as large empty panels; only where the author had a box, panel or highlighted passage.
+Boxes on slides: layouts "Text mit Box" (running text left, box 4.2 in wide right) and "Zwei Boxen". `#EEF2F1`, corner radius 0.1 in on all four corners, padding 0.3 in, top-aligned at y 1.05, as tall as their text (they grow while typing) – never as large empty panels. Boxes side by side get the same height (the taller one). Only where the author had a box, panel or highlighted passage. When generating a file, set the box height to fit the text (IBM Plex Serif 12 pt at 135 % ≈ 0.27 in per line, plus 0.6 in padding and one spare line) and the radius per box with adj = 0.1 in / min(w, h) × 100000.
 
 Cover: "C" at (0.67, 0.54), height 0.55 in; kicker PP Mori SemiBold 10 pt (author's capitals, +0.08 em) at y 2.2; title 40 pt at (0.67, 2.62); subtitle PP Mori 14 pt Slate at y 4.55; sender · date PP Mori 9 pt Slate at y 6.7. Section divider: kicker as on the cover, title 30 pt at (0.67, 2.62). Closing: Burgundy panel left (w 4.6 in, full height), white "C" and closing sentence (PP Mori SemiBold 24 pt white) in it; contact PP Mori 12 pt on the right — texts from the user.
 
