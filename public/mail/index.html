@@ -6,9 +6,11 @@
 <meta name="robots" content="noindex">
 <title>CASI Mail-Baukasten</title>
 <style>
-  @font-face { font-family: "PP Mori"; font-weight: 400; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/PPMori-Regular.woff2) format("woff2"); font-display: swap; }
-  @font-face { font-family: "PP Mori"; font-weight: 600; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/PPMori-SemiBold.woff2) format("woff2"); font-display: swap; }
-  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; src: url(https://casinitiative.org/wp-content/uploads/casi-fonts/IBMPlexSerif-Regular.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "PP Mori"; font-weight: 400; src: url(/schriften/PPMori-Regular.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "PP Mori"; font-weight: 600; src: url(/schriften/PPMori-SemiBold.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; src: url(/schriften/IBMPlexSerif-Regular.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 400; font-style: italic; src: url(/schriften/IBMPlexSerif-Italic.woff2) format("woff2"); font-display: swap; }
+  html { overflow-y: scroll; scrollbar-gutter: stable; } /* Bildlaufleiste immer da: nichts springt beim Wechsel der Reiter */
   :root { --papier:#FFFFFF; --block:#EEF2F1; --tinte:#0E4D49; --leise:#5F7471; --linie:#E1E7E5; --kante:#C5D4D3; --akzent:#8B1538;
           --sans:"PP Mori","Helvetica Neue",Helvetica,Arial,sans-serif; --serif:"IBM Plex Serif",Georgia,serif; }
   * { box-sizing: border-box; }
@@ -52,10 +54,15 @@
   .vorbelegt { background: var(--block); border-radius: 10px; padding: 14px 18px; margin: 0 0 24px; font-size: 14px; line-height: 1.5; }
   .vorbelegt[hidden] { display: none; }
   .vorbelegt button { margin-left: 8px; }
+  .zurueck { display: inline-block; font-family: var(--sans); font-size: 14px; color: var(--tinte); text-decoration: none; margin: 0 0 20px; }
+  .zurueck span { text-decoration: underline; }
+  select { -webkit-appearance: none; appearance: none; padding-right: 36px; cursor: pointer;
+           background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%230E4D49' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 14px center; }
 </style>
 </head>
 <body>
 <main>
+  <a class="zurueck" href="/">← <span>Übersicht</span></a>
   <h1>Mail-Baukasten</h1>
   <p class="lead">E-Mail-Signatur, Newsletter, Einladungen und Rundmails im Gestaltungssystem der CASI. Vorlage wählen, Felder ausfüllen, News live von der Website laden, kopieren oder als HTML speichern.</p>
 
