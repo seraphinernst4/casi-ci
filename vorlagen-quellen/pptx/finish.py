@@ -15,6 +15,10 @@ import zipfile
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "fonts"))
 from eot import make_eot  # noqa: E402
 
+sys.path.insert(0, os.path.dirname(__file__))
+import json  # noqa: E402
+from grafiken import inject  # noqa: E402
+
 THEME = {
     "dk1": "0E4D49",  # Tinte – Text
     "lt1": "FFFFFF",  # Papier
@@ -44,12 +48,29 @@ CT_PRES = "application/vnd.openxmlformats-officedocument.presentationml.presenta
 CT_POTX = "application/vnd.openxmlformats-officedocument.presentationml.template.main+xml"
 
 
+EXTRA = [  # Zusatzfarben (ci/tokens.json → colorExtra) – erscheinen in PowerPoint unter „Benutzerdefinierte Farben“
+    ("ICCA", "13917C"), ("ICCA Grafik", "1A9C7E"), ("Burgundy hell", "F6EBEF"), ("Burgundy mittel", "CB96A6"),
+    ("Kette direct", "29363D"), ("Kette iron", "8C5A3C"), ("Kette steel", "5B7C99"), ("Kette car", "3F6B3F"),
+    ("Kette body", "0E8388"), ("Kette Lebensende", "6B4C6E"),
+    ("Daten A", "B060E0"), ("Daten B", "3060C0"), ("Daten C", "2080B0"), ("Daten D", "50B0D0"), ("Daten E", "20C090"),
+    ("Daten F", "30A060"), ("Daten G", "E08820"), ("Daten H", "D06020"), ("Daten I", "E04040"), ("Daten J", "C04080"),
+]
+
+
 def theme_xml(xml):
     scheme = '<a:clrScheme name="CASI">' + "".join(
         f'<a:{k}><a:srgbClr val="{v}"/></a:{k}>' for k, v in THEME.items()
     ) + "</a:clrScheme>"
     xml = re.sub(r"<a:clrScheme\b[\s\S]*?</a:clrScheme>", scheme, xml, count=1)
     xml = re.sub(r'(<a:(?:theme|fontScheme)\b[^>]*?\bname=")[^"]*"', r'\1CASI"', xml)
+    cust = "<a:custClrLst>" + "".join(f'<a:custClr name="{n}"><a:srgbClr val="{h}"/></a:custClr>' for n, h in EXTRA) + "</a:custClrLst>"
+    xml = re.sub(r"<a:custClrLst>[\s\S]*?</a:custClrLst>", "", xml)
+    if "<a:extraClrSchemeLst/>" in xml:
+        xml = xml.replace("<a:extraClrSchemeLst/>", "<a:extraClrSchemeLst/>" + cust, 1)
+    elif "</a:extraClrSchemeLst>" in xml:
+        xml = xml.replace("</a:extraClrSchemeLst>", "</a:extraClrSchemeLst>" + cust, 1)
+    else:
+        xml = xml.replace("</a:theme>", cust + "</a:theme>", 1)
     return xml
 
 
@@ -86,11 +107,13 @@ def text_height(paras, width_emu, fonts_dir):
 
     size = 12
     ttf = os.path.join(fonts_dir, "IBMPlexSerif-Regular.ttf")
-    hh = TTFont(ttf)["hhea"]
-    upm = TTFont(ttf)["head"].unitsPerEm
-    line = (hh.ascent - hh.descent + hh.lineGap) / upm * size * 1.35
+    tt = TTFont(ttf)
+    upm = tt["head"].unitsPerEm
+    os2 = tt["OS/2"]
+    single = max(tt["hhea"].ascent - tt["hhea"].descent + tt["hhea"].lineGap, os2.usWinAscent + os2.usWinDescent) / upm
+    line = single * size * 1.35
     font = ImageFont.truetype(ttf, size * 10)
-    inner = (width_emu - 2 * BOX_PAD) / EMU * 72 * 10
+    inner = (width_emu - 2 * BOX_PAD) / EMU * 72 * 10 * 0.94  # Sicherheitsabstand: PowerPoint bricht früher um
     lines = 0
     for para in paras:
         cur = ""
@@ -104,7 +127,7 @@ def text_height(paras, width_emu, fonts_dir):
                 cur = test
         lines += n
     pts = lines * line + 6 * (len(paras) - 1)
-    return int((pts / 72 + 0.6 + 0.08) * EMU)
+    return int((pts * 1.06 / 72 + 0.6 + 0.15) * EMU)
 
 
 def fix_slide(xml, boxes, fonts_dir):
@@ -130,11 +153,28 @@ def fix_slide(xml, boxes, fonts_dir):
     return re.sub(r"<p:sp>[\s\S]*?</p:sp>", one, xml)
 
 
-def process(src, fonts_dir, potx=False):
+def process(src, fonts_dir, potx=False, grafiken=None):
     tmp = src + ".tmp"
     zin = zipfile.ZipFile(src)
     zout = zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED)
     files = {n: zin.read(n) for n in zin.namelist()}
+
+    # 0 Website-Grafiken einsetzen (nur Beispielpräsentation)
+    if grafiken:
+        here = os.path.dirname(__file__)
+        T = json.load(open(os.path.join(here, "beispiel-text.json"), encoding="utf-8"))
+        web = zipfile.ZipFile(os.path.join(here, "website-grafiken.pptx"))
+        titles = {g["titel"]: g["quelle"] for g in T["grafiken"]}
+        for n in sorted(k for k in files if re.match(r"ppt/slides/slide\d+\.xml$", k)):
+            xml = files[n].decode()
+            for title, no in titles.items():
+                if f"<a:t>{title}</a:t>" in xml and "Nur Titel" in files[n.replace("slides/", "slides/_rels/") + ".rels"].decode() + "Nur Titel":
+                    k = inject(files, n, web, no, str(no))
+                    print(f"  Grafik {no} ({title}) → {n}: {k} Formen")
+        if 'Extension="svg"' not in files["[Content_Types].xml"].decode():
+            files["[Content_Types].xml"] = files["[Content_Types].xml"].decode().replace("<Default ", '<Default Extension="svg" ContentType="image/svg+xml"/><Default ', 1).encode()
+        if 'Extension="png"' not in files["[Content_Types].xml"].decode():
+            files["[Content_Types].xml"] = files["[Content_Types].xml"].decode().replace("<Default ", '<Default Extension="png" ContentType="image/png"/><Default ', 1).encode()
 
     # 1 Theme
     files["ppt/theme/theme1.xml"] = theme_xml(files["ppt/theme/theme1.xml"].decode()).encode()
@@ -208,4 +248,4 @@ def process(src, fonts_dir, potx=False):
 if __name__ == "__main__":
     folder, fonts_dir = sys.argv[1], sys.argv[2]
     process(os.path.join(folder, "CASI-Folien.pptx"), fonts_dir, potx=True)
-    process(os.path.join(folder, "CASI-Folien-Beispiel.pptx"), fonts_dir)
+    process(os.path.join(folder, "CASI-Folien-Beispiel.pptx"), fonts_dir, grafiken=True)

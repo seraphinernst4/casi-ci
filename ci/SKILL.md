@@ -25,9 +25,18 @@ The look is the website casinitiative.org: white page, PP Mori and IBM Plex Seri
 | Box edge (white box on grey), divider inside a grey box | `#C5D4D3` |
 | Filled button, current menu item, call to action | Burgundy `#8B1538` — at most twice per page |
 
-These are the website's CSS tokens (`--papier`, `--block`, `--tinte`, `--leise`, `--linie`, `--akzent`, plus `#C5D4D3`). That is the whole palette for new material. Links have no colour of their own — on the website they take the text colour; in emails and documents they are underlined in the colour of the text around them. Nothing else gets colour: no coloured numbers, bullets, bars or accents.
+These are the website's CSS tokens (`--papier`, `--block`, `--tinte`, `--leise`, `--linie`, `--akzent`, plus `#C5D4D3`). That is the whole palette for text, surfaces and UI. Links have no colour of their own — on the website they take the text colour; in emails and documents they are underlined in the colour of the text around them. Nothing else gets colour: no coloured numbers, bullets, bars or accents.
 
-**In the background:** the website's graphics have their own colours (transaction markers A–J, value-chain colours, hero burgundy tints, data palette). They belong to those graphics only. Do not reuse them elsewhere; when a graphic is needed, take it from the website (see below) instead of rebuilding it. If the author's own chart needs several series: Deep Green, then Slate, then tints of Deep Green; more categories only if the author's data really has them.
+**Extra colours – graphics only.** The website's graphics have their own colours. They may be used in graphics, charts, diagrams, maps and illustrations (fills, lines, data marks), never for text, headings, buttons, boxes, backgrounds or decoration. Prefer taking the graphic itself from the website (see below) over rebuilding it.
+
+| Group | Hex | Use |
+|---|---|---|
+| ICCA green | `#13917C` (UI, `--icca`), `#1A9C7E` (hero graphic) | ICCA marks and system diagrams |
+| Burgundy tints | `#F6EBEF` light, `#CB96A6` mid | hero flow graphic |
+| Value chain | direct `#29363D`, iron `#8C5A3C`, steel `#5B7C99`, car `#3F6B3F`, body `#0E8388`, end of life `#6B4C6E` | value-chain graphics |
+| Data / transaction markers A–J | `#B060E0` `#3060C0` `#2080B0` `#50B0D0` `#20C090` `#30A060` `#E08820` `#D06020` `#E04040` `#C04080` | categorical data, transaction markers |
+
+Charts: start with Deep Green, then Slate, then tints of Deep Green (`#93AFAD`, `#C5D4D3`). If the author's data has more categories than that, use the data colours A–J in order. Labels on coloured fills: white or Deep Green, whichever has the stronger contrast. In the PowerPoint template all extra colours are under "Custom colours".
 
 Contrast on white: Deep Green 9.65:1, Burgundy 9.28:1, Slate 4.97:1 — fine for text. Slate on the grey box only 4.41:1: there use Deep Green, or Slate from 14 pt semibold.
 
@@ -65,7 +74,7 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 
 - **ICCA graphics as PowerPoint, always current:** Backend → Texte → Grafiken (PowerPoint) (`/wp-admin/admin.php?page=casi-grafiken`). Tick slides, download — editable native shapes, PP Mori embedded. For outsiders: "Link für Dritte" there. Use these instead of redrawing; if a deck has an outdated version, say so and offer the current one.
 - **Texts:** every visible website text lives in Backend → **Texte** (`/wp-admin/admin.php?page=casi-texte`). New website-related material uses the terms exactly as there.
-- **Logo:** `/wp-content/uploads/2026/07/LOGO.svg` (email: `/wp-content/uploads/casi-mail/casi-logo-mail.png`). Only where the source has a logo; clear space = height of the "C".
+- **Logo:** the wordmark "CASI" `/wp-content/uploads/2026/07/LOGO.svg` (email: `/wp-content/uploads/casi-mail/casi-logo-mail.png`). The short logo is the "C" of that wordmark alone: `https://ci.casinitiative.org/marke/casi-c-tinte.svg` (white: `casi-c-weiss.svg`, PNG next to it). Older C marks (a ring of fine dots) are no longer valid – never use them. Only where the source has a logo; clear space = height of the "C".
 - Styles and scripts: `/wp-content/uploads/casi-css/`, `/wp-content/uploads/casi-js/`.
 
 **Changing the website: every text into the register — always, unasked.** Every new or changed visible text (graphics, tiles, labels, buttons, alt texts, aria-labels, mails) goes into the register in the same step; a change is not finished before. Register: `casi_texte_code()` in `/wp-content/novamira-sandbox/casi-texte.php`, one line per text `'id' => array(gruppe, teil, label, standard, art)` (`art`: `zeile`, `satz`, `text`, `plain`, `attr`; labels German, in reading order). Output via `casi_t()` (HTML), `casi_tx()` (plain), `casi_ta()` (attribute). Same text in two places: own key via the `$folgt` list. Then check: visible in Backend → Texte, page unchanged, Elementor cache cleared.

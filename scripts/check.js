@@ -12,12 +12,12 @@ if (!/^---\n(?:[\s\S]*?\n)?name:/.test(skill)) fail("ci/SKILL.md: Kopfbereich (-
 for (const h of ["Colour", "Typography", "Check before delivering"]) {
   if (!new RegExp("^##\\s+" + h, "mi").test(skill)) fail(`ci/SKILL.md: Abschnitt "## ${h}…" fehlt`);
 }
-for (const [name, t] of Object.entries(tokens.color ?? {})) {
+for (const [name, t] of Object.entries({ ...(tokens.color ?? {}), ...Object.fromEntries(Object.entries(tokens.colorExtra ?? {}).filter(([k]) => !k.startsWith("$"))) })) {
   if (!skill.toUpperCase().includes(String(t.$value).toUpperCase()))
     fail(`Farbe "${name}" (${t.$value}) steht in tokens.json, aber nicht in SKILL.md – eine der beiden Dateien anpassen`);
 }
 const skillHex = new Set((skill.match(/#[0-9A-F]{6}\b/gi) ?? []).map((h) => h.toUpperCase()));
-const tokenHex = new Set(Object.values(tokens.color ?? {}).map((t) => String(t.$value).toUpperCase()));
+const tokenHex = new Set([...Object.values(tokens.color ?? {}), ...Object.entries(tokens.colorExtra ?? {}).filter(([k]) => !k.startsWith("$")).map(([, v]) => v)].map((t) => String(t.$value).toUpperCase()));
 for (const h of skillHex) if (!tokenHex.has(h)) fail(`Farbe ${h} steht in SKILL.md, fehlt aber in tokens.json`);
 
 import { existsSync } from "node:fs";

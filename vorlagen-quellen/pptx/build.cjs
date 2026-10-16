@@ -7,9 +7,9 @@ const pptxgen = require("pptxgenjs");
 
 const OUT = process.argv[2] || ".";
 const ASSETS = path.join(__dirname, "..", "assets");
-const C_TINTE = path.join(ASSETS, "logo-c-tinte.png"); // das „C“, 538 × 600 px
-const C_WEISS = path.join(ASSETS, "logo-c-weiss.png");
-const C_RATIO = 538 / 600;
+const C_TINTE = path.join(ASSETS, "casi-c-tinte.png"); // das „C“ aus der Wortmarke CASI, 714 × 800 px
+const C_WEISS = path.join(ASSETS, "casi-c-weiss.png");
+const C_RATIO = 714 / 800;
 
 // CASI-Farben (ci/tokens.json)
 const C = { papier: "FFFFFF", block: "EEF2F1", tinte: "0E4D49", leise: "5F7471", akzent: "8B1538" };
@@ -171,6 +171,12 @@ async function buildExample() {
   const figH = 5.35, figW = figH * (1992 / 1310);
   s.addImage({ path: path.join(__dirname, "beispiel-abbildung.png"), x: M, y: TOP, w: figW, h: figH, altText: T.figCaption });
   s.addText(T.figCaption, { placeholder: "caption" });
+
+  // Website-Grafiken: leere „Nur Titel“-Folien, finish.py setzt die Formen aus website-grafiken.pptx ein
+  for (const g of T.grafiken) {
+    s = pres.addSlide({ masterName: "Nur Titel" });
+    s.addText(g.titel, { placeholder: "title" });
+  }
 
   s = pres.addSlide({ masterName: "Schluss" });
   s.addText(T.closing, { placeholder: "title" });
