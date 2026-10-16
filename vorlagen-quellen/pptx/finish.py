@@ -93,7 +93,17 @@ def fix_shapes(xml):
         elif "lIns=" not in sp:
             sp = re.sub(r"<a:bodyPr\b", '<a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0"', sp, count=1)
         return sp
-    return re.sub(r"<p:sp>[\s\S]*?</p:sp>", one, xml)
+    return exact_radius(re.sub(r"<p:sp>[\s\S]*?</p:sp>", one, xml))
+
+
+def exact_radius(xml):
+    """Eckenradius aller Boxen exakt 0,1″: adj = Radius / min(Breite, Höhe) × 100000.
+    So decken sich Layout-Box und Folien-Box an den oberen Ecken genau."""
+    def radius(m):
+        w, h = int(m.group(1)), int(m.group(2))
+        adj = round(0.1 * EMU / min(w, h) * 100000)
+        return f'<a:ext cx="{w}" cy="{h}"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val {adj}"/></a:avLst>'
+    return re.sub(r'<a:ext cx="(\d+)" cy="(\d+)"/></a:xfrm><a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val \d+"/></a:avLst>', radius, xml)
 
 
 def box_idx(layout_xml):
@@ -143,7 +153,7 @@ def fix_slide(xml, boxes, fonts_dir):
             sp,
         )
         sp = re.sub(r'lIns="0" tIns="0" rIns="0" bIns="0"', f'lIns="{BOX_PAD}" tIns="{BOX_PAD}" rIns="{BOX_PAD}" bIns="{BOX_PAD}"', sp, count=1)
-        sp = re.sub(r"(<a:bodyPr[^>]*>)(</a:bodyPr>)", r"\1<a:spAutoFit/>\2", sp, count=1)
+        sp = re.sub(r"(<a:bodyPr[^>]*>)(</a:bodyPr>)", r"\1<a:noAutofit/>\2", sp, count=1)  # feste, berechnete Höhe: gleiches Bild in PowerPoint, Keynote, PDF
         paras = ["".join(re.findall(r"<a:t>([^<]*)</a:t>", p)) for p in re.findall(r"<a:p>[\s\S]*?</a:p>", sp)]
         paras = [p for p in paras if p.strip()]
         w = int(re.search(r'<a:ext cx="(\d+)"', sp).group(1))
@@ -158,7 +168,7 @@ def fix_slide(xml, boxes, fonts_dir):
     for y, hs in rows.items():
         if len(hs) > 1:
             xml = re.sub(rf'(<a:off x="\d+" y="{y}"/><a:ext cx="\d+" cy=")\d+("/></a:xfrm><a:prstGeom prst="roundRect")', lambda e: f"{e.group(1)}{max(hs)}{e.group(2)}", xml)
-    return xml
+    return exact_radius(xml)
 
 
 def process(src, fonts_dir, potx=False, grafiken=None):

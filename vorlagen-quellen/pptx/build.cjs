@@ -26,6 +26,8 @@ const SIDE = 4.2; // Breite der Box neben Text
 // Erkennungstext für finish.py: Platzhalter mit diesem Hinweis werden zur grauen Box,
 // die mit dem Text mitwächst (abgerundet, #EEF2F1, Innenabstand 0,3″).
 const BOX_PROMPT = "Text in der Box";
+// Leere Box = Innenabstand oben/unten + eine Zeile; wächst beim Tippen.
+const BOX_MIN = 0.87;
 
 const pageNumber = { x: W - M - 1.5, y: 7.07, w: 1.5, h: 0.2, fontFace: SANS, fontSize: 7.5, color: C.leise, align: "right", valign: "top", margin: 0 };
 
@@ -81,11 +83,11 @@ function defineLayouts(pres) {
   pres.defineSlideMaster(content("Text mit Box", [
     title(),
     text("body", M, TOP, CW - SIDE - GAP, BOTTOM - TOP),
-    boxText("box", W - M - SIDE, TOP, SIDE, 1.2),
+    boxText("box", W - M - SIDE, TOP, SIDE, BOX_MIN),
   ]));
 
   // 7 Zwei Boxen – beide wachsen mit dem Text
-  pres.defineSlideMaster(content("Zwei Boxen", [title(), boxText("left", M, TOP, COL, 1.2), boxText("right", M + COL + GAP, TOP, COL, 1.2)]));
+  pres.defineSlideMaster(content("Zwei Boxen", [title(), boxText("left", M, TOP, COL, BOX_MIN), boxText("right", M + COL + GAP, TOP, COL, BOX_MIN)]));
 
   // 8 Abbildung
   pres.defineSlideMaster(content("Abbildung", [
