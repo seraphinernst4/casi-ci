@@ -17,7 +17,7 @@
  *    verschluesselt in der Datenbank (Schluessel aus den WordPress-Salts).
  *
  * Rechte: Baukasten und Versand „edit_posts“, Postfaecher „manage_options“.
- * Gesendet wird erst, wenn fuer genau diese Mail und diesen Absender eine Testmail rausging.
+ * Eine Testmail an sich selbst ist moeglich, aber keine Pflicht.
  *
  * Quelle: Repo casi-ci, wordpress/casi-mailversand.php und wordpress/casi-mailbaukasten.html
  */
@@ -188,9 +188,6 @@ add_action('wp_ajax_casi_mail_test', function () {
 add_action('wp_ajax_casi_mail_senden', function () {
     $e = casi_mv_eingabe();
     $uid = get_current_user_id();
-    if (get_user_meta($uid, CASI_MV_GETESTET, true) !== casi_mv_pruefsumme($e)) {
-        wp_send_json_error('Bitte zuerst eine Testmail an dich schicken – für genau diese Mail und diesen Absender.');
-    }
     list($gut, $schlecht) = casi_mv_empfaenger(wp_unslash($_POST['empfaenger'] ?? ''));
     if (!$gut) { wp_send_json_error('Keine gültige Empfängeradresse eingetragen.'); }
     if (count($gut) > CASI_MV_MAX) { wp_send_json_error('Höchstens ' . CASI_MV_MAX . ' Empfänger je Versand – bitte aufteilen.'); }

@@ -68,7 +68,7 @@
   <h1>Mail-Baukasten</h1>
   <p class="lead">Mails im Gestaltungssystem der CASI bauen und direkt über den CASI-Server verschicken – genau so, wie sie hier aussehen, auch auf dem Handy. Dazu die E-Mail-Signatur.</p>
 
-  <div class="vorbelegt" id="vorbelegt" hidden><strong>Von Claude vorausgefüllt.</strong> Bitte alles prüfen, dann unten Testmail an dich und senden. <button class="link" id="vorher" hidden>Vorherigen Entwurf wiederherstellen</button></div>
+  <div class="vorbelegt" id="vorbelegt" hidden><strong>Von Claude vorausgefüllt.</strong> Bitte alles prüfen, dann unten senden. <button class="link" id="vorher" hidden>Vorherigen Entwurf wiederherstellen</button></div>
 
   <div class="reiter" role="tablist">
     <button role="tab" aria-selected="false" data-teil="signatur">Signatur</button>
@@ -150,7 +150,7 @@
         <p class="klein" style="margin-top:-6px;"><span id="v-zahl">0</span> Adressen · Alle bekommen die Mail per BCC, niemand sieht die anderen. Höchstens <span id="v-max">300</span> je Versand.</p>
         <div class="knopfzeile">
           <button class="knopf hell" id="v-test">Testmail an mich</button>
-          <button class="knopf" id="v-senden" disabled>Senden</button>
+          <button class="knopf" id="v-senden">Senden</button>
         </div>
         <p class="klein" id="v-hinweis"></p>
         <div class="status" id="v-status" role="status"></div>
@@ -162,7 +162,7 @@
         <button class="knopf hell" id="m-text">Textfassung kopieren</button>
       </div>
       <div class="status" id="m-status"></div>
-      <p class="hinweis klein">Einträge immer von der Website laden und dorthin verlinken – nie von Hand abschreiben. Burgundy-Buttons höchstens zwei pro Mail. Vor dem Versand eine Testmail an sich selbst schicken.</p>
+      <p class="hinweis klein">Einträge immer von der Website laden und dorthin verlinken – nie von Hand abschreiben. Burgundy-Buttons höchstens zwei pro Mail.</p>
     </div>
     <div class="vorschau"><h2><span>Vorschau</span><span id="m-warnung" class="warnung"></span></h2><iframe id="m-vorschau" title="Vorschau der Mail"></iframe></div>
   </section>
@@ -573,7 +573,7 @@
   // window.CASI_MV setzt WordPress beim Ausliefern: AJAX-Adresse, Nonce, eigene Adresse, Absender.
   var CFG = window.CASI_MV || null, getestet = "";
   function stand() { return mailHtml() + "|" + (M.betreff || "") + "|" + $("v-von").value; }
-  function pruefeKnopf() { if (CFG) $("v-senden").disabled = !getestet || getestet !== stand(); }
+  function pruefeKnopf() {}
   function adressen() { return $("v-an").value.split(/[\s,;]+/).filter(function (x) { return /@/.test(x); }); }
   function meldung(t, fehler) { var s = $("v-status"); s.textContent = t; s.classList.toggle("fehler", !!fehler); }
   if (!CFG) { $("m-versand").hidden = true; }
@@ -591,7 +591,7 @@
     $("v-von").addEventListener("change", function () { merk("absender", $("v-von").value); nameSetzen(); pruefeKnopf(); });
     $("v-max").textContent = CFG.max;
     $("v-an").addEventListener("input", function () { $("v-zahl").textContent = adressen().length; });
-    $("v-hinweis").innerHTML = "Senden geht erst nach einer Testmail an dich (" + esc(CFG.mail) + ") – für genau diese Mail und diesen Absender."
+    $("v-hinweis").innerHTML = "Die Testmail geht an " + esc(CFG.mail) + "."
       + (CFG.postfaecher ? ' <a href="' + esc(CFG.postfaecher) + '" target="_top">Absender-Postfächer einrichten</a>' : "");
     var senden = function (aktion, extra) {
       var f = new FormData();
@@ -606,7 +606,7 @@
       $("v-test").disabled = true; meldung("Testmail wird verschickt …");
       var vorher = stand();
       senden("casi_mail_test").then(function (d) {
-        if (d && d.success) { getestet = vorher; meldung("Testmail an " + d.data.an + " ist raus. Bitte am Rechner und am Handy ansehen, dann senden."); }
+        if (d && d.success) { getestet = vorher; meldung("Testmail an " + d.data.an + " ist raus."); }
         else meldung("Testmail ging nicht raus: " + ((d && d.data) || "unbekannter Fehler"), true);
       }).catch(function () { meldung("Keine Verbindung zum Server – bitte nochmals versuchen.", true); })
         .then(function () { $("v-test").disabled = false; pruefeKnopf(); });

@@ -31,7 +31,7 @@ Die Schriftdateien selbst liegen nicht im Repo (PP Mori ist lizenzpflichtig) –
 
 Vor jedem Deployment prüft `npm run check`, ob jede Farbe in beiden Dateien steht. Passt etwas nicht, bricht Vercel ab und der letzte gute Stand bleibt live. Die Fehlermeldung steht im Vercel-Build-Log.
 
-Wenn du den CASI-Skill in Claude änderst: denselben Text hier in `ci/SKILL.md` einfügen (oder umgekehrt), damit beides gleich bleibt.
+Einen eigenen CASI-Skill in Claude braucht es nicht mehr – der Connector liefert immer diesen Stand.
 
 ## Einrichten (pro Person, einmalig)
 
@@ -69,7 +69,7 @@ Was Menschen benutzen, liegt im Backend von casinitiative.org (Login), ci.casini
 
 | Datei (Repo `wordpress/`) | Zweck |
 |---|---|
-| `casi-mailversand.php` | Menü „Mail-Baukasten“: Baukasten, Versand über IONOS (Absender info@ oder eigenes Postfach, BCC, Testmail-Pflicht), Unterseite „Postfächer“ mit Protokoll |
+| `casi-mailversand.php` | Menü „Mail-Baukasten“: Baukasten, Versand über IONOS (Absender info@ oder eigenes Postfach, BCC, Testmail möglich), Unterseite „Postfächer“ mit Protokoll |
 | `casi-mailbaukasten.html` | der Mail-Baukasten selbst (wird von `casi-mailversand.php` ausgeliefert) |
 | `casi-werkzeuge.php` | Menü „Kachel-Baukasten“ und Dashboard-Kasten „CASI-Werkzeuge“ (Einrichtung, Baukästen, Vorlagen live vom Connector) |
 | `casi-kachelbaukasten.html` | der Kachel-Baukasten selbst |

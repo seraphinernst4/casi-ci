@@ -111,7 +111,7 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 
 **Tools:** the Mail-Baukasten lives in the WordPress back end of the website: `https://casinitiative.org/wp-admin/admin.php?page=casi-mailversand` (menu "Mail-Baukasten", login with the right `edit_posts`). It builds signatures and complete mails (presets: newsletter, invitation, announcement, short round mail, personal mail with CASI header) from blocks and sends them directly. Old links to `ci.casinitiative.org/mail/` forward there. HTML templates via `casi_templates` (medium `email`): `CASI-Newsletter-Vorlage.html`, `CASI-Einladung-Vorlage.html`, `CASI-Ankuendigung-Vorlage.html`, `CASI-Rundmail-Vorlage.html`, `CASI-Signatur-Vorlage.html`. News and events come live from `https://casinitiative.org/wp-json/casi/v1/news?anzahl=12` (fields zeile, titel, text, link, rubrik, datum) – never typed by hand.
 
-**Sending:** in the section "Versand" of the Mail-Baukasten, through the CASI mail server (IONOS), exactly as designed – the standard way, because pasting into a mail program loses styles and the phone layout. Sender info@casinitiative.org (website mailbox, WP Mail SMTP) or a personal @casinitiative.org mailbox an administrator sets up under "Mail-Baukasten → Postfächer" (IONOS password, stored encrypted, checked on saving); recipients as BCC (max. 300 per send, in packets of 40); first "Testmail an mich" – "Senden" only works for exactly the tested mail and sender; a log of every send is under "Postfächer". "Mail kopieren" and "HTML herunterladen" remain as fallbacks. Source in the repo: `wordpress/casi-mailversand.php` and `wordpress/casi-mailbaukasten.html`; live in `/wp-content/novamira-sandbox/` – deploy both after every change (Vercel does not deploy them).
+**Sending:** in the section "Versand" of the Mail-Baukasten, through the CASI mail server (IONOS), exactly as designed – the standard way, because pasting into a mail program loses styles and the phone layout. Sender info@casinitiative.org (website mailbox, WP Mail SMTP) or a personal @casinitiative.org mailbox an administrator sets up under "Mail-Baukasten → Postfächer" (IONOS password, stored encrypted, checked on saving); recipients as BCC (max. 300 per send, in packets of 40); "Testmail an mich" is optional; a log of every send is under "Postfächer". "Mail kopieren" and "HTML herunterladen" remain as fallbacks. Source in the repo: `wordpress/casi-mailversand.php` and `wordpress/casi-mailbaukasten.html`; live in `/wp-content/novamira-sandbox/` – deploy both after every change (Vercel does not deploy them).
 
 **Phones:** long words and links must wrap (`overflow-wrap:anywhere; word-break:break-word` on text cells); nothing may make the mail wider than 320 px.
 
@@ -154,7 +154,7 @@ Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-news
 - `color-scheme: light`; hidden preheader = the sentence; always a plain-text alternative.
 - Headers: `Reply-To: info@casinitiative.org`, `List-Unsubscribe`.
 - All mail texts in the Texte register (Auf allen Seiten → Formulare → …), keys like `mail.nl.*`; subject, heading and sentence included.
-- Send a test mail to yourself before anything goes out.
+- A test mail to yourself is recommended before big sends, but not required.
 
 ## Slides
 
@@ -214,5 +214,5 @@ Web: as the website (reading text 17 px serif, links in the text colour). Charts
 3. Text, surfaces and UI only in the UI colours, in emails too; extra colours only in graphics and charts.
 4. Boxes grey or white-edged, 8/10 px corners, only where the author had them; lines only with meaning.
 5. External graphics untouched; internal graphics in the website graphic style with the website symbols.
-6. Emails: content linked to the website with absolute URLs, plain-text version, test mail sent.
+6. Emails: content linked to the website with absolute URLs, plain-text version.
 7. Website changes: every visible text editable in Backend → Texte.
