@@ -42,6 +42,12 @@
       "titel": "Whitepaper-Vorlage (Vorschau)",
       "wofuer": "Preview of the empty whitepaper template.",
       "medium": "document"
+    },
+    {
+      "datei": "CASI-Symbole.zip",
+      "titel": "CASI-Symbole (Website-Grafiken)",
+      "wofuer": "The website's line symbols (direct emissions, direct removals, upstream emissions, CO2 ledger, CO2 balance sheet, net CO2 contribution, net CO2 flow, product carbon footprints) as SVG and PNG in Deep Green, white and Burgundy, plus the rules for drawing new symbols. Use them in every internal CASI graphic.",
+      "medium": "graphics"
     }
   ]
 }

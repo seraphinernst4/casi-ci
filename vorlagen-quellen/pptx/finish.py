@@ -50,8 +50,8 @@ CT_POTX = "application/vnd.openxmlformats-officedocument.presentationml.template
 
 EXTRA = [  # Zusatzfarben (ci/tokens.json → colorExtra) – erscheinen in PowerPoint unter „Benutzerdefinierte Farben“
     ("ICCA", "13917C"), ("ICCA Grafik", "1A9C7E"), ("Burgundy hell", "F6EBEF"), ("Burgundy mittel", "CB96A6"),
-    ("Kette direct", "29363D"), ("Kette iron", "8C5A3C"), ("Kette steel", "5B7C99"), ("Kette car", "3F6B3F"),
-    ("Kette body", "0E8388"), ("Kette Lebensende", "6B4C6E"),
+    ("Kette iron", "A75F26"), ("Kette steel", "1A6685"), ("Kette body", "17876F"), ("Kette car", "2A7A4B"),
+    ("Kette Lebensende", "85499E"), ("Grafik Tinte", "29363D"), ("Grafik leise", "54626A"), ("Burgundy Rand", "E3C2CD"),
     ("Daten A", "B060E0"), ("Daten B", "3060C0"), ("Daten C", "2080B0"), ("Daten D", "50B0D0"), ("Daten E", "20C090"),
     ("Daten F", "30A060"), ("Daten G", "E08820"), ("Daten H", "D06020"), ("Daten I", "E04040"), ("Daten J", "C04080"),
 ]

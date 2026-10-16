@@ -35,7 +35,8 @@ These are the website's CSS tokens (`--papier`, `--block`, `--tinte`, `--leise`,
 |---|---|---|
 | ICCA green | `#13917C` (UI, `--icca`), `#1A9C7E` (hero graphic) | ICCA marks and system diagrams |
 | Burgundy tints | `#F6EBEF` light, `#CB96A6` mid | hero flow graphic |
-| Value chain | direct `#29363D`, iron `#8C5A3C`, steel `#5B7C99`, car `#3F6B3F`, body `#0E8388`, end of life `#6B4C6E` | value-chain graphics |
+| Value chain (fields with white text) | iron `#A75F26`, steel `#1A6685`, body `#17876F`, car `#2A7A4B`, end of life `#85499E`; own contribution white with hairline, text `#29363D` | value-chain graphics |
+| Graphic neutrals | ink `#29363D`, secondary text in graphics `#54626A`, burgundy outline `#E3C2CD` | inside graphics only |
 | Data / transaction markers A–J | `#B060E0` `#3060C0` `#2080B0` `#50B0D0` `#20C090` `#30A060` `#E08820` `#D06020` `#E04040` `#C04080` | categorical data, transaction markers |
 
 Charts: start with Deep Green, then Slate, then tints of Deep Green (`#93AFAD`, `#C5D4D3`). If the author's data has more categories than that, use the data colours A–J in order. Labels on coloured fills: white or Deep Green, whichever has the stronger contrast. In the PowerPoint template all extra colours are under "Custom colours".
@@ -70,6 +71,22 @@ Headings SemiBold, body Regular — both Deep Green; small text Slate. Max five 
 - Box: `#EEF2F1`, corners 8 px (10 px large panels); or white with 1 px `#C5D4D3` where it sits on grey. No shadows, gradients, 3D, heavy borders. Boxes only where the author had a box, panel or shaded table.
 - Lines only with meaning: sum lines, T-account rules, one rule under a table header. 1 px Deep Green (web), 0.5–0.75 pt (print). No bars, accent rules or rules under headings.
 - Diagrams the author drew: grey/white boxes, PP Mori Deep Green, connectors `#93AFAD` meeting the box edges, no arrowheads unless direction is unclear (then an open chevron).
+
+## Graphics: external stay, internal follow the website
+
+**External graphics stay exactly as they are.** A figure from a third party – a source is named that is not CASI (e.g. "Source: WRI (1998)"), a partner's or a publication's chart, a photo, a screenshot – is not redrawn, recoloured, re-lettered or cropped. Only its caption is set in CASI style, in the author's wording.
+
+**Internal graphics are redrawn in the style of the website graphics.** Everything CASI made itself – diagrams, schemes, charts, statements, process pictures, icons, also older CASI figures in a different look – follows the website's figures (`.abb`):
+1. If the website already has this graphic: take it from there (Backend → Texte → Grafiken (PowerPoint)), never a copy of an older version.
+2. Otherwise rebuild it with these rules:
+   - **Type:** PP Mori only (labels are used, not read), one step smaller than the running text; box titles SemiBold; Deep Green, secondary text `#54626A`.
+   - **Boxes:** `#EEF2F1` without outline, or white with a 1 px Deep Green hairline when they sit on grey; corners 10 px (small boxes 8 px); no shadows, gradients or 3D.
+   - **Lines:** 1 px hairline Deep Green; connectors orthogonal, meeting box edges; small arrowheads only where direction matters.
+   - **Symbols:** the website's line symbols (`https://ci.casinitiative.org/marke/symbole/`: direct emissions, direct removals, upstream emissions, CO2 ledger, CO2 balance sheet, net CO2 contribution, net CO2 flow, product carbon footprints – in Deep Green, white and Burgundy). A new symbol is drawn by the same rules: 24 × 24 grid, stroke 1.5 px, round caps and joins, no fill, simple geometric forms, one colour; it sits to the left of its label.
+   - **Inputs and outputs:** inputs in Deep Green on grey; reports/outputs in Burgundy on `#F6EBEF` with `#CB96A6` hairline (as in the ICCA overview).
+   - **Marks A–J:** small pills (radius 2 px, about 2:1), letter white SemiBold on the data colour = booked on accounts; outlined version (same size, coloured outline and letter) = read from accounts for reporting.
+   - **Colours:** UI colours plus the extra colours above – nothing else.
+3. Unclear whether a graphic is external or internal? Ask, do not guess.
 
 ## Website graphics, texts and resources
 
@@ -139,7 +156,7 @@ python-pptx: set `run.font.name` on every run; rounded corners via `roundRect` a
 | CASI Literatur | references | IBM Plex Serif 9.5 pt |
 | CASI Fussnote | footnotes | IBM Plex Serif 8.5 pt |
 
-A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, series, title, abstract, authors, publisher · date, contents (automatic, no page numbers). Running header from the cover (series · title) above a hairline `#E1E7E5`; footer "Carbon Accounting Standards Initiative · casinitiative.org" and page number. Every chapter starts on a new page with its kicker. Headings: the author's levels, no numbering unless the author numbered. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. Third-party images unchanged; captions in the author's wording and position. Print: export as PDF from Word (fonts are embedded).
+A4, margins 25 mm top/bottom, 22 mm left/right. Cover: long logo, hairline, series, title, abstract, authors, publisher · date, contents (automatic, no page numbers). Running header from the cover (series · title) above a hairline `#E1E7E5`; footer "Carbon Accounting Standards Initiative · casinitiative.org" and page number. Every chapter starts on a new page with its kicker. Headings: the author's levels, no numbering unless the author numbered. Tables: author's structure; a shaded table becomes one grey box; inside only the header rule and sum lines; numbers right-aligned. External figures unchanged, internal figures in the website graphic style (see Graphics); captions in the author's wording and position. Print: export as PDF from Word (fonts are embedded).
 
 ## Other media
 
@@ -151,5 +168,6 @@ Web: as the website (reading text 17 px serif, links in the text colour). Poster
 2. Right typeface per element, set on every run; Regular/Italic/SemiBold only.
 3. Text, surfaces and UI only in the UI colours, in emails too; extra colours only in graphics and charts.
 4. Boxes grey or white-edged, 8/10 px corners, only where the author had them; lines only with meaning.
-5. Emails: content linked to the website with absolute URLs, plain-text version, test mail sent.
-6. Website changes: every visible text editable in Backend → Texte.
+5. External graphics untouched; internal graphics in the website graphic style with the website symbols.
+6. Emails: content linked to the website with absolute URLs, plain-text version, test mail sent.
+7. Website changes: every visible text editable in Backend → Texte.
