@@ -74,9 +74,9 @@
       "medium": "document"
     },
     {
-      "link": "https://ci.casinitiative.org/mail/",
-      "titel": "Mail-Baukasten (Signatur, Newsletter, Einladung, Ankündigung, Rundmail)",
-      "wofuer": "Web tool for staff: e-mail signature; complete mails built from blocks (article, section, box with entries, event box, button, image) with presets for newsletter, invitation, announcement and short round mail. News and upcoming events load live from the website. Copy into the mail client or download HTML for Brevo/Mailchimp. Send people here instead of writing mails by hand.",
+      "link": "https://casinitiative.org/wp-admin/admin.php?page=casi-mailversand",
+      "titel": "Mail-Baukasten im Backend (Signatur, Newsletter, Einladung, Ankündigung, Rundmail, persönliche Mail – bauen und versenden)",
+      "wofuer": "In the WordPress back end of casinitiative.org (login required): e-mail signature; complete mails built from blocks with presets; news and events load live from the website; send directly through the CASI mail server – sender info@ or a personal @casinitiative.org mailbox, recipients as BCC, test mail first. Use casi_mail_link to open it pre-filled.",
       "medium": "email"
     },
     {
