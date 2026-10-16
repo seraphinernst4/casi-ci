@@ -64,7 +64,7 @@
     {
       "datei": "CASI-Brief.dotx",
       "titel": "Word-Vorlage Brief (DIN 5008)",
-      "wofuer": "Letters on CASI letterhead, DIN 5008 form B for window envelopes: logo, sender line and address field (45 mm from top), information block (date, contact, e-mail), subject, salutation, text, closing, name and function; sender details in the footer as in the website imprint. Fonts embedded.",
+      "wofuer": "Letters in English on CASI letterhead, DIN 5008 form B for window envelopes: logo at the same place as in all CASI documents, sender line and address field (45 mm from top), information block (date, contact, email), subject, salutation, text, closing, name and function; sender details in the footer as in the website imprint. Fonts embedded.",
       "medium": "document"
     },
     {
@@ -136,7 +136,7 @@
     {
       "datei": "CASI-Factsheet.dotx",
       "titel": "Factsheet A4 (Word-Vorlage)",
-      "wofuer": "One-page factsheet: series, title, lead, three key figures in a grey box, two-column text, contact. Fill the fields, keep to one page.",
+      "wofuer": "One-page factsheet: series, title, lead, three key figures in three separate grey boxes, two-column text, contact. Fill the fields, keep to one page.",
       "medium": "document"
     },
     {

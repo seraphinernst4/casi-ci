@@ -119,7 +119,7 @@ def koerper(orig, sect0, beispiel=None):
         b.append(para("CASIListe", run("—\tListenpunkt – CASI Liste.")))
         b.append(para("CASIListe", run("—\tZweiter Listenpunkt.")))
     # Kontakt am Ende der zweiten Spalte (gleicher Abschnitt)
-    b.append(para("CASIKicker", run("Kontakt" if not B else B["kontaktlabel"]), '<w:keepNext/><w:spacing w:before="400"/>'))
+    b.append(para("CASIKicker", run("Contact" if not B else B["kontaktlabel"]), '<w:keepNext/><w:spacing w:before="400"/>'))
     for i, (alias, prompt) in enumerate((("Kontakt Name", "Vorname Nachname · Funktion"), ("Kontakt E-Mail", "name@casinitiative.org"), ("Web", "casinitiative.org"))):
         if B:
             b.append(para("CASIMeta", run(B["kontakt"][i]), '<w:keepNext/><w:spacing w:after="0"/>' if i < 2 else '<w:spacing w:after="0"/>'))
