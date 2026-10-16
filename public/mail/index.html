@@ -567,12 +567,78 @@
   // ======================================================== Vorausgefüllte Links
   // #m=<Daten> öffnet eine Mail, #s=<Daten> eine Signatur. Daten: "z." + base64url(deflate-raw(JSON))
   // oder "j." + base64url(JSON). Erzeugt vom Connector-Tool casi_mail_link / casi_signatur_link.
+  // Kleiner Raw-DEFLATE-Entpacker (RFC 1951), Rückfall für Browser ohne DecompressionStream("deflate-raw").
+  function casiInflate(src) {
+    var out = [], pos = 0, bit = 0, bc = 0;
+    function bits(n) { var v = 0; for (var i = 0; i < n; i++) { if (!bc) { if (pos >= src.length) throw new Error("Daten zu kurz"); bit = src[pos++]; bc = 8; } v |= (bit & 1) << i; bit >>= 1; bc--; } return v; }
+    function baue(lens) {
+      var count = new Array(16).fill(0), offs = new Array(16).fill(0), sym = new Array(lens.length);
+      lens.forEach(function (l) { count[l]++; }); count[0] = 0;
+      for (var i = 1; i < 16; i++) offs[i] = offs[i - 1] + count[i - 1];
+      lens.forEach(function (l, s) { if (l) sym[offs[l]++] = s; });
+      return { count: count, sym: sym };
+    }
+    function lies(h) {
+      var code = 0, first = 0, index = 0;
+      for (var len = 1; len < 16; len++) {
+        code |= bits(1); var c = h.count[len];
+        if (code - c < first) return h.sym[index + (code - first)];
+        index += c; first += c; first <<= 1; code <<= 1;
+      }
+      throw new Error("Ungültiger Code");
+    }
+    var LB = [3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258];
+    var LE = [0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0];
+    var DB = [1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577];
+    var DE = [0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13];
+    var fl = null, fd = null, fertig = 0;
+    while (!fertig) {
+      fertig = bits(1); var typ = bits(2), lh, dh;
+      if (typ === 0) {
+        bc = 0; if (pos + 4 > src.length) throw new Error("Daten zu kurz");
+        var n = src[pos] | (src[pos + 1] << 8); pos += 4;
+        for (var k = 0; k < n; k++) out.push(src[pos++]);
+        continue;
+      } else if (typ === 1) {
+        if (!fl) { var l = []; for (var i = 0; i < 288; i++) l[i] = i < 144 ? 8 : i < 256 ? 9 : i < 280 ? 7 : 8; fl = baue(l); var d = []; for (i = 0; i < 30; i++) d[i] = 5; fd = baue(d); }
+        lh = fl; dh = fd;
+      } else if (typ === 2) {
+        var hl = bits(5) + 257, hd = bits(5) + 1, hc = bits(4) + 4, ord = [16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15], cl = new Array(19).fill(0);
+        for (i = 0; i < hc; i++) cl[ord[i]] = bits(3);
+        var ch = baue(cl), ls = [];
+        while (ls.length < hl + hd) {
+          var s = lies(ch);
+          if (s < 16) ls.push(s);
+          else if (s === 16) { var p = ls[ls.length - 1], r = 3 + bits(2); while (r--) ls.push(p); }
+          else if (s === 17) { r = 3 + bits(3); while (r--) ls.push(0); }
+          else { r = 11 + bits(7); while (r--) ls.push(0); }
+        }
+        lh = baue(ls.slice(0, hl)); dh = baue(ls.slice(hl));
+      } else throw new Error("Ungültiger Block");
+      for (;;) {
+        var sy = lies(lh);
+        if (sy < 256) out.push(sy);
+        else if (sy === 256) break;
+        else {
+          sy -= 257; var len2 = LB[sy] + bits(LE[sy]), ds = lies(dh), dist = DB[ds] + bits(DE[ds]);
+          if (dist > out.length) throw new Error("Ungültiger Abstand");
+          for (var j = 0; j < len2; j++) out.push(out[out.length - dist]);
+        }
+      }
+    }
+    return new Uint8Array(out);
+  }
   function entpacke(s) {
     var b64 = s.slice(2).replace(/-/g, "+").replace(/_/g, "/"); while (b64.length % 4) b64 += "=";
     var bin = atob(b64), bytes = new Uint8Array(bin.length);
     for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     if (s.slice(0, 2) === "j.") return Promise.resolve(JSON.parse(new TextDecoder().decode(bytes)));
-    return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text().then(JSON.parse);
+    var eigen = function () { return JSON.parse(new TextDecoder().decode(casiInflate(bytes))); };
+    // Erst eigener Entpacker (läuft in jedem Browser), sonst der des Browsers
+    try { return Promise.resolve(eigen()); } catch (e) {
+      if (typeof DecompressionStream === "undefined") return Promise.reject(e);
+      return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text().then(JSON.parse);
+    }
   }
   function normal(b) {
     var n = b && neuerBlock(b.typ); if (!n) return null;
@@ -602,7 +668,7 @@
       }
       $("vorbelegt").hidden = false;
       history.replaceState(null, "", location.pathname + location.search);
-    }).catch(function () { $("m-status").textContent = "Der Link ließ sich nicht lesen – bitte neu erzeugen lassen."; });
+    }).catch(function (e) { if (window.console) console.error("CASI-Link:", e); var v = $("vorbelegt"); v.innerHTML = "<strong>Der Link ließ sich nicht öffnen.</strong> Er ist unvollständig oder beschädigt – bitte den ganzen Link öffnen oder von Claude neu erzeugen lassen."; v.hidden = false; });
   }
   }
   ausLink();
