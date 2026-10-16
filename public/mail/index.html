@@ -156,6 +156,9 @@
 (function () {
   var SANS = "'PP Mori','Helvetica Neue',Helvetica,Arial,sans-serif";
   var SERIF = "'IBM Plex Serif',Georgia,'Times New Roman',serif";
+  // Halbfett über den Namen der Schrift, nicht nur über font-weight: Apple Mail macht beim Einfügen sonst
+  // aus 600 ein künstliches Fett oder verliert es wortweise. "PP Mori Semibold" ist die eigene Familie der Halbfetten.
+  var SB = "'PP Mori Semibold','PP Mori','Helvetica Neue',Helvetica,Arial,sans-serif";
   var LOGO = "https://casinitiative.org/wp-content/uploads/casi-mail/casi-logo-mail-deepgreen.png";
   var START = "https://casinitiative.org/";
   var NEWS = "https://casinitiative.org/news/";
@@ -198,7 +201,7 @@
     if (mail) kontakt.push('<a href="mailto:' + esc(mail) + '" style="color:#5F7471;text-decoration:underline;">' + esc(mail) + "</a>");
     var td = 'style="font-family:' + SANS + ';';
     return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;color:#0E4D49;">'
-      + "<tr><td " + td + 'padding:0 0 2px;font-size:14px;font-weight:600;line-height:1.35;color:#0E4D49;">' + esc(n) + "</td></tr>"
+      + "<tr><td style=\"font-family:" + SB + ';padding:0 0 2px;font-size:14px;font-weight:600;line-height:1.35;color:#0E4D49;">' + esc(n) + "</td></tr>"
       + (f ? "<tr><td " + td + 'padding:0 0 14px;font-size:13px;line-height:1.4;color:#5F7471;">' + esc(f) + "</td></tr>" : '<tr><td style="padding:0 0 12px;"></td></tr>')
       + '<tr><td style="padding:0 0 10px;"><a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a></td></tr>'
       + "<tr><td " + td + 'font-size:12px;line-height:1.55;color:#5F7471;">Carbon Accounting Standards Initiative · <a href="' + START + '" style="color:#5F7471;text-decoration:underline;">casinitiative.org</a>'
@@ -405,7 +408,7 @@
   var P = function (css, inner) { return '<p style="' + css + '">' + inner + "</p>"; };
   var T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"';
 
-  var H2 = function (t) { return '<h2 style="margin:0 0 12px;font-family:' + SANS + ';font-weight:600;font-size:20px;line-height:1.3;color:#0E4D49;">' + t + "</h2>"; };
+  var H2 = function (t) { return '<h2 style="margin:0 0 12px;font-family:' + SB + ';font-weight:600;font-size:20px;line-height:1.3;color:#0E4D49;">' + t + "</h2>"; };
   // Langer Text: Absätze, Zwischenüberschriften (## ), Listen (- ), Links
   function langtext(text) {
     var h = "";
@@ -413,7 +416,7 @@
       var z = a.split("\n").filter(function (x) { return x.trim(); });
       if (!z.length) return;
       if (z.length === 1 && /^##\s+/.test(z[0])) {
-        h += '<h3 style="margin:28px 0 8px;font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z[0].replace(/^##\s+/, "")) + "</h3>";
+        h += '<h3 style="margin:28px 0 8px;font-family:' + SB + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z[0].replace(/^##\s+/, "")) + "</h3>";
       } else if (z.every(function (x) { return /^\s*[-–—•]\s+/.test(x); })) {
         h += T + ' style="margin:0 0 16px;">';
         z.forEach(function (x) {
@@ -422,7 +425,7 @@
         });
         h += "</table>";
       } else {
-        if (/^##\s+/.test(z[0])) { h += '<h3 style="margin:28px 0 8px;font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z.shift().replace(/^##\s+/, "")) + "</h3>"; }
+        if (/^##\s+/.test(z[0])) { h += '<h3 style="margin:28px 0 8px;font-family:' + SB + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;">' + esc(z.shift().replace(/^##\s+/, "")) + "</h3>"; }
         h += P("margin:0 0 16px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(z.join("\n")).replace(/\n/g, "<br>"));
       }
     });
@@ -449,7 +452,7 @@
     if (b.typ === "knopf") {
       if (!(b.text || "").trim()) return "";
       return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 40px;"><tr><td style="background:#8B1538;border-radius:8px;">'
-        + '<a href="' + esc(b.link || START) + '" style="display:inline-block;padding:13px 22px;font-family:' + SANS + ';font-weight:600;font-size:15px;line-height:1.2;color:#FFFFFF;text-decoration:none;">' + esc(b.text) + "</a></td></tr></table>";
+        + '<a href="' + esc(b.link || START) + '" style="display:inline-block;padding:13px 22px;font-family:' + SB + ';font-weight:600;font-size:15px;line-height:1.2;color:#FFFFFF;text-decoration:none;">' + esc(b.text) + "</a></td></tr></table>";
     }
     if (b.typ === "bild") {
       if (!(b.src || "").trim()) return "";
@@ -461,7 +464,7 @@
       var rows = b.zeilen.filter(function (r) { return (r.wert || "").trim(); });
       if (!rows.length && !(b.titel || "").trim()) return "";
       h = T + ' style="background:#EEF2F1;border-radius:10px;margin:0 0 40px;"><tr><td class="kasten" style="padding:24px 24px 20px;">';
-      if ((b.titel || "").trim()) h += P("margin:0 0 14px;font-family:" + SANS + ";font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;", esc(b.titel));
+      if ((b.titel || "").trim()) h += P("margin:0 0 14px;font-family:" + SB + ";font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;", esc(b.titel));
       rows.forEach(function (r, i) {
         h += T + '><tr><td width="110" valign="top" style="padding:8px 12px 8px 0;' + (i ? "border-top:1px solid #C5D4D3;" : "") + "font-family:" + SANS + ';font-size:13px;line-height:1.5;color:#0E4D49;">' + esc(r.label) + "</td>"
           + '<td valign="top" style="padding:8px 0;' + (i ? "border-top:1px solid #C5D4D3;" : "") + "font-family:" + SANS + ';font-size:15px;line-height:1.45;color:#0E4D49;">' + esc(r.wert) + "</td></tr></table>";
@@ -472,7 +475,7 @@
     if (b.typ === "gruss") {
       if (!(b.name || "").trim() && !(b.text || "").trim()) return "";
       if ((b.text || "").trim()) h += P("margin:0 0 16px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(b.text).replace(/\n/g, "<br>"));
-      if ((b.name || "").trim()) h += P("margin:0 0 2px;font-family:" + SANS + ";font-weight:600;font-size:15px;line-height:1.4;color:#0E4D49;", esc(b.name));
+      if ((b.name || "").trim()) h += P("margin:0 0 2px;font-family:" + SB + ";font-weight:600;font-size:15px;line-height:1.4;color:#0E4D49;", esc(b.name));
       if ((b.funktion || "").trim()) h += P("margin:0 0 2px;font-family:" + SANS + ";font-size:13px;line-height:1.45;color:#5F7471;", esc(b.funktion));
       var k = [];
       if ((b.telefon || "").trim()) k.push(esc(b.telefon));
@@ -488,7 +491,7 @@
       voll.forEach(function (e, i) {
         h += T + '><tr><td style="padding:16px 0 16px;' + (i ? "border-top:1px solid #C5D4D3;" : "") + '">';
         if ((e.zeile || "").trim()) h += P("margin:0 0 6px;font-family:" + SANS + ";font-size:13px;line-height:1.4;color:#0E4D49;", esc(e.zeile));
-        h += '<a class="titel" href="' + esc(e.link || NEWS) + '" style="font-family:' + SANS + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;text-decoration:none;">' + esc(e.titel) + "</a>";
+        h += '<a class="titel" href="' + esc(e.link || NEWS) + '" style="font-family:' + SB + ';font-weight:600;font-size:17px;line-height:1.35;color:#0E4D49;text-decoration:none;">' + esc(e.titel) + "</a>";
         if ((e.text || "").trim()) h += P("margin:6px 0 0;font-family:" + SERIF + ";font-size:15px;line-height:1.55;color:#0E4D49;", sauber(e.text));
         h += "</td></tr></table>";
       });
@@ -502,6 +505,7 @@
       + '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>' + esc(M.betreff) + "</title><style>"
       + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:400;src:url(" + FONTS + "PPMori-Regular.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'PP Mori';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
+      + "@font-face{font-family:'PP Mori Semibold';font-style:normal;font-weight:600;src:url(" + FONTS + "PPMori-SemiBold.woff2) format('woff2');font-display:swap;}"
       + "@font-face{font-family:'IBM Plex Serif';font-style:normal;font-weight:400;src:url(" + FONTS + "IBMPlexSerif-Regular.woff2) format('woff2');font-display:swap;}"
       + "body{margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;}a{color:#0E4D49;text-decoration:underline;}a.titel:hover{text-decoration:underline !important;}p{margin:0;}"
       + "@media (max-width:620px){.rahmen{padding:32px 22px 36px !important;}.gross{font-size:26px !important;}.kasten{padding:20px 18px 6px !important;}}"
@@ -512,7 +516,7 @@
       + '<a href="' + START + '" style="text-decoration:none;"><img src="' + LOGO + '" width="84" height="28" alt="CASI" style="display:block;border:0;outline:none;width:84px;height:28px;"></a>';
     var oben = 56;
     if ((M.kicker || "").trim()) { h += P("margin:" + oben + "px 0 0;font-family:" + SANS + ";font-size:13px;line-height:1.4;color:#5F7471;", esc(M.kicker)); oben = 12; }
-    if ((M.titel || "").trim() || M.vorlage !== "nachricht") h += '<h1 class="gross" style="margin:' + oben + 'px 0 16px;font-family:' + SANS + ';font-weight:600;font-size:30px;line-height:1.15;color:#0E4D49;">' + esc(M.titel || "Überschrift") + "</h1>";
+    if ((M.titel || "").trim() || M.vorlage !== "nachricht") h += '<h1 class="gross" style="margin:' + oben + 'px 0 16px;font-family:' + SB + ';font-weight:600;font-size:30px;line-height:1.15;color:#0E4D49;">' + esc(M.titel || "Überschrift") + "</h1>";
     else h += '<div style="height:' + (oben === 56 ? 40 : 16) + 'px;"></div>';
     if ((M.satz || "").trim()) h += P("margin:0 0 40px;font-family:" + SERIF + ";font-size:17px;line-height:1.6;color:#0E4D49;", sauber(M.satz));
     else h += '<div style="height:24px;"></div>';

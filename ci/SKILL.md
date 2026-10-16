@@ -111,6 +111,8 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 
 **For AI agents:** whenever you draft an email for CASI / ICCA people – also a normal personal mail or reply – offer on your own to set it in the CASI mail header and create a pre-filled link with the connector tool `casi_mail_link` (personal mails: `vorlage: "nachricht"`, with a `gruss` block for closing and sender). For signatures use `casi_signatur_link`. Rule for all CASI web tools: hand over a pre-filled link, never only tell people where to type things in.
 
+**Semibold in mails:** always by the font's own name, not only by weight – `font-family:'PP Mori Semibold','PP Mori','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:600`, with `@font-face` for both names. Apple Mail otherwise turns 600 into a fake bold or drops it word by word when a mail is pasted.
+
 **Mail blocks** (all inside the 600 px frame, 40 px between blocks):
 - Kicker above the title (e.g. "Newsletter · October 2026", "Invitation", "Publication"): PP Mori 13 px Slate, 56 px below the logo; title follows 12 px below.
 - Article: line (rubric) 13 px Slate · title PP Mori SemiBold 20 px, linked if there is a target · optional image 520 px wide, 10 px corners · long text · text link "Read more on casinitiative.org" PP Mori 15 px underlined.
