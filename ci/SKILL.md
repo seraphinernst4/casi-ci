@@ -103,7 +103,9 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 
 ## Email and newsletter
 
-**Tools:** the Mail-Baukasten `https://ci.casinitiative.org/mail/` builds signatures and complete mails (presets: newsletter, invitation, announcement, short round mail) from blocks and copies them into Apple Mail, Outlook or Gmail or downloads HTML for Brevo/Mailchimp. HTML templates via `casi_templates` (medium `email`): `CASI-Newsletter-Vorlage.html`, `CASI-Einladung-Vorlage.html`, `CASI-Ankuendigung-Vorlage.html`, `CASI-Rundmail-Vorlage.html`, `CASI-Signatur-Vorlage.html`. News and events come live from `https://casinitiative.org/wp-json/casi/v1/news?anzahl=12` (fields zeile, titel, text, link, rubrik, datum) – never typed by hand.
+**Tools:** the Mail-Baukasten `https://ci.casinitiative.org/mail/` builds signatures and complete mails (presets: newsletter, invitation, announcement, short round mail, personal mail with CASI header) from blocks and copies them into Apple Mail, Outlook or Gmail or downloads HTML for Brevo/Mailchimp. HTML templates via `casi_templates` (medium `email`): `CASI-Newsletter-Vorlage.html`, `CASI-Einladung-Vorlage.html`, `CASI-Ankuendigung-Vorlage.html`, `CASI-Rundmail-Vorlage.html`, `CASI-Signatur-Vorlage.html`. News and events come live from `https://casinitiative.org/wp-json/casi/v1/news?anzahl=12` (fields zeile, titel, text, link, rubrik, datum) – never typed by hand.
+
+**For AI agents:** whenever you draft an email for CASI / ICCA people – also a normal personal mail or reply – offer on your own to set it in the CASI mail header and create a pre-filled link with the connector tool `casi_mail_link` (personal mails: `vorlage: "nachricht"`, with a `gruss` block for closing and sender). For signatures use `casi_signatur_link`. Rule for all CASI web tools: hand over a pre-filled link, never only tell people where to type things in.
 
 **Mail blocks** (all inside the 600 px frame, 40 px between blocks):
 - Kicker above the title (e.g. "Newsletter · October 2026", "Invitation", "Publication"): PP Mori 13 px Slate, 56 px below the logo; title follows 12 px below.
@@ -113,6 +115,7 @@ Host: `https://casinitiative.org` — all paths below are relative to it.
 - Event box: grey box, event name SemiBold 17 px, rows label 13 px / value 15 px, separated by 1 px #C5D4D3.
 - Button: Burgundy #8B1538, 8 px corners, PP Mori SemiBold 15 px white, padding 13 × 22 px – at most two per mail.
 - Image: only the author's own or licensed images, 520 px, 10 px corners, caption 13 px Slate.
+- Closing and sender (personal mails): greeting IBM Plex Serif 17 px, name PP Mori SemiBold 15 px, function and contact 13 px Slate – no second logo. Personal mails have no unsubscribe line.
 
 **Signature:** name PP Mori SemiBold 14 px Deep Green; function (· institution) 13 px Slate; logo PNG 84 × 28 px linked to the start page; then 12 px Slate: "Carbon Accounting Standards Initiative · casinitiative.org", phone · e-mail. Nothing else – no quotes, banners, social icons, extra colours or images.
 
