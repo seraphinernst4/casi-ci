@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run check",
+  "outputDirectory": "public",
+  "functions": {
+    "api/mcp.js": { "includeFiles": "ci/**", "maxDuration": 10 }
+  },
+  "rewrites": [
+    { "source": "/mcp/:key", "destination": "/api/mcp?key=:key" }
+  ]
+}
