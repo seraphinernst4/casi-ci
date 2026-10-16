@@ -135,7 +135,7 @@ BEISPIEL = {  # Texte aus CASI Whitepaper No. 1, unverändert
     "kennzahlen": [("4", "Core principles: completeness, timely recognition, accuracy, unbiasedness"), ("1", "Carbon ledger for direct and indirect emissions and removals"), ("2", "Carbon metrics: Product Carbon Footprints and Corporate Carbon Footprint")],
     "abschnitte": None,
     "kontaktlabel": "Contact",
-    "kontakt": ["Carbon Accounting Standards Initiative", "MISES · Universität Mannheim", "casinitiative.org"],
+    "kontakt": ["Carbon Accounting Standards Initiative", "MISES · University of Mannheim", "casinitiative.org"],
 }
 
 
