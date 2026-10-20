@@ -154,7 +154,7 @@ Model: the newsletter confirmation mail (`/wp-content/novamira-sandbox/casi-news
 - `color-scheme: light`; hidden preheader = the sentence; always a plain-text alternative.
 - Headers: `Reply-To: info@casinitiative.org`, `List-Unsubscribe`.
 - All mail texts in the Texte register (Auf allen Seiten → Formulare → …), keys like `mail.nl.*`; subject, heading and sentence included.
-- A test mail to yourself is recommended before big sends, but not required.
+- A test mail ("Testmail senden" in the Mail-Baukasten, goes to info@casinitiative.org) is recommended before big sends, but not required.
 
 ## Slides
 
