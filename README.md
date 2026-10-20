@@ -71,7 +71,7 @@ Was Menschen benutzen, liegt im Backend von casinitiative.org (Login), ci.casini
 |---|---|
 | `casi-mailversand.php` | Menü „Mail-Baukasten“: Baukasten, Versand über IONOS (Absender info@ oder eigenes Postfach, BCC, Testmail möglich), Unterseite „Postfächer“ mit Protokoll |
 | `casi-mailbaukasten.html` | der Mail-Baukasten selbst (wird von `casi-mailversand.php` ausgeliefert) |
-| `casi-werkzeuge.php` | Menü „Kachel-Baukasten“ und Dashboard-Kasten „CASI-Werkzeuge“ (Einrichtung, Baukästen, Vorlagen live vom Connector) |
+| `casi-werkzeuge.php` | Seite „Kachel-Baukasten“ (nicht in der Seitenleiste, erreichbar über den Dashboard-Kasten und vorausgefüllte Links) und Dashboard-Kasten „CASI-Werkzeuge“ (Einrichtung, Baukästen, Vorlagen live vom Connector) |
 | `casi-kachelbaukasten.html` | der Kachel-Baukasten selbst |
 
 Live liegen die Dateien in `/wp-content/novamira-sandbox/` und werden automatisch geladen. **Vercel spielt sie nicht aus** – nach jeder Änderung hochladen und die Prüfsumme vergleichen. Schriften und Logos kommen aus `/wp-content/uploads/casi-fonts/`, `/casi-marke/` und `/casi-mail/`.

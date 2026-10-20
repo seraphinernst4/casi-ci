@@ -56,6 +56,11 @@
   .status.fehler { color: var(--akzent); }
   .vorbelegt { background: var(--block); border-radius: 10px; padding: 14px 18px; margin: 0 0 24px; font-size: 14px; line-height: 1.5; }
   .vorbelegt[hidden] { display: none; }
+  /* Versand als eigene Fläche abgesetzt (20.10.2026). Auf Grau ist jede Schrift Deep Green (CI: Boxen). */
+  #m-versand { background: var(--block); border-top: 0; border-radius: 10px; padding: 22px 24px 16px; margin: 28px 0 24px; }
+  #m-versand > h3 { font-size: 18px; margin: 0 0 16px; }
+  #m-versand label, #m-versand .klein, #m-versand .status, #m-versand a { color: var(--tinte); }
+  #m-versand .knopfzeile { margin-bottom: 12px; }
   .vorbelegt button { margin-left: 8px; }
   .zurueck { display: inline-block; font-family: var(--sans); font-size: 14px; color: var(--tinte); text-decoration: none; margin: 0 0 20px; }
   .zurueck span { text-decoration: underline; }
@@ -149,7 +154,7 @@
         <label for="v-an">Empfänger – eine Adresse pro Zeile oder durch Komma getrennt</label><textarea id="v-an" placeholder="name@beispiel.org"></textarea>
         <p class="klein" style="margin-top:-6px;"><span id="v-zahl">0</span> Adressen · Alle bekommen die Mail per BCC, niemand sieht die anderen. Höchstens <span id="v-max">300</span> je Versand.</p>
         <div class="knopfzeile">
-          <button class="knopf hell" id="v-test">Testmail an mich</button>
+          <button class="knopf hell" id="v-test">Testmail senden</button>
           <button class="knopf" id="v-senden">Senden</button>
         </div>
         <p class="klein" id="v-hinweis"></p>

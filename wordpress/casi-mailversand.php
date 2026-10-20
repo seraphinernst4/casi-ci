@@ -5,7 +5,7 @@
  * Menue „Mail-Baukasten“: die Seite zeigt den Baukasten (casi-mailbaukasten.html im
  * selben Ordner) als eigenes Dokument in voller Hoehe. Dort Mail bauen, Absender
  * waehlen, Empfaenger eintragen (sie bekommen die Mail per BCC, niemand sieht die
- * anderen), zuerst eine Testmail an sich selbst, dann senden -- alles per AJAX.
+ * anderen), zuerst eine Testmail an info@casinitiative.org, dann senden -- alles per AJAX.
  * Vorausgefuellte Links von Claude: ...admin.php?page=casi-mailversand&m=<Daten>
  * (Mail) bzw. &s=<Daten> (Signatur); ohne Anmeldung fuehrt WordPress erst zum Login.
  *
@@ -17,7 +17,7 @@
  *    verschluesselt in der Datenbank (Schluessel aus den WordPress-Salts).
  *
  * Rechte: Baukasten und Versand „edit_posts“, Postfaecher „manage_options“.
- * Eine Testmail an sich selbst ist moeglich, aber keine Pflicht.
+ * Eine Testmail an info@casinitiative.org ist moeglich, aber keine Pflicht.
  *
  * Quelle: Repo casi-ci, wordpress/casi-mailversand.php und wordpress/casi-mailbaukasten.html
  */
@@ -27,6 +27,8 @@ const CASI_MV_SEITE = 'casi-mailversand';
 const CASI_MV_OPT = 'casi_mailversand';
 const CASI_MV_LOG = 'casi_mailversand_log';
 const CASI_MV_GETESTET = '_casi_mail_getestet';
+// Testmails gehen an das CASI-Postfach, nicht an die Adresse des angemeldeten Kontos (20.10.2026)
+const CASI_MV_TESTADRESSE = 'info@casinitiative.org';
 const CASI_MV_POSTFAECHER = 'casi-mail-postfaecher';
 const CASI_MV_MAX = 300;   // Empfaenger je Versand
 const CASI_MV_PAKET = 40;  // BCC-Empfaenger je Mail
@@ -145,7 +147,7 @@ add_action('admin_post_casi_mail_app', function () {
     $cfg = array(
         'ajax' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('casi_mail_app'),
-        'mail' => wp_get_current_user()->user_email,
+        'mail' => CASI_MV_TESTADRESSE,
         'absender' => $abs,
         'max' => CASI_MV_MAX,
         'postfaecher' => current_user_can('manage_options') ? admin_url('admin.php?page=' . CASI_MV_POSTFAECHER) : '',
@@ -177,7 +179,7 @@ function casi_mv_eingabe() {
 
 add_action('wp_ajax_casi_mail_test', function () {
     $e = casi_mv_eingabe();
-    $an = wp_get_current_user()->user_email;
+    $an = CASI_MV_TESTADRESSE;
     if (casi_mv_senden($e['von'], $e['name'], $an, array(), '[Test] ' . $e['betreff'], $e['html'], $e['text'], $fehler)) {
         update_user_meta(get_current_user_id(), CASI_MV_GETESTET, casi_mv_pruefsumme($e));
         wp_send_json_success(array('an' => $an));
