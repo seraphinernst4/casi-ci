@@ -44,6 +44,12 @@
       "medium": "document"
     },
     {
+      "datei": "CASI-Logo.zip",
+      "titel": "CASI-Logo (alle Fassungen)",
+      "wofuer": "Wordmark and short logo \"C\" in Deep Green, Burgundy and Black, each also inverted (white on a field of that colour), as PNG, JPG, SVG and PDF. Deep Green is the logo of all CASI material; Burgundy and Black only where green does not work. For outsiders (printers, partners) prefer the CASI-Logo page in the back end, which also gives a link for third parties: https://casinitiative.org/wp-admin/admin.php?page=casi-logo",
+      "medium": "logo"
+    },
+    {
       "datei": "CASI-Symbole.zip",
       "titel": "CASI-Symbole (Website-Grafiken)",
       "wofuer": "The website's line symbols (direct emissions, direct removals, upstream emissions, CO2 ledger, CO2 balance sheet, net CO2 contribution, net CO2 flow, product carbon footprints) as SVG and PNG in Deep Green, white and Burgundy, plus the rules for drawing new symbols. Use them in every internal CASI graphic.",

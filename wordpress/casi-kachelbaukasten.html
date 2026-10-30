@@ -29,7 +29,11 @@
   .knopfzeile { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 18px; }
   .knopf { font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
   .knopf.hell { background: #fff; color: var(--tinte); border-color: var(--kante); font-weight: 400; }
-  .knopf.hell:hover { border-color: var(--tinte); }
+  .knopf { transition: background-color .2s, color .2s, border-color .2s; }
+  .knopf:not(:disabled):hover, .knopf:not(:disabled):focus-visible { background: transparent; color: var(--akzent); }
+  .knopf.hell:not(:disabled):hover, .knopf.hell:not(:disabled):focus-visible { background: var(--tinte); border-color: var(--tinte); color: #fff; }
+  .reiter button:hover { color: var(--tinte); }
+  .block-kopf span.steuer button:hover, .eintrag-kopf button:hover, .link:hover { opacity: .5; }
   .link { font: inherit; font-size: 13px; color: var(--tinte); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
   .status { font-size: 14px; color: var(--leise); min-height: 21px; }
   .gruppe { border-top: 1px solid var(--linie); padding: 18px 0 4px; }

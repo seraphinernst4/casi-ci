@@ -32,7 +32,11 @@
   .knopf { font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--akzent); background: var(--akzent); color: #fff; cursor: pointer; }
   .knopf.hell { background: #fff; color: var(--tinte); border-color: var(--kante); font-weight: 400; }
   .knopf.klein { min-height: 36px; font-size: 14px; padding: 0 12px; }
-  .knopf.hell:hover { border-color: var(--tinte); }
+  .knopf { transition: background-color .2s, color .2s, border-color .2s; }
+  .knopf:not(:disabled):hover, .knopf:not(:disabled):focus-visible { background: transparent; color: var(--akzent); }
+  .knopf.hell:not(:disabled):hover, .knopf.hell:not(:disabled):focus-visible { background: var(--tinte); border-color: var(--tinte); color: #fff; }
+  .reiter button:hover { color: var(--tinte); }
+  .block-kopf span.steuer button:hover, .eintrag-kopf button:hover, .link:hover { opacity: .5; }
   .status { font-size: 14px; color: var(--leise); min-height: 21px; }
   .vorschau { background: var(--block); border-radius: 10px; padding: 24px; position: sticky; top: 16px; }
   .vorschau h2 { font-size: 14px; font-weight: 400; margin: 0 0 12px; display: flex; justify-content: space-between; }
